@@ -64,11 +64,13 @@ Observable<XTrace> obs = source.getObservable(); // gather the observable
 
 The class diagram of the observable sources available in Beamline Framework is reported below:
 
-``` mermaid
+<div class="mermaid">
 classDiagram
-  Person <|-- Student
-  Person <|-- Professor
-```
+Source~T~ <|-- XesSource : bind T as XTrace
+XesSource <|-- XesLogSource
+XesSource <|-- MQTTXesSource
+Source : +getObservable() Observable~T~
+</div>
 
 
 
