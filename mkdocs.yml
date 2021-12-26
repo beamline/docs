@@ -1,0 +1,37 @@
+site_name: Beamline Framework
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - MQTT-XES: mqtt-xes.md
+  - About: about.md
+
+theme:
+  name: material
+  palette:
+    primary: teal
+
+  features:
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - toc.integrate
+
+repo_url: https://github.com/beamline/framework
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+
+extra_javascript:
+    - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+copyright: Copyright &copy; 2021 Technical University of Denmark
+
