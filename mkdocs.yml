@@ -3,11 +3,13 @@ site_name: Beamline Framework
 nav:
   - Home: index.md
   - Getting started: getting-started.md
+  - Implemented techniques: implemented-techniques.md
   - MQTT-XES: mqtt-xes.md
   - About: about.md
 
 theme:
   name: material
+  logo: img/logo.svg
   palette:
     primary: teal
 

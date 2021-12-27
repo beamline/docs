@@ -74,14 +74,40 @@ Source : +getObservable() Observable~T~
 
 
 
-#### Hot Observables
+### Hot and Cold Observables
 
-#### Cold Observables
+In the ReactiveX world, there is a distinction between two types of observables: hot and cold. Cold observables create a data producer for each subscriber whereas hot observables create data irrespectively from whether there is any subscriber or not. To reuse an example already mentioned in [the literature](https://www.manning.com/books/angular-development-with-typescript-second-edition), it is like watching a movie: you can decide to watch it at home using an on-deamnd service (which streams the movie only when someone asks for it, i.e., cold observable) or by going to the movie theater (which has the movie started at a given hour, independently from whether there are spectators or not, i.e., hot observable).
+
+In Beamline Framework, the following are **cold observables**:
+
+- `XesLogSource`: observes all events from an XES event log.
+
+The following are **hot observables**:
+
+- `MQTTXesSource`: observes all events on an MQTT broker respecting the MQTT-XES protocol.
+
 
 
 ### Filters
 
-Miners are consumers of events
+The [filter operator, in ReactiveX,](https://reactivex.io/documentation/operators/filter.html) does not change the stream, but filters the events so that only those passing a predicate test can pass. In Beamline there are some filters already implemented that can be used as follows:
+
+```java linenums="1" hl_lines="4"
+XesSource source = ...
+Observable<XTrace> obs = source.getObservable();
+obs
+   .filter(new RetainActivitiesFilter("A", "B", "C")
+   .subscribe(...);
+```
+
+In line 3 a filter is specified so that only events referring to activities `A`, `B`, and `C` are maintained (while all others are discarded).
+
+Filters can operate on event attributes or trace attributes and the following are currently available:
+
+- `RetainOnEventAttributeEqualityFilter` and `ExcludeOnEventAttributeEqualityFilter` which retain or exclude events based on the equality of an event attribute. The filter `RetainActivitiesFilter` is a refined version of `RetainOnEventAttributeEqualityFilter` where the attribute name is the `concept:name`;
+- `RetainOnCaseAttributeEqualityFilter` and `ExcludeOnCaseAttributeEqualityFilter` which retain or exclude events based on the equality of a trace attribute.
+
+Filters can be chained together in order to achieve the desired result.
 
 
 ### Results

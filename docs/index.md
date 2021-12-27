@@ -1,5 +1,7 @@
 ---
 hide:
+  - navigation
+  - toc
 ---
 
 # Beamline Framework
