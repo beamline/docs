@@ -30,7 +30,7 @@
 <header class="md-header md-header--lifted" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
 <a aria-label="Beamline Framework" class="md-header__button md-logo" data-md-component="logo" href=".." title="Beamline Framework">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+<img alt="logo" src="../img/logo.svg"/>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
@@ -106,6 +106,11 @@
     </a>
 </li>
 <li class="md-tabs__item">
+<a class="md-tabs__link" href="../implemented-techniques.md">
+      Implemented techniques
+    </a>
+</li>
+<li class="md-tabs__item">
 <a class="md-tabs__link" href="../mqtt-xes/">
       MQTT-XES
     </a>
@@ -128,7 +133,7 @@
 <nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="Beamline Framework" class="md-nav__button md-logo" data-md-component="logo" href=".." title="Beamline Framework">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+<img alt="logo" src="../img/logo.svg"/>
 </a>
     Beamline Framework
   </label>
@@ -183,20 +188,11 @@
 <a class="md-nav__link" href="#observables">
     Observables
   </a>
-<nav aria-label="Observables" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#hot-observables">
-    Hot Observables
-  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#cold-observables">
-    Cold Observables
+<a class="md-nav__link" href="#hot-and-cold-observables">
+    Hot and Cold Observables
   </a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#filters">
@@ -213,6 +209,11 @@
 </li>
 </ul>
 </nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques.md">
+        Implemented techniques
+      </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../mqtt-xes/">
@@ -311,10 +312,36 @@ XesSource &lt;|-- XesLogSource
 XesSource &lt;|-- MQTTXesSource
 Source : +getObservable() Observable~T~
 </div>
-<h4 id="hot-observables">Hot Observables</h4>
-<h4 id="cold-observables">Cold Observables</h4>
+<h3 id="hot-and-cold-observables">Hot and Cold Observables</h3>
+<p>In the ReactiveX world, there is a distinction between two types of observables: hot and cold. Cold observables create a data producer for each subscriber whereas hot observables create data irrespectively from whether there is any subscriber or not. To reuse an example already mentioned in <a href="https://www.manning.com/books/angular-development-with-typescript-second-edition">the literature</a>, it is like watching a movie: you can decide to watch it at home using an on-deamnd service (which streams the movie only when someone asks for it, i.e., cold observable) or by going to the movie theater (which has the movie started at a given hour, independently from whether there are spectators or not, i.e., hot observable).</p>
+<p>In Beamline Framework, the following are <strong>cold observables</strong>:</p>
+<ul>
+<li><code>XesLogSource</code>: observes all events from an XES event log.</li>
+</ul>
+<p>The following are <strong>hot observables</strong>:</p>
+<ul>
+<li><code>MQTTXesSource</code>: observes all events on an MQTT broker respecting the MQTT-XES protocol.</li>
+</ul>
 <h3 id="filters">Filters</h3>
-<p>Miners are consumers of events</p>
+<p>The <a href="https://reactivex.io/documentation/operators/filter.html">filter operator, in ReactiveX,</a> does not change the stream, but filters the events so that only those passing a predicate test can pass. In Beamline there are some filters already implemented that can be used as follows:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">obs</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="hll">   <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="k">new</span> <span class="n">RetainActivitiesFilter</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">)</span>
+</span><a id="__codelineno-4-5" name="__codelineno-4-5"></a>   <span class="p">.</span><span class="na">subscribe</span><span class="p">(...);</span>
+</code></pre></div>
+</td></tr></table>
+<p>In line 3 a filter is specified so that only events referring to activities <code>A</code>, <code>B</code>, and <code>C</code> are maintained (while all others are discarded).</p>
+<p>Filters can operate on event attributes or trace attributes and the following are currently available:</p>
+<ul>
+<li><code>RetainOnEventAttributeEqualityFilter</code> and <code>ExcludeOnEventAttributeEqualityFilter</code> which retain or exclude events based on the equality of an event attribute. The filter <code>RetainActivitiesFilter</code> is a refined version of <code>RetainOnEventAttributeEqualityFilter</code> where the attribute name is the <code>concept:name</code>;</li>
+<li><code>RetainOnCaseAttributeEqualityFilter</code> and <code>ExcludeOnCaseAttributeEqualityFilter</code> which retain or exclude events based on the equality of a trace attribute.</li>
+</ul>
+<p>Filters can be chained together in order to achieve the desired result.</p>
 <h3 id="results">Results</h3>
 <p>Results are produced by miners as events are processed.</p>
 </article>
