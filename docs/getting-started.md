@@ -66,10 +66,13 @@ The class diagram of the observable sources available in Beamline Framework is r
 
 <div class="mermaid">
 classDiagram
-Source~T~ <|-- XesSource : bind T as XTrace
-XesSource <|-- XesLogSource
-XesSource <|-- MQTTXesSource
+Source~T~ <|-- XesSource : &laquo;bind&raquo; T&#42889;&#42889;XTrace
+XesSource <|.. XesLogSource
+XesSource <|.. MQTTXesSource
 Source : +getObservable() Observable~T~
+
+<< interface >> Source
+<< interface >> XesSource
 </div>
 
 
@@ -111,14 +114,14 @@ Filters can operate on event attributes or trace attributes and the following ar
 Filters can be chained together in order to achieve the desired result.
 
 
-### Subscribers / Mining algorithms
+### Mining algorithms
 
 A mining algorithm is a subscriber consuming the generated `Observable`s. All mining algorithms must extend the abstract class `StreamMiningAlgorithm`. This class is structured as:
 
 <div class="mermaid">
 classDiagram
 class StreamMiningAlgorithm~T,K~
-<<abstract>> StreamMiningAlgorithm
+<< abstract >> StreamMiningAlgorithm
 StreamMiningAlgorithm:+ingest(T)* K
 StreamMiningAlgorithm:+getLatestResponse() K
 StreamMiningAlgorithm:+getProcessedEvents() int
@@ -131,7 +134,7 @@ The [generic types](https://en.wikipedia.org/wiki/Generics_in_Java) `T` and `K` 
 <div class="mermaid">
 classDiagram
 class HookEventProcessing
-<<interface>> HookEventProcessing
+<< interface >> HookEventProcessing
 HookEventProcessing:+trigger()
 </div>
 
@@ -139,7 +142,7 @@ The `trigger()` must implement the action required.
 
 A simple example of a mining algorithm configuration is reported below:
 
-```java
+```java linenums="1"
 XesSource source = ...
 source.prepare();
 Observable<XTrace> obs = source.getObservable();
@@ -152,7 +155,7 @@ obs.subscribe(miner);
 
 Bear in mind that miners can also be defined as normal consumers as in RXJava. Here is what such a consumer may look like, assuming that the expected behavior consists just of printing the case id, the activity name, and the time of the event:
 
-```java
+```java linenums="1"
 XesSource source = ...
 source.prepare();
 Observable<XTrace> obs = source.getObservable();
