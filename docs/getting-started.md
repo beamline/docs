@@ -55,7 +55,7 @@ In this section the basic concepts of the Beamline framework are presented.
 
 In the context of Beamline it is possible to define observables of any type. The framework comes with some observables already defined. The generic interface `Source<T>` defines the basic contract that the source of an observable (with type `T`) must implement. Sources already implemented are `XesLogSource` and `MQTTXesSource`. A `XesLogSource` creates an observable from a static log (useful for testing purposes). An `MQTTXesSource` generates and observable from an [MQTT-XES](mqtt-xes.md) stream. all `XesLogSource`s generate a stream of `XTrace`s (as defined in [OpenXES](https://www.xes-standard.org/openxes/start)) where each trace contains one event.
 
-Before using any stream generator, it is necessary to prepare it, using the following syntax:
+Before using any stream generator, it is **necessary** to `prepare` it, using the following syntax:
 ```java
 XesSource source = new XesLogSource("log.xes"); // construct the source
 source.prepare(); // prepare the source, by parsing the static log
@@ -94,6 +94,7 @@ The [filter operator, in ReactiveX,](https://reactivex.io/documentation/operator
 
 ```java linenums="1" hl_lines="4"
 XesSource source = ...
+source.prepare();
 Observable<XTrace> obs = source.getObservable();
 obs
    .filter(new RetainActivitiesFilter("A", "B", "C")
@@ -109,6 +110,64 @@ Filters can operate on event attributes or trace attributes and the following ar
 
 Filters can be chained together in order to achieve the desired result.
 
+
+### Subscribers / Mining algorithms
+
+A mining algorithm is a subscriber consuming the generated `Observable`s. All mining algorithms must extend the abstract class `StreamMiningAlgorithm`. This class is structured as:
+
+<div class="mermaid">
+classDiagram
+class StreamMiningAlgorithm~T,K~
+<<abstract>> StreamMiningAlgorithm
+StreamMiningAlgorithm:+ingest(T)* K
+StreamMiningAlgorithm:+getLatestResponse() K
+StreamMiningAlgorithm:+getProcessedEvents() int
+StreamMiningAlgorithm:+setOnBeforeEvent(HookEventProcessing)
+StreamMiningAlgorithm:+setOnAfterEvent(HookEventProcessing)
+</div>
+
+The [generic types](https://en.wikipedia.org/wiki/Generics_in_Java) `T` and `K` refer, respectively to the type of the event and the type of the generated output (i.e., the result of the mining algorithm). The only abstract method that needs to be implemented by a mining algorithm is `ingest(T) : K` which receives an event as actual parameter and returns the result of the ingestion of the event as value. Other useful methods are `getLatestResponse() : K` and `getProcessedEvents() : int` that return, respectively, the latest response generated and the number of events processed up to now. Finally, there is the possibility to setup hooks to be executed before and after the processing of each event using the methods `setOnBeforeEvent()` and `setOnAfterEvent` both of which take as parameter an instance of the class `HookEventProcessing`:
+
+<div class="mermaid">
+classDiagram
+class HookEventProcessing
+<<interface>> HookEventProcessing
+HookEventProcessing:+trigger()
+</div>
+
+The `trigger()` must implement the action required.
+
+A simple example of a mining algorithm configuration is reported below:
+
+```java
+XesSource source = ...
+source.prepare();
+Observable<XTrace> obs = source.getObservable();
+
+DiscoveryMiner miner = new DiscoveryMiner();
+miner.setMinDependency(0.3);
+
+obs.subscribe(miner);
+```
+
+Bear in mind that miners can also be defined as normal consumers as in RXJava. Here is what such a consumer may look like, assuming that the expected behavior consists just of printing the case id, the activity name, and the time of the event:
+
+```java
+XesSource source = ...
+source.prepare();
+Observable<XTrace> obs = source.getObservable();
+
+obs.subscribe(new Consumer<XTrace>() {
+	@Override
+	public void accept(@NonNull XTrace t) throws Throwable {
+		System.out.println(
+			XConceptExtension.instance().extractName(t) + " - " +
+			XConceptExtension.instance().extractName(t.get(0)) +  " - " +
+			XTimeExtension.instance().extractTimestamp(t.get(0))
+		);
+	}
+});
+```
 
 ### Results
 
