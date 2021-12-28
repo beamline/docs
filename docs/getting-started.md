@@ -95,7 +95,7 @@ The following are **hot observables**:
 
 The [filter operator, in ReactiveX,](https://reactivex.io/documentation/operators/filter.html) does not change the stream, but filters the events so that only those passing a predicate test can pass. In Beamline there are some filters already implemented that can be used as follows:
 
-```java linenums="1" hl_lines="4"
+```java linenums="1" hl_lines="5"
 XesSource source = ...
 source.prepare();
 Observable<XTrace> obs = source.getObservable();
@@ -120,7 +120,7 @@ A mining algorithm is a subscriber consuming the generated `Observable`s. All mi
 
 <div class="mermaid">
 classDiagram
-class StreamMiningAlgorithm~T,K~
+class StreamMiningAlgorithm~T,K extends Response~
 << abstract >> StreamMiningAlgorithm
 StreamMiningAlgorithm:+ingest(T)* K
 StreamMiningAlgorithm:+getLatestResponse() K
@@ -174,4 +174,39 @@ obs.subscribe(new Consumer<XTrace>() {
 
 ### Results
 
-Results are produced by miners as events are processed.
+Results are produced by miners as events are processed. Currently, Beamline supports an empty `Response` interface which might be implemented to custom behavior as well as a Graphviz graphical representation in a `GraphvizResponse` interface. Hence this is the hierarchy of results:
+
+<div class="mermaid">
+classDiagram
+class Response
+class GraphvizResponse
+<< interface >> Response
+<< interface >> GraphvizResponse
+GraphvizResponse : generateDot() Dot
+Response <|-- GraphvizResponse
+</div>
+
+An example of a way to consume these results is reported in the following code:
+
+```java linenums="1"
+DiscoveryMiner miner = new DiscoveryMiner();
+miner.setOnAfterEvent(new HookEventProcessing() {
+    @Override
+    public void trigger() {
+        int events = miner.getProcessedEvents();
+        if (events % 100 == 0) {
+            try {
+                GraphvizResponse resp = miner.getLatestResponse();
+                resp.generateDot().exportToSvg(new File("output-" + events + ".svg"));
+            } catch (IOException e) { }
+        }
+    }
+});
+
+XesSource source = ...
+source.prepare();
+Observable<XTrace> obs = source.getObservable();
+obs.subscribe(miner);
+```
+
+In this code, we assume the existence of a miner called `DiscoveryMiner` which produces output as an object with (sub)type `GraphvizResponse`. In line 2 there is new hook registered to be processed after each event and, every 100 events (line 6), the code extracts the last result of the mining (line 8), converts to SVG and dumps it to a file (line 9). The miner if then registered to consume events from the stream (line 19).
