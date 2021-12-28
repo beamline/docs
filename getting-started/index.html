@@ -340,9 +340,9 @@ Source : +getObservable() Observable~T~
 <span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="hll"><span class="n">obs</span>
-</span><a id="__codelineno-4-5" name="__codelineno-4-5"></a>   <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="k">new</span> <span class="n">RetainActivitiesFilter</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">)</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a>   <span class="p">.</span><span class="na">subscribe</span><span class="p">(...);</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="n">obs</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="hll">   <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="k">new</span> <span class="n">RetainActivitiesFilter</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">)</span>
+</span><a id="__codelineno-4-6" name="__codelineno-4-6"></a>   <span class="p">.</span><span class="na">subscribe</span><span class="p">(...);</span>
 </code></pre></div>
 </td></tr></table>
 <p>In line 3 a filter is specified so that only events referring to activities <code>A</code>, <code>B</code>, and <code>C</code> are maintained (while all others are discarded).</p>
@@ -356,7 +356,7 @@ Source : +getObservable() Observable~T~
 <p>A mining algorithm is a subscriber consuming the generated <code>Observable</code>s. All mining algorithms must extend the abstract class <code>StreamMiningAlgorithm</code>. This class is structured as:</p>
 <div class="mermaid">
 classDiagram
-class StreamMiningAlgorithm~T,K~
+class StreamMiningAlgorithm~T,K extends Response~
 &lt;&lt; abstract &gt;&gt; StreamMiningAlgorithm
 StreamMiningAlgorithm:+ingest(T)* K
 StreamMiningAlgorithm:+getLatestResponse() K
@@ -421,7 +421,55 @@ HookEventProcessing:+trigger()
 </code></pre></div>
 </td></tr></table>
 <h3 id="results">Results</h3>
-<p>Results are produced by miners as events are processed.</p>
+<p>Results are produced by miners as events are processed. Currently, Beamline supports an empty <code>Response</code> interface which might be implemented to custom behavior as well as a Graphviz graphical representation in a <code>GraphvizResponse</code> interface. Hence this is the hierarchy of results:</p>
+<div class="mermaid">
+classDiagram
+class Response
+class GraphvizResponse
+&lt;&lt; interface &gt;&gt; Response
+&lt;&lt; interface &gt;&gt; GraphvizResponse
+GraphvizResponse : generateDot() Dot
+Response &lt;|-- GraphvizResponse
+</div>
+<p>An example of a way to consume these results is reported in the following code:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">DiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscoveryMiner</span><span class="p">();</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(</span><span class="k">new</span> <span class="n">HookEventProcessing</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>    <span class="nd">@Override</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">trigger</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>        <span class="kt">int</span> <span class="n">events</span> <span class="o">=</span> <span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">();</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">events</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>            <span class="k">try</span> <span class="p">{</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>                <span class="n">GraphvizResponse</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">();</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a>                <span class="n">resp</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"output-"</span> <span class="o">+</span> <span class="n">events</span> <span class="o">+</span> <span class="s">".svg"</span><span class="p">));</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a>            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a>        <span class="p">}</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>    <span class="p">}</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="p">});</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="n">obs</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table>
+<p>In this code, we assume the existence of a miner called <code>DiscoveryMiner</code> which produces output as an object with (sub)type <code>GraphvizResponse</code>. In line 2 there is new hook registered to be processed after each event and, every 100 events (line 6), the code extracts the last result of the mining (line 8), converts to SVG and dumps it to a file (line 9). The miner if then registered to consume events from the stream (line 19).</p>
 </article>
 </div>
 </div>
