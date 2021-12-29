@@ -15,7 +15,7 @@ Then you can include the dependency to the version you are interested, for examp
 <dependency>
     <groupId>com.github.beamline</groupId>
     <artifactId>framework</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 See <https://jitpack.io/#beamline/framework> for further details (e.g., using it with Gradle).
