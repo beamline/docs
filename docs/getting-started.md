@@ -87,13 +87,12 @@ Source : +getObservable() Observable~T~
 
 In the ReactiveX world, there is a distinction between two types of observables: hot and cold. Cold observables create a data producer for each subscriber whereas hot observables create data irrespectively from whether there is any subscriber or not. To reuse an example already mentioned in [the literature](https://www.manning.com/books/angular-development-with-typescript-second-edition), it is like watching a movie: you can decide to watch it at home using an on-deamnd service (which streams the movie only when someone asks for it, i.e., cold observable) or by going to the movie theater (which has the movie started at a given hour, independently from whether there are spectators or not, i.e., hot observable).
 
-In Beamline Framework, the following are **cold observables**:
+In Beamline Framework, the following observable are available:
 
-- `XesLogSource`: observes all events from an XES event log.
-
-The following are **hot observables**:
-
-- `MQTTXesSource`: observes all events on an MQTT broker respecting the MQTT-XES protocol.
+| Observable name | Type | Description |
+| --- | --- | --- |
+| `XesLogSource` | cold | Observes all events from an XES event log. |
+| `MQTTXesSource` | hot | Observes all events on an MQTT broker respecting the MQTT-XES protocol. |
 
 
 
@@ -114,10 +113,46 @@ In line 3 a filter is specified so that only events referring to activities `A`,
 
 Filters can operate on event attributes or trace attributes and the following are currently available:
 
-- `RetainOnEventAttributeEqualityFilter` and `ExcludeOnEventAttributeEqualityFilter` which retain or exclude events based on the equality of an event attribute. The filter `RetainActivitiesFilter` is a refined version of `RetainOnEventAttributeEqualityFilter` where the attribute name is the `concept:name`;
-- `RetainOnCaseAttributeEqualityFilter` and `ExcludeOnCaseAttributeEqualityFilter` which retain or exclude events based on the equality of a trace attribute.
+| Filter name | Description |
+| --- | --- |
+| `RetainOnEventAttributeEqualityFilter` | Retains events based on the equality of an event attribute. |
+| `ExcludeOnEventAttributeEqualityFilter` | Exclude events based on the equality of an event attribute. |
+| `RetainOnCaseAttributeEqualityFilter` | Retains events based on the equality of a trace attribute. |
+| `ExcludeOnCaseAttributeEqualityFilter` | Excludes events based on the equality of a trace attribute. |
+| `RetainActivitiesFilter` | Retains activities base on their name (`concept:name`). |
+| `ExcludeActivitiesFilter` | Excludes activities base on their name (`concept:name`). |
 
-Filters can be chained together in order to achieve the desired result.
+Please note that filters can be chained together in order to achieve the desired result.
+
+
+### Mappers
+
+The current version of Beamline supports some mappers too, which allow to change the shape of the stream in order to consume different events. In ReactiveX there are two main types of map operators: [`map`](https://reactivex.io/documentation/operators/map.html) and [`flatMap`](https://reactivex.io/documentation/operators/flatmap.html). The former maps all events into new events, the latter can also merge some of the events together.
+
+Currently these mappers are supported:
+
+| Filter name | Operator | Description |
+|---|---|---|
+| `InfiniteSizeDirectlyFollowsMapper` | `flatMap` | A mapper that transforms each pair of consequent event appearing in the same case as a directly follows operator (generating an object with type `DirectlyFollowsRelation`). This mapper is called *infinite* because it's memory footprint will grow as the case ids grow. |
+
+An example of how mappers can be used is the following:
+
+```java
+XesSource source = ...
+source.prepare();
+Observable<XTrace> obs = source.getObservable();
+obs
+   .flatMap(new InfiniteSizeDirectlyFollowsMapper())
+   .subscribe(new Consumer<DirectlyFollowsRelation>() {
+        @Override
+        public void accept(@NonNull DirectlyFollowsRelation t) throws Throwable {
+            System.out.println(
+                    XConceptExtension.instance().extractName(t.getFirst()) +  " -> " +
+                    XConceptExtension.instance().extractName(t.getSecond()) + 
+                    " for case " + t.getCaseId());
+        }
+    });
+```
 
 
 ### Mining algorithms
