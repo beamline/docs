@@ -329,14 +329,28 @@ Source : +getObservable() Observable~T~
 </div>
 <h3 id="hot-and-cold-observables">Hot and Cold Observables</h3>
 <p>In the ReactiveX world, there is a distinction between two types of observables: hot and cold. Cold observables create a data producer for each subscriber whereas hot observables create data irrespectively from whether there is any subscriber or not. To reuse an example already mentioned in <a href="https://www.manning.com/books/angular-development-with-typescript-second-edition">the literature</a>, it is like watching a movie: you can decide to watch it at home using an on-deamnd service (which streams the movie only when someone asks for it, i.e., cold observable) or by going to the movie theater (which has the movie started at a given hour, independently from whether there are spectators or not, i.e., hot observable).</p>
-<p>In Beamline Framework, the following are <strong>cold observables</strong>:</p>
-<ul>
-<li><code>XesLogSource</code>: observes all events from an XES event log.</li>
-</ul>
-<p>The following are <strong>hot observables</strong>:</p>
-<ul>
-<li><code>MQTTXesSource</code>: observes all events on an MQTT broker respecting the MQTT-XES protocol.</li>
-</ul>
+<p>In Beamline Framework, the following observable are available:</p>
+<table>
+<thead>
+<tr>
+<th>Observable name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>XesLogSource</code></td>
+<td>cold</td>
+<td>Observes all events from an XES event log.</td>
+</tr>
+<tr>
+<td><code>MQTTXesSource</code></td>
+<td>hot</td>
+<td>Observes all events on an MQTT broker respecting the MQTT-XES protocol.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="filters">Filters</h3>
 <p>The <a href="https://reactivex.io/documentation/operators/filter.html">filter operator, in ReactiveX,</a> does not change the stream, but filters the events so that only those passing a predicate test can pass. In Beamline there are some filters already implemented that can be used as follows:</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
@@ -354,11 +368,41 @@ Source : +getObservable() Observable~T~
 </td></tr></table>
 <p>In line 3 a filter is specified so that only events referring to activities <code>A</code>, <code>B</code>, and <code>C</code> are maintained (while all others are discarded).</p>
 <p>Filters can operate on event attributes or trace attributes and the following are currently available:</p>
-<ul>
-<li><code>RetainOnEventAttributeEqualityFilter</code> and <code>ExcludeOnEventAttributeEqualityFilter</code> which retain or exclude events based on the equality of an event attribute. The filter <code>RetainActivitiesFilter</code> is a refined version of <code>RetainOnEventAttributeEqualityFilter</code> where the attribute name is the <code>concept:name</code>;</li>
-<li><code>RetainOnCaseAttributeEqualityFilter</code> and <code>ExcludeOnCaseAttributeEqualityFilter</code> which retain or exclude events based on the equality of a trace attribute.</li>
-</ul>
-<p>Filters can be chained together in order to achieve the desired result.</p>
+<table>
+<thead>
+<tr>
+<th>Filter name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RetainOnEventAttributeEqualityFilter</code></td>
+<td>Retains events based on the equality of an event attribute.</td>
+</tr>
+<tr>
+<td><code>ExcludeOnEventAttributeEqualityFilter</code></td>
+<td>Exclude events based on the equality of an event attribute.</td>
+</tr>
+<tr>
+<td><code>RetainOnCaseAttributeEqualityFilter</code></td>
+<td>Retains events based on the equality of a trace attribute.</td>
+</tr>
+<tr>
+<td><code>ExcludeOnCaseAttributeEqualityFilter</code></td>
+<td>Excludes events based on the equality of a trace attribute.</td>
+</tr>
+<tr>
+<td><code>RetainActivitiesFilter</code></td>
+<td>Retains activities base on their name (<code>concept:name</code>).</td>
+</tr>
+<tr>
+<td><code>ExcludeActivitiesFilter</code></td>
+<td>Excludes activities base on their name (<code>concept:name</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>Please note that filters can be chained together in order to achieve the desired result.</p>
 <h3 id="mappers">Mappers</h3>
 <p>The current version of Beamline supports some mappers too, which allow to change the shape of the stream in order to consume different events. In ReactiveX there are two main types of map operators: <a href="https://reactivex.io/documentation/operators/map.html"><code>map</code></a> and <a href="https://reactivex.io/documentation/operators/flatmap.html"><code>flatMap</code></a>. The former maps all events into new events, the latter can also merge some of the events together.</p>
 <p>Currently these mappers are supported:</p>
