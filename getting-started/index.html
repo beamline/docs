@@ -259,6 +259,7 @@ Then you can include the dependency to the version you are interested, for examp
 </code></pre></div>
 See <a href="https://jitpack.io/#beamline/framework">https://jitpack.io/#beamline/framework</a> for further details (e.g., using it with Gradle).</p>
 <h2 id="hello-world-stream-mining">Hello world stream mining</h2>
+<p>The following code represents a minimum running example that, once implemented in the <code>main</code> method of a Java class should provide some basic understanding of the concepts:</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
@@ -292,10 +293,11 @@ See <a href="https://jitpack.io/#beamline/framework">https://jitpack.io/#beamlin
 <a id="__codelineno-2-14" name="__codelineno-2-14"></a>   <span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15"></a>
 <a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="c1">// step 4: consumption of the results</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="n">GraphvizResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="p">(</span><span class="n">GraphvizResponse</span><span class="p">)</span> <span class="n">discoveryAlgorithm</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">();</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="n">GraphvizResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="p">(</span><span class="n">GraphvizResponse</span><span class="p">)</span> <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">();</span>
 <a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="n">response</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"result.svg"</span><span class="p">));</span>
 </code></pre></div>
 </td></tr></table>
+<p>In step 1 the stream source is configured and, in this specific case, the stream is defined as coming from a static IEEE XES file. The stream is then <code>prepare</code>d (i.e., all events are serialized and sorted by their time). In step 2, an hypothetical miner is created and configured, using custom methods (such as the <code>setMinDependency</code> method). Step 3 consists of the definition of the chain of operations to be performed on each event of the stream. In this case, each event is filtered using the <code>RetainActivitiesFilter</code> and the <code>ExcludeActivitiesFilter</code> before being sent to the miner. Since this stream will finish (since it comes from a static file, as opposed to never-ending streams), the code above will continue to step 4, where the latest output computed from the miner will be extracted and, since it is a graphical response, it will be stored as an SVG file.</p>
 <h2 id="basic-concepts">Basic concepts</h2>
 <p>In this section the basic concepts of the Beamline framework are presented.</p>
 <h3 id="observables">Observables</h3>
