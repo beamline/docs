@@ -200,6 +200,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#mappers">
+    Mappers
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#mining-algorithms">
     Mining algorithms
   </a>
@@ -354,6 +359,41 @@ Source : +getObservable() Observable~T~
 <li><code>RetainOnCaseAttributeEqualityFilter</code> and <code>ExcludeOnCaseAttributeEqualityFilter</code> which retain or exclude events based on the equality of a trace attribute.</li>
 </ul>
 <p>Filters can be chained together in order to achieve the desired result.</p>
+<h3 id="mappers">Mappers</h3>
+<p>The current version of Beamline supports some mappers too, which allow to change the shape of the stream in order to consume different events. In ReactiveX there are two main types of map operators: <a href="https://reactivex.io/documentation/operators/map.html"><code>map</code></a> and <a href="https://reactivex.io/documentation/operators/flatmap.html"><code>flatMap</code></a>. The former maps all events into new events, the latter can also merge some of the events together.</p>
+<p>Currently these mappers are supported:</p>
+<table>
+<thead>
+<tr>
+<th>Filter name</th>
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InfiniteSizeDirectlyFollowsMapper</code></td>
+<td><code>flatMap</code></td>
+<td>A mapper that transforms each pair of consequent event appearing in the same case as a directly follows operator (generating an object with type <code>DirectlyFollowsRelation</code>). This mapper is called <em>infinite</em> because it's memory footprint will grow as the case ids grow.</td>
+</tr>
+</tbody>
+</table>
+<p>An example of how mappers can be used is the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="n">obs</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>   <span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="k">new</span> <span class="n">InfiniteSizeDirectlyFollowsMapper</span><span class="p">())</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>   <span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">DirectlyFollowsRelation</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>        <span class="nd">@Override</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="nd">@NonNull</span> <span class="n">DirectlyFollowsRelation</span> <span class="n">t</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="p">{</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>                    <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractName</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">getFirst</span><span class="p">())</span> <span class="o">+</span>  <span class="s">" -&gt; "</span> <span class="o">+</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>                    <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractName</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">getSecond</span><span class="p">())</span> <span class="o">+</span> 
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>                    <span class="s">" for case "</span> <span class="o">+</span> <span class="n">t</span><span class="p">.</span><span class="na">getCaseId</span><span class="p">());</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a>        <span class="p">}</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a>    <span class="p">});</span>
+</code></pre></div>
 <h3 id="mining-algorithms">Mining algorithms</h3>
 <p>A mining algorithm is a subscriber consuming the generated <code>Observable</code>s. All mining algorithms must extend the abstract class <code>StreamMiningAlgorithm</code>. This class is structured as:</p>
 <div class="mermaid">
@@ -375,51 +415,51 @@ HookEventProcessing:+trigger()
 </div>
 <p>The <code>trigger()</code> must implement the action required.</p>
 <p>A simple example of a mining algorithm configuration is reported below:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">DiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscoveryMiner</span><span class="p">();</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="n">obs</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
-</code></pre></div>
-</td></tr></table>
-<p>Bear in mind that miners can also be defined as normal consumers as in RXJava. Here is what such a consumer may look like, assuming that the expected behavior consists just of printing the case id, the activity name, and the time of the event:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span>
-<span class="normal"><a href="#__codelineno-6-14">14</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span>
+<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="n">obs</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a>    <span class="nd">@Override</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="nd">@NonNull</span> <span class="n">XTrace</span> <span class="n">t</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="p">{</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a>        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a>            <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractName</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="s">" - "</span> <span class="o">+</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10"></a>            <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractName</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">+</span>  <span class="s">" - "</span> <span class="o">+</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11"></a>            <span class="n">XTimeExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractTimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12"></a>        <span class="p">);</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13"></a>    <span class="p">}</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="p">});</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="n">DiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscoveryMiner</span><span class="p">();</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="n">obs</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table>
+<p>Bear in mind that miners can also be defined as normal consumers as in RXJava. Here is what such a consumer may look like, assuming that the expected behavior consists just of printing the case id, the activity name, and the time of the event:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="n">obs</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="k">new</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>    <span class="nd">@Override</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="nd">@NonNull</span> <span class="n">XTrace</span> <span class="n">t</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="p">{</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a>            <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractName</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="s">" - "</span> <span class="o">+</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a>            <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractName</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">+</span>  <span class="s">" - "</span> <span class="o">+</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a>            <span class="n">XTimeExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">extractTimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>        <span class="p">);</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a>    <span class="p">}</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="p">});</span>
 </code></pre></div>
 </td></tr></table>
 <h3 id="results">Results</h3>
@@ -434,41 +474,41 @@ GraphvizResponse : generateDot() Dot
 Response &lt;|-- GraphvizResponse
 </div>
 <p>An example of a way to consume these results is reported in the following code:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span>
-<span class="normal"><a href="#__codelineno-7-11">11</a></span>
-<span class="normal"><a href="#__codelineno-7-12">12</a></span>
-<span class="normal"><a href="#__codelineno-7-13">13</a></span>
-<span class="normal"><a href="#__codelineno-7-14">14</a></span>
-<span class="normal"><a href="#__codelineno-7-15">15</a></span>
-<span class="normal"><a href="#__codelineno-7-16">16</a></span>
-<span class="normal"><a href="#__codelineno-7-17">17</a></span>
-<span class="normal"><a href="#__codelineno-7-18">18</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">DiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscoveryMiner</span><span class="p">();</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(</span><span class="k">new</span> <span class="n">HookEventProcessing</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>    <span class="nd">@Override</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">trigger</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a>        <span class="kt">int</span> <span class="n">events</span> <span class="o">=</span> <span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">();</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">events</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7"></a>            <span class="k">try</span> <span class="p">{</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8"></a>                <span class="n">GraphvizResponse</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">();</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9"></a>                <span class="n">resp</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"output-"</span> <span class="o">+</span> <span class="n">events</span> <span class="o">+</span> <span class="s">".svg"</span><span class="p">));</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10"></a>            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11"></a>        <span class="p">}</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12"></a>    <span class="p">}</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="p">});</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14"></a>
-<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
-<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
-<a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
-<a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="n">obs</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">DiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscoveryMiner</span><span class="p">();</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(</span><span class="k">new</span> <span class="n">HookEventProcessing</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>    <span class="nd">@Override</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">trigger</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>        <span class="kt">int</span> <span class="n">events</span> <span class="o">=</span> <span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">();</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">events</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a>            <span class="k">try</span> <span class="p">{</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>                <span class="n">GraphvizResponse</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">();</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a>                <span class="n">resp</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"output-"</span> <span class="o">+</span> <span class="n">events</span> <span class="o">+</span> <span class="s">".svg"</span><span class="p">));</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a>            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a>        <span class="p">}</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>    <span class="p">}</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="p">});</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">();</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="n">obs</span><span class="p">.</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
 </code></pre></div>
 </td></tr></table>
 <p>In this code, we assume the existence of a miner called <code>DiscoveryMiner</code> which produces output as an object with (sub)type <code>GraphvizResponse</code>. In line 2 there is new hook registered to be processed after each event and, every 100 events (line 6), the code extracts the last result of the mining (line 8), converts to SVG and dumps it to a file (line 9). The miner if then registered to consume events from the stream (line 19).</p>
