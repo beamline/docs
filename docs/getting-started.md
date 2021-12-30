@@ -23,6 +23,8 @@ See <https://jitpack.io/#beamline/framework> for further details (e.g., using it
 
 ## Hello world stream mining
 
+The following code represents a minimum running example that, once implemented in the `main` method of a Java class should provide some basic understanding of the concepts:
+
 ```java linenums="1"
 // step 1: configuration of the data source (in this case a static file, for reproducibility)
 XesSource source = new XesLogSource("log-file.xes");
@@ -40,9 +42,13 @@ obs
    .subscribe(miner);
 
 // step 4: consumption of the results
-GraphvizResponse response = (GraphvizResponse) discoveryAlgorithm.getLatestResponse();
+GraphvizResponse response = (GraphvizResponse) miner.getLatestResponse();
 response.generateDot().exportToSvg(new File("result.svg"));
 ```
+
+In step 1 the stream source is configured and, in this specific case, the stream is defined as coming from a static IEEE XES file. The stream is then `prepare`d (i.e., all events are serialized and sorted by their time). In step 2, an hypothetical miner is created and configured, using custom methods (such as the `setMinDependency` method). Step 3 consists of the definition of the chain of operations to be performed on each event of the stream. In this case, each event is filtered using the `RetainActivitiesFilter` and the `ExcludeActivitiesFilter` before being sent to the miner. Since this stream will finish (since it comes from a static file, as opposed to never-ending streams), the code above will continue to step 4, where the latest output computed from the miner will be extracted and, since it is a graphical response, it will be stored as an SVG file.
+
+
 
 ## Basic concepts
 

@@ -11,7 +11,7 @@ theme:
   name: material
   logo: img/logo.svg
   palette:
-    primary: teal
+    primary: default
 
   features:
   - navigation.tabs
@@ -40,4 +40,8 @@ markdown_extensions:
   - md_in_html
 
 copyright: Copyright &copy; 2022 Technical University of Denmark
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/beamline
 
