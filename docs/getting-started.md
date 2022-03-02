@@ -15,7 +15,7 @@ Then you can include the dependency to the version you are interested, for examp
 <dependency>
     <groupId>com.github.beamline</groupId>
     <artifactId>framework</artifactId>
-    <version>0.0.2</version>
+    <version>x.y.z</version>
 </dependency>
 ```
 See <https://jitpack.io/#beamline/framework> for further details (e.g., using it with Gradle).
@@ -74,6 +74,7 @@ The class diagram of the observable sources available in Beamline Framework is r
 classDiagram
 Source~T~ <|-- XesSource : &laquo;bind&raquo; T&#42889;&#42889;XTrace
 XesSource <|.. XesLogSource
+XesSource <|.. CSVLogSource
 XesSource <|.. MQTTXesSource
 Source : +getObservable() Observable~T~
 
@@ -89,10 +90,35 @@ In the ReactiveX world, there is a distinction between two types of observables:
 
 In Beamline Framework, the following observable are available:
 
-| Observable name | Type | Description |
-| --- | --- | --- |
-| `XesLogSource` | cold | Observes all events from an XES event log. |
-| `MQTTXesSource` | hot | Observes all events on an MQTT broker respecting the MQTT-XES protocol. |
+#### `XesLogSource`, cold observable
+
+Observes all events from an XES event log. Example usage:
+```java linenums="1"
+XLog l = ...
+XesSource source = new XesLogSource(l);
+source.prepare();
+```
+
+
+#### `CSVLogSource`, cold observable
+
+Observes all events from a CSV file, column numbers for case id and activity name must be provided in the constructor. Example usage:
+```java linenums="1"
+int caseIdColumn = 0;
+int activityColumn = 1;
+XesSource source = new CSVLogSource("filename.csv", caseIdColumn, activityColumn);
+source.prepare();
+```
+
+
+#### `MQTTXesSource`, hot observable
+
+Observes all events on an MQTT broker respecting the MQTT-XES protocol. Example usage:
+```java linenums="1"
+XesSource source = new MQTTXesSource("tcp://broker.hivemq.com:1883", "root", "processName");
+source.prepare();
+```
+
 
 
 
