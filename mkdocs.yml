@@ -3,7 +3,16 @@ site_name: Beamline Framework
 nav:
   - Home: index.md
   - Getting started: getting-started.md
-  - Implemented techniques: implemented-techniques.md
+  - Implemented techniques:
+    - Introduction: implemented-techniques/index.md
+    - Control-flow discovery:
+      - Trivial miner: implemented-techniques/discovery-trivial.md
+      - Declare models: implemented-techniques/discovery-declare.md
+    - Conformance checking:
+      - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
+  - Examples:
+      - Introduction: examples/index.md
+      - Raw data as input (non-process mining ready): examples/no-process-mining-as-input.md
   - MQTT-XES: mqtt-xes.md
   - About: about.md
 
@@ -39,7 +48,7 @@ markdown_extensions:
   - attr_list
   - md_in_html
 
-copyright: Copyright &copy; 2022 DTU - Technical University of Denmark
+copyright: Copyright &copy; 2022 Technical University of Denmark
 extra:
   social:
     - icon: fontawesome/brands/github

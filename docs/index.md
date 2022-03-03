@@ -25,7 +25,7 @@ The picture below refers to the control-flow discovery case but, obviously, the 
 <figure markdown> 
   ![Streaming process mining idea](img/idea.png)
   <figcaption>
-    Conceptualization of the streaming process discovery.
+    Conceptualization of the streaming process discovery.<br>
     <sub><sup>Image source: A. Burattin, A. Sperduti, and W. van der Aalst. Control-
 flow Discovery from Event Streams. In Proc. of IEEE WCCI-CEC, 2014.</sup></sub></figcaption>
 </figure>
