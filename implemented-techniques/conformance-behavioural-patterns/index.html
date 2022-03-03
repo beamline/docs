@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.2.3, mkdocs-material-8.1.2" name="generator"/>
+<title>Behavioural Patterns - Beamline Framework</title>
+<link href="../../assets/stylesheets/main.f7951f6f.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.e6a45f82.min.css" rel="stylesheet"/>
+<meta content="" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="default" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#dependency">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Beamline Framework" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Beamline Framework
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Behavioural Patterns
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Home
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/">
+      Getting started
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../">
+        Implemented techniques
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../mqtt-xes/">
+      MQTT-XES
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../about.md">
+      About
+    </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Beamline Framework" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+    Beamline Framework
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/">
+        Getting started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Implemented techniques
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Implemented techniques" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Implemented techniques
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          Control-flow discovery
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Control-flow discovery" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Control-flow discovery
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-trivial/">
+        Trivial miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-declare/">
+        Declare models
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3">
+          Conformance checking
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Conformance checking" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Conformance checking
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Behavioural Patterns
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Behavioural Patterns
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dependency">
+    Dependency
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#usage">
+    Usage
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scientific-literature">
+    Scientific literature
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../mqtt-xes/">
+        MQTT-XES
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../about.md">
+        About
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/beamline/framework/edit/master/docs/implemented-techniques/conformance-behavioural-patterns.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1>Behavioural Patterns</h1>
+<h2 id="dependency">Dependency <a href="https://jitpack.io/#beamline/conformance-behavioural-patterns"><img alt="" src="https://jitpack.io/v/beamline/conformance-behavioural-patterns.svg"/></a></h2>
+<p>To use these algorithms in your Java Maven project it is necessary to include, in the <code>pom.xml</code> file, the dependency:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>    <span class="nt">&lt;groupId&gt;</span>com.github.beamline<span class="nt">&lt;/groupId&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>    <span class="nt">&lt;artifactId&gt;</span>conformance-behavioural-patterns<span class="nt">&lt;/artifactId&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>    <span class="nt">&lt;version&gt;</span>master-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+See the <a href="../">introduction page</a> for further instructions.</p>
+<h2 id="usage">Usage</h2>
+<p>To use the technique you need to create the conformance checker object using:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">8</a></span>
+<span class="normal"><a href="#__codelineno-1-9">9</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">SimpleConformance</span> <span class="n">conformance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleConformance</span><span class="p">();</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">conformance</span><span class="p">.</span><span class="na">loadModel</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"reference-model.tpn"</span><span class="p">));</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">conformance</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(</span><span class="k">new</span> <span class="n">HookEventProcessing</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>    <span class="nd">@Override</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">trigger</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">());</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>    <span class="p">}</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="p">});</span>
+</code></pre></div>
+</td></tr></table>
+<p>In the current version, the reference model must be expressed as a Petri Net stored in TPN format. Additionally, in this version, the response is expressed as a <code>Pair&lt;Integer, String&gt;</code> object, where the first component is the cost of the execution of the current event (0 means the event was compliant, &gt; 0 means the process was not compliant). The code above will print, after each event, the cost of the corresponding replay.</p>
+<div class="mermaid">
+graph LR     
+    ""
+</div>
+<div class="admonition note">
+<p class="admonition-title">TPN file format</p>
+<p>A TPN file is just a text file where a Petri net is specified as the example below:
+<svg height="60pt" viewbox="0.00 0.00 422.00 60.00" width="422pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 56)">
+<title>G</title>
+<polygon fill="white" points="-4,4 -4,-56 418,-56 418,4 -4,4" stroke="none"></polygon>
+<!-- t0 -->
+<g class="node" id="node1"><title>t0</title>
+<polygon fill="none" points="59,-34 36,-34 36,-17 59,-17 59,-34" stroke="black"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="47.5" y="-23.6">A</text>
+</g>
+<!-- p1 -->
+<g class="node" id="node8"><title>p1</title>
+<ellipse cx="88" cy="-25.5" fill="none" rx="7" ry="7" stroke="black"></ellipse>
+</g>
+<!-- t0&#45;&gt;p1 -->
+<g class="edge" id="edge3"><title>t0-&gt;p1</title>
+<path d="M59.0203,-25.5C64.1215,-25.5 70.2604,-25.5 75.4866,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="75.7072,-27.2501 80.7071,-25.5 75.7071,-23.7501 75.7072,-27.2501" stroke="black"></polygon>
+</g>
+<!-- t1 -->
+<g class="node" id="node2"><title>t1</title>
+<polygon fill="none" points="378,-34 356,-34 356,-17 378,-17 378,-34" stroke="black"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="367" y="-23.6">B</text>
+</g>
+<!-- p3 -->
+<g class="node" id="node10"><title>p3</title>
+<ellipse cx="407" cy="-25.5" fill="none" rx="7" ry="7" stroke="black"></ellipse>
+</g>
+<!-- t1&#45;&gt;p3 -->
+<g class="edge" id="edge2"><title>t1-&gt;p3</title>
+<path d="M378.384,-25.5C383.419,-25.5 389.478,-25.5 394.636,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="394.789,-27.2501 399.789,-25.5 394.789,-23.7501 394.789,-27.2501" stroke="black"></polygon>
+</g>
+<!-- t2 -->
+<g class="node" id="node3"><title>t2</title>
+<polygon fill="none" points="139,-34 117,-34 117,-17 139,-17 139,-34" stroke="black"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="128" y="-23.6">C</text>
+</g>
+<!-- p0 -->
+<g class="node" id="node7"><title>p0</title>
+<ellipse cx="168" cy="-25.5" fill="none" rx="7" ry="7" stroke="black"></ellipse>
+</g>
+<!-- t2&#45;&gt;p0 -->
+<g class="edge" id="edge8"><title>t2-&gt;p0</title>
+<path d="M139.384,-25.5C144.419,-25.5 150.478,-25.5 155.636,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="155.789,-27.2501 160.789,-25.5 155.789,-23.7501 155.789,-27.2501" stroke="black"></polygon>
+</g>
+<!-- t3 -->
+<g class="node" id="node4"><title>t3</title>
+<polygon fill="none" points="298,-34 276,-34 276,-17 298,-17 298,-34" stroke="black"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="287" y="-23.6">D</text>
+</g>
+<!-- p4 -->
+<g class="node" id="node11"><title>p4</title>
+<ellipse cx="327" cy="-25.5" fill="none" rx="7" ry="7" stroke="black"></ellipse>
+</g>
+<!-- t3&#45;&gt;p4 -->
+<g class="edge" id="edge10"><title>t3-&gt;p4</title>
+<path d="M298.384,-25.5C303.419,-25.5 309.478,-25.5 314.636,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="314.789,-27.2501 319.789,-25.5 314.789,-23.7501 314.789,-27.2501" stroke="black"></polygon>
+</g>
+<!-- t4 -->
+<g class="node" id="node5"><title>t4</title>
+<polygon fill="none" points="218,-52 197,-52 197,-35 218,-35 218,-52" stroke="black"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="207.5" y="-41.6">E</text>
+</g>
+<!-- p2 -->
+<g class="node" id="node9"><title>p2</title>
+<ellipse cx="247" cy="-25.5" fill="none" rx="7" ry="7" stroke="black"></ellipse>
+</g>
+<!-- t4&#45;&gt;p2 -->
+<g class="edge" id="edge11"><title>t4-&gt;p2</title>
+<path d="M218.353,-38.7707C223.669,-36.2187 230.228,-33.0704 235.623,-30.4808" fill="none" stroke="black"></path>
+<polygon fill="black" points="236.431,-32.0341 240.182,-28.2928 234.917,-28.8788 236.431,-32.0341" stroke="black"></polygon>
+</g>
+<!-- t5 -->
+<g class="node" id="node6"><title>t5</title>
+<polygon fill="none" points="218,-17 197,-17 197,-0 218,-0 218,-17" stroke="black"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="207.5" y="-6.6">F</text>
+</g>
+<!-- t5&#45;&gt;p2 -->
+<g class="edge" id="edge12"><title>t5-&gt;p2</title>
+<path d="M218.353,-12.9665C223.669,-15.3767 230.228,-18.3502 235.623,-20.7959" fill="none" stroke="black"></path>
+<polygon fill="black" points="234.905,-22.3918 240.182,-22.8624 236.35,-19.204 234.905,-22.3918" stroke="black"></polygon>
+</g>
+<!-- p0&#45;&gt;t4 -->
+<g class="edge" id="edge6"><title>p0-&gt;t4</title>
+<path d="M174.533,-28.156C179.209,-30.4003 186.116,-33.7156 192.314,-36.6908" fill="none" stroke="black"></path>
+<polygon fill="black" points="191.602,-38.2902 196.867,-38.8762 193.117,-35.1349 191.602,-38.2902" stroke="black"></polygon>
+</g>
+<!-- p0&#45;&gt;t5 -->
+<g class="edge" id="edge7"><title>p0-&gt;t5</title>
+<path d="M174.859,-22.8438C179.43,-20.7718 185.981,-17.802 191.938,-15.1015" fill="none" stroke="black"></path>
+<polygon fill="black" points="192.914,-16.5805 196.745,-12.9222 191.469,-13.3928 192.914,-16.5805" stroke="black"></polygon>
+</g>
+<!-- p1&#45;&gt;t2 -->
+<g class="edge" id="edge5"><title>p1-&gt;t2</title>
+<path d="M95.2749,-25.5C99.794,-25.5 106.091,-25.5 111.884,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="111.997,-27.2501 116.997,-25.5 111.997,-23.7501 111.997,-27.2501" stroke="black"></polygon>
+</g>
+<!-- p2&#45;&gt;t3 -->
+<g class="edge" id="edge9"><title>p2-&gt;t3</title>
+<path d="M254.275,-25.5C258.794,-25.5 265.091,-25.5 270.884,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="270.997,-27.2501 275.997,-25.5 270.997,-23.7501 270.997,-27.2501" stroke="black"></polygon>
+</g>
+<!-- p4&#45;&gt;t1 -->
+<g class="edge" id="edge4"><title>p4-&gt;t1</title>
+<path d="M334.275,-25.5C338.794,-25.5 345.091,-25.5 350.884,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="350.997,-27.2501 355.997,-25.5 350.997,-23.7501 350.997,-27.2501" stroke="black"></polygon>
+</g>
+<!-- p5 -->
+<g class="node" id="node12"><title>p5</title>
+<ellipse cx="7" cy="-25.5" fill="none" rx="7" ry="7" stroke="black"></ellipse>
+</g>
+<!-- p5&#45;&gt;t0 -->
+<g class="edge" id="edge1"><title>p5-&gt;t0</title>
+<path d="M14.0156,-25.5C18.4846,-25.5 24.798,-25.5 30.6722,-25.5" fill="none" stroke="black"></path>
+<polygon fill="black" points="30.8778,-27.2501 35.8778,-25.5 30.8778,-23.7501 30.8778,-27.2501" stroke="black"></polygon>
+</g>
+</g>
+</svg></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>place "place_0";
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>place "place_1";
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>place "place_2";
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>place "place_3";
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>place "place_4";
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>place "place_5" init 1;
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>trans "t_7"~"A" in "place_5" out "place_1" ;
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>trans "t_8"~"B" in "place_4" out "place_3" ;
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>trans "t_9"~"C" in "place_1" out "place_0" ;
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>trans "t_10"~"D" in "place_2" out "place_4" ;
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>trans "t_11"~"E" in "place_0" out "place_2" ;
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>trans "t_12"~"F" in "place_0" out "place_2" ;
+</code></pre></div>
+</div>
+<p>In order to properly pre-process the Petri net, it is necessary to set up a <a href="https://en.wikipedia.org/wiki/.properties">property file</a> called <code>javaOfflinePreProcessor.properties</code> with the following content:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="na">JAVA_BIN</span> <span class="o">=</span> <span class="s">FULL_PATH_OF_THE_JAVA_EXECUTABLE</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="na">OFFLINE_PREPROCESSOR_JAR</span> <span class="o">=</span> <span class="s">FULL_PATH_OF_THE_PREPROCESSOR</span>
+</code></pre></div>
+<p>The preprocessor can be downloaded from <a href="https://github.com/beamline/conformance-behavioural-patterns/blob/master/src/main/resources/pre-processor/region-based-conformance-offline-preprocessor-v2.jar">https://github.com/beamline/conformance-behavioural-patterns/blob/master/src/main/resources/pre-processor/region-based-conformance-offline-preprocessor-v2.jar</a>.</p>
+<h2 id="scientific-literature">Scientific literature</h2>
+<p>The techniques implemented in this package are described in:</p>
+<ul>
+<li><a href="https://andrea.burattin.net/publications/2018-bpm">Online Conformance Checking Using Behavioural Patterns</a><br/>
+A. Burattin, S. van Zelst, A. Armas-Cervantes, B. van Dongen, J. Carmona<br/>
+In Proceedings of BPM 2018; Sydney, Australia; September 2018.</li>
+</ul>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Declare models" class="md-footer__link md-footer__link--prev" href="../discovery-declare/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Declare models
+            </div>
+</div>
+</a>
+<a aria-label="Next: MQTT-XES" class="md-footer__link md-footer__link--next" href="../../mqtt-xes/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              MQTT-XES
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022 Technical University of Denmark
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/beamline" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+<script src="../../assets/javascripts/bundle.649a939e.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script></body>
+</html>
