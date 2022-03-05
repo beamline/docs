@@ -7,6 +7,7 @@ nav:
     - Introduction: implemented-techniques/index.md
     - Control-flow discovery:
       - Trivial miner: implemented-techniques/discovery-trivial.md
+      - Heuristics Miner: implemented-techniques/discovery-heuristics-miner.md
       - Declare models: implemented-techniques/discovery-declare.md
     - Conformance checking:
       - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
