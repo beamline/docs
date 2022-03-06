@@ -6,11 +6,13 @@ nav:
   - Implemented techniques:
     - Introduction: implemented-techniques/index.md
     - Control-flow discovery:
-      - Trivial miner: implemented-techniques/discovery-trivial.md
+      - Trivial Miner: implemented-techniques/discovery-trivial.md
       - Heuristics Miner: implemented-techniques/discovery-heuristics-miner.md
-      - Declare models: implemented-techniques/discovery-declare.md
+      - Declare Miner: implemented-techniques/discovery-declare.md
     - Conformance checking:
       - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
+    - Simulation:
+      - Simulation with PLG: implemented-techniques/simulation-plg.md
   - Examples:
       - Introduction: examples/index.md
       - Raw data as input (non-process mining ready): examples/no-process-mining-as-input.md

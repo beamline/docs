@@ -20,3 +20,6 @@ Conformance checking techniques implemented:
 
 - [Behavioural Patterns](conformance-behavioural-patterns.md)
 
+Random generation of processes and simulation:
+
+- [Simulation with PLG](simulation-plg.md)
