@@ -297,3 +297,5 @@ In this case, we configured the miner to consume all events and, once the stream
        cx="43" />
   </g>
 </svg>
+
+The complete code of this example is available in the GitHub repository <https://github.com/beamline/examples>.

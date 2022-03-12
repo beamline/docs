@@ -15,6 +15,7 @@ Control-flow discovery techniques implemented:
 - [Trivial miner](discovery-trivial.md)
 - [Heuristics miner](discovery-heuristics-miner.md)
 - [Declare miner](discovery-declare.md)
+- [DCR Miner](discovery-dcr.md)
 
 Conformance checking techniques implemented:
 
