@@ -1,0 +1,599 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.2.3, mkdocs-material-8.2.4" name="generator"/>
+<title>Monitoring active windows (for Windows systems) - Beamline Framework</title>
+<link href="../../assets/stylesheets/main.2d9f7617.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.e6a45f82.min.css" rel="stylesheet"/>
+<meta content="" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="default" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Beamline Framework" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Beamline Framework
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Monitoring active windows (for Windows systems)
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Home
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/">
+      Getting started
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../implemented-techniques/">
+        Implemented techniques
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../">
+        Examples
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../mqtt-xes/">
+      MQTT-XES
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../about/">
+      About
+    </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Beamline Framework" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+    Beamline Framework
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/">
+        Getting started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Implemented techniques
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Implemented techniques" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Implemented techniques
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          Control-flow discovery
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Control-flow discovery" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Control-flow discovery
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-trivial/">
+        Trivial Miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-heuristics-miner/">
+        Heuristics Miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-declare/">
+        Declare Miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-dcr/">
+        DCR Miner
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3">
+          Conformance checking
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Conformance checking" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Conformance checking
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/conformance-behavioural-patterns/">
+        Behavioural Patterns
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4">
+          Simulation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Simulation" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+          Simulation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/simulation-plg/">
+        Simulation with PLG
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Examples" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../no-process-mining-as-input/">
+        Raw data as input (non-process mining ready)
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Monitoring active windows (for Windows systems)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../mqtt-xes/">
+        MQTT-XES
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../about/">
+        About
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/beamline/framework/edit/master/docs/examples/monitoring-windows.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1>Monitoring active windows (for Windows systems)</h1>
+<p>One possible usage of streaming process mining could involve the monitoring of the current system. One possible way of achieving this goal is to monitor the window currently active (i.e., with the focus) as a proxy for the application being used by the user<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>To achieve this goal it is possible to define a new <code>XesSource</code> which observes the windows currently active and, whenever there is a new window in focus, emits an event. To accomplish this goal, in the following we make use of the <a href="https://en.wikipedia.org/wiki/Java_Native_Access">JNA (Java Native Access) library</a> which gives us access to the native shared libraries of the operating system. To have access to the library we need, first of all, to include it in our Maven dependency:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>    <span class="nt">&lt;groupId&gt;</span>net.java.dev.jna<span class="nt">&lt;/groupId&gt;</span>
+<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>    <span class="nt">&lt;artifactId&gt;</span>jna<span class="nt">&lt;/artifactId&gt;</span>
+<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>    <span class="nt">&lt;version&gt;</span>5.10.0<span class="nt">&lt;/version&gt;</span>
+<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nt">&lt;/dependency&gt;</span>
+<a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="nt">&lt;dependency&gt;</span>
+<a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>    <span class="nt">&lt;groupId&gt;</span>net.java.dev.jna<span class="nt">&lt;/groupId&gt;</span>
+<a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a>    <span class="nt">&lt;artifactId&gt;</span>jna-platform<span class="nt">&lt;/artifactId&gt;</span>
+<a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a>    <span class="nt">&lt;version&gt;</span>5.10.0<span class="nt">&lt;/version&gt;</span>
+<a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></p>
+<p>Once the library is include we can define the method that will return the name of the currently active window on the screen (this works and has been tested on Windows 10 Enterprise):</p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kd">class</span> <span class="nc">Informer</span> <span class="p">{</span>
+<a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getWindowName</span><span class="p">()</span> <span class="p">{</span>
+<a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>        <span class="kt">int</span> <span class="n">MAX_TITLE_LENGTH</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
+<a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>        <span class="kt">char</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">MAX_TITLE_LENGTH</span> <span class="o">*</span> <span class="mi">2</span><span class="o">]</span><span class="p">;</span>
+<a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>        <span class="n">HWND</span> <span class="n">hwnd</span> <span class="o">=</span> <span class="n">User32</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">.</span><span class="na">GetForegroundWindow</span><span class="p">();</span>
+<a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>        <span class="n">User32</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">.</span><span class="na">GetWindowText</span><span class="p">(</span><span class="n">hwnd</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">MAX_TITLE_LENGTH</span><span class="p">);</span>
+<a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a>
+<a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a>        <span class="n">IntByReference</span> <span class="n">pid</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntByReference</span><span class="p">();</span>
+<a href="#__codelineno-1-9" id="__codelineno-1-9" name="__codelineno-1-9"></a>        <span class="n">User32</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">.</span><span class="na">GetWindowThreadProcessId</span><span class="p">(</span><span class="n">hwnd</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
+<a href="#__codelineno-1-10" id="__codelineno-1-10" name="__codelineno-1-10"></a>        <span class="n">HANDLE</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Kernel32</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">.</span><span class="na">OpenProcess</span><span class="p">(</span>
+<a href="#__codelineno-1-11" id="__codelineno-1-11" name="__codelineno-1-11"></a>                <span class="n">Kernel32</span><span class="p">.</span><span class="na">PROCESS_QUERY_INFORMATION</span> <span class="o">|</span> <span class="n">Kernel32</span><span class="p">.</span><span class="na">PROCESS_VM_READ</span><span class="p">,</span>
+<a href="#__codelineno-1-12" id="__codelineno-1-12" name="__codelineno-1-12"></a>                <span class="kc">false</span><span class="p">,</span>
+<a href="#__codelineno-1-13" id="__codelineno-1-13" name="__codelineno-1-13"></a>                <span class="n">pid</span><span class="p">.</span><span class="na">getValue</span><span class="p">());</span>
+<a href="#__codelineno-1-14" id="__codelineno-1-14" name="__codelineno-1-14"></a>        <span class="n">Psapi</span><span class="p">.</span><span class="na">INSTANCE</span><span class="p">.</span><span class="na">GetModuleBaseNameW</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">MAX_TITLE_LENGTH</span><span class="p">);</span>
+<a href="#__codelineno-1-15" id="__codelineno-1-15" name="__codelineno-1-15"></a>
+<a href="#__codelineno-1-16" id="__codelineno-1-16" name="__codelineno-1-16"></a>        <span class="k">return</span> <span class="n">Native</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+<a href="#__codelineno-1-17" id="__codelineno-1-17" name="__codelineno-1-17"></a>    <span class="p">}</span>
+<a href="#__codelineno-1-18" id="__codelineno-1-18" name="__codelineno-1-18"></a>
+<a href="#__codelineno-1-19" id="__codelineno-1-19" name="__codelineno-1-19"></a>    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Psapi</span> <span class="kd">extends</span> <span class="n">StdCallLibrary</span> <span class="p">{</span>
+<a href="#__codelineno-1-20" id="__codelineno-1-20" name="__codelineno-1-20"></a>        <span class="nd">@SuppressWarnings</span><span class="p">(</span><span class="s">"deprecation"</span><span class="p">)</span>
+<a href="#__codelineno-1-21" id="__codelineno-1-21" name="__codelineno-1-21"></a>        <span class="n">Psapi</span> <span class="n">INSTANCE</span> <span class="o">=</span> <span class="p">(</span><span class="n">Psapi</span><span class="p">)</span> <span class="n">Native</span><span class="p">.</span><span class="na">loadLibrary</span><span class="p">(</span><span class="s">"Psapi"</span><span class="p">,</span> <span class="n">Psapi</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<a href="#__codelineno-1-22" id="__codelineno-1-22" name="__codelineno-1-22"></a>        <span class="n">WinDef</span><span class="p">.</span><span class="na">DWORD</span> <span class="nf">GetModuleBaseNameW</span><span class="p">(</span><span class="n">HANDLE</span> <span class="n">hProcess</span><span class="p">,</span> <span class="n">HANDLE</span> <span class="n">hModule</span><span class="p">,</span> <span class="kt">char</span><span class="o">[]</span> <span class="n">lpBaseName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nSize</span><span class="p">);</span>
+<a href="#__codelineno-1-23" id="__codelineno-1-23" name="__codelineno-1-23"></a>    <span class="p">}</span>
+<a href="#__codelineno-1-24" id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="p">}</span>
+</code></pre></div>
+The documentation on the system calls used here can be found on the MSDN documentation (here, for example, the documentation for the <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getforegroundwindow"><code>GetForegroundWindow</code> function</a>).</p>
+<p>With this information it is now possible to wrap the code in a hot producer with:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CurrentlyRunningProcess</span> <span class="kd">implements</span> <span class="n">XesSource</span> <span class="p">{</span>
+<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">POLLING_DELAY</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// milliseconds between checks of the active window</span>
+<a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">XFactory</span> <span class="n">xesFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XFactoryNaiveImpl</span><span class="p">();</span>
+<a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a>
+<a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a>    <span class="kd">private</span> <span class="n">String</span> <span class="n">caseId</span><span class="p">;</span>
+<a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a>    <span class="kd">private</span> <span class="n">String</span> <span class="n">latestProcess</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a>    <span class="kd">private</span> <span class="n">Subject</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">ps</span><span class="p">;</span>
+<a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a>
+<a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a>    <span class="kd">public</span> <span class="nf">CurrentlyRunningProcess</span><span class="p">()</span> <span class="p">{</span>
+<a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a>        <span class="c1">// each run of the system will create one process instance, so the case id is fixed</span>
+<a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a>        <span class="k">this</span><span class="p">.</span><span class="na">caseId</span> <span class="o">=</span> <span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span>
+<a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a>        <span class="k">this</span><span class="p">.</span><span class="na">ps</span> <span class="o">=</span> <span class="n">PublishSubject</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
+<a href="#__codelineno-2-14" id="__codelineno-2-14" name="__codelineno-2-14"></a>    <span class="p">}</span>
+<a href="#__codelineno-2-15" id="__codelineno-2-15" name="__codelineno-2-15"></a>
+<a href="#__codelineno-2-16" id="__codelineno-2-16" name="__codelineno-2-16"></a>    <span class="nd">@Override</span>
+<a href="#__codelineno-2-17" id="__codelineno-2-17" name="__codelineno-2-17"></a>    <span class="kd">public</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="nf">getObservable</span><span class="p">()</span> <span class="p">{</span>
+<a href="#__codelineno-2-18" id="__codelineno-2-18" name="__codelineno-2-18"></a>        <span class="k">return</span> <span class="n">ps</span><span class="p">;</span>
+<a href="#__codelineno-2-19" id="__codelineno-2-19" name="__codelineno-2-19"></a>    <span class="p">}</span>
+<a href="#__codelineno-2-20" id="__codelineno-2-20" name="__codelineno-2-20"></a>
+<a href="#__codelineno-2-21" id="__codelineno-2-21" name="__codelineno-2-21"></a>    <span class="nd">@Override</span>
+<a href="#__codelineno-2-22" id="__codelineno-2-22" name="__codelineno-2-22"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+<a href="#__codelineno-2-23" id="__codelineno-2-23" name="__codelineno-2-23"></a>        <span class="k">new</span> <span class="n">Thread</span><span class="p">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+<a href="#__codelineno-2-24" id="__codelineno-2-24" name="__codelineno-2-24"></a>            <span class="nd">@Override</span>
+<a href="#__codelineno-2-25" id="__codelineno-2-25" name="__codelineno-2-25"></a>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+<a href="#__codelineno-2-26" id="__codelineno-2-26" name="__codelineno-2-26"></a>                <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+<a href="#__codelineno-2-27" id="__codelineno-2-27" name="__codelineno-2-27"></a>                    <span class="n">String</span> <span class="n">currentProcess</span> <span class="o">=</span> <span class="n">Informer</span><span class="p">.</span><span class="na">getWindowName</span><span class="p">();</span>
+<a href="#__codelineno-2-28" id="__codelineno-2-28" name="__codelineno-2-28"></a>                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">currentProcess</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">currentProcess</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">latestProcess</span><span class="p">))</span> <span class="p">{</span>
+<a href="#__codelineno-2-29" id="__codelineno-2-29" name="__codelineno-2-29"></a>                        <span class="n">latestProcess</span> <span class="o">=</span> <span class="n">currentProcess</span><span class="p">;</span>
+<a href="#__codelineno-2-30" id="__codelineno-2-30" name="__codelineno-2-30"></a>                        <span class="n">XEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createEvent</span><span class="p">();</span>
+<a href="#__codelineno-2-31" id="__codelineno-2-31" name="__codelineno-2-31"></a>                        <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">currentProcess</span><span class="p">);</span>
+<a href="#__codelineno-2-32" id="__codelineno-2-32" name="__codelineno-2-32"></a>                        <span class="n">XTimeExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignTimestamp</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="k">new</span> <span class="n">Date</span><span class="p">());</span>
+<a href="#__codelineno-2-33" id="__codelineno-2-33" name="__codelineno-2-33"></a>                        <span class="n">XTrace</span> <span class="n">eventWrapper</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createTrace</span><span class="p">();</span>
+<a href="#__codelineno-2-34" id="__codelineno-2-34" name="__codelineno-2-34"></a>                        <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">,</span> <span class="n">caseId</span><span class="p">);</span>
+<a href="#__codelineno-2-35" id="__codelineno-2-35" name="__codelineno-2-35"></a>                        <span class="n">eventWrapper</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+<a href="#__codelineno-2-36" id="__codelineno-2-36" name="__codelineno-2-36"></a>                        <span class="n">ps</span><span class="p">.</span><span class="na">onNext</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">);</span>
+<a href="#__codelineno-2-37" id="__codelineno-2-37" name="__codelineno-2-37"></a>                    <span class="p">}</span>
+<a href="#__codelineno-2-38" id="__codelineno-2-38" name="__codelineno-2-38"></a>
+<a href="#__codelineno-2-39" id="__codelineno-2-39" name="__codelineno-2-39"></a>                    <span class="k">try</span> <span class="p">{</span>
+<a href="#__codelineno-2-40" id="__codelineno-2-40" name="__codelineno-2-40"></a>                        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="n">POLLING_DELAY</span><span class="p">);</span>
+<a href="#__codelineno-2-41" id="__codelineno-2-41" name="__codelineno-2-41"></a>                    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<a href="#__codelineno-2-42" id="__codelineno-2-42" name="__codelineno-2-42"></a>                <span class="p">}</span>
+<a href="#__codelineno-2-43" id="__codelineno-2-43" name="__codelineno-2-43"></a>            <span class="p">}</span>
+<a href="#__codelineno-2-44" id="__codelineno-2-44" name="__codelineno-2-44"></a>        <span class="p">}).</span><span class="na">start</span><span class="p">();</span>
+<a href="#__codelineno-2-45" id="__codelineno-2-45" name="__codelineno-2-45"></a>    <span class="p">}</span>
+<a href="#__codelineno-2-46" id="__codelineno-2-46" name="__codelineno-2-46"></a><span class="p">}</span>
+</code></pre></div>
+The basic idea is to check every <code>POLLING_DELAY</code> milliseconds for the name of the window currently on focus and, if this has changed, then a new event is published.</p>
+<p>An example run of the application utilizing the <a href="../../implemented-techniques/discovery-trivial/">Trivial Miner</a> and the following code:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EnumerateWindows</span> <span class="p">{</span>
+<a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+<a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a>        <span class="n">TrivialDiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TrivialDiscoveryMiner</span><span class="p">();</span>
+<a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a>        <span class="n">miner</span><span class="p">.</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a>        <span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a>
+<a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a>        <span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+<a href="#__codelineno-3-8" id="__codelineno-3-8" name="__codelineno-3-8"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">()</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<a href="#__codelineno-3-9" id="__codelineno-3-9" name="__codelineno-3-9"></a>                <span class="k">try</span> <span class="p">{</span>
+<a href="#__codelineno-3-10" id="__codelineno-3-10" name="__codelineno-3-10"></a>                    <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"output.svg"</span><span class="p">);</span>
+<a href="#__codelineno-3-11" id="__codelineno-3-11" name="__codelineno-3-11"></a>                    <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">().</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+<a href="#__codelineno-3-12" id="__codelineno-3-12" name="__codelineno-3-12"></a>                <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<a href="#__codelineno-3-13" id="__codelineno-3-13" name="__codelineno-3-13"></a>            <span class="p">}</span>
+<a href="#__codelineno-3-14" id="__codelineno-3-14" name="__codelineno-3-14"></a>        <span class="p">});</span>
+<a href="#__codelineno-3-15" id="__codelineno-3-15" name="__codelineno-3-15"></a>
+<a href="#__codelineno-3-16" id="__codelineno-3-16" name="__codelineno-3-16"></a>        <span class="c1">// connects the miner to the actual source</span>
+<a href="#__codelineno-3-17" id="__codelineno-3-17" name="__codelineno-3-17"></a>        <span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CurrentlyRunningProcess</span><span class="p">();</span>
+<a href="#__codelineno-3-18" id="__codelineno-3-18" name="__codelineno-3-18"></a>        <span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
+<a href="#__codelineno-3-19" id="__codelineno-3-19" name="__codelineno-3-19"></a>        <span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">().</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+<a href="#__codelineno-3-20" id="__codelineno-3-20" name="__codelineno-3-20"></a>    <span class="p">}</span>
+<a href="#__codelineno-3-21" id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>Produces the following map:</p>
+<p><svg height="250px" id="svg146" inkscape:version="0.92.1 r15371" sodipodi:docname="output.svg" version="1.1" viewbox="0.00 0.00 596.00 250.00" width="596px" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
+<metadata id="metadata152">
+<rdf:rdf>
+<cc:work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+<dc:title></dc:title>
+</cc:work>
+</rdf:rdf>
+</metadata>
+<defs id="defs150"></defs>
+<sodipodi:namedview bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" id="namedview148" inkscape:current-layer="svg146" inkscape:cx="33.216561" inkscape:cy="125" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="480" inkscape:window-maximized="0" inkscape:window-width="863" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="0.52684564" objecttolerance="10" pagecolor="#ffffff" showgrid="false"></sodipodi:namedview>
+<g class="edge" id="ea72017f1-2831-4e79-a792-5220f4904b43" transform="translate(4,246)">
+<title id="title6">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;e554f3cc4-908c-4313-9138-46540f154eae</title>
+<path d="m 286,-218 c 0,0 90.232,5.737 157,30 10.431,3.791 21.16,9.007 30.987,14.391" id="path8" inkscape:connector-curvature="0" style="fill:none;stroke:#38393a;stroke-width:7.4000001"></path>
+<polygon id="polygon10" points="472.49,-170.737 475.645,-176.391 478.434,-171.128 " style="fill:#38393a;stroke:#38393a;stroke-width:7.4000001"></polygon>
+<text font-size="8.00" id="text12" style="font-size:8px;font-family:Arial;text-anchor:middle" x="472.5" y="-181.60001">0.80</text>
+</g>
+<g class="edge" id="e80a3e3a3-f48c-4bc3-b733-2aaa930f7fc0" transform="translate(4,246)">
+<title id="title15">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;eede49bad-0b23-4b49-8d28-34648634d0c3</title>
+<path d="m 286,-218 c 0,0 -139.009,7.391 -170,30 -21.8387,15.932 -34.8099,44.563 -41.8639,65.863" id="path17" inkscape:connector-curvature="0" style="fill:none;stroke:#737476;stroke-width:2.5999999"></path>
+<polygon id="polygon19" points="72.4027,-122.461 75.7375,-121.398 72.5521,-117.166 " style="fill:#737476;stroke:#737476;stroke-width:2.5999999"></polygon>
+<text font-size="8.00" id="text21" style="font-size:8px;font-family:Arial;text-anchor:middle" x="125.5" y="-181.60001">0.20</text>
+</g>
+<g class="edge" id="eee487632-feff-4da6-bcd7-d28682ab394b" transform="translate(4,246)">
+<title id="title24">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;efdf20eed-2c2f-45a4-86af-af1f79f891a8</title>
+<path d="m 286,-218 c 0,0 -80.871,2.526 -110,47 -20.568,31.402 -3.714,75.3561 11.323,103.2506" id="path26" inkscape:connector-curvature="0" style="fill:none;stroke:#4c4d4e;stroke-width:5.80000019"></path>
+<polygon id="polygon28" points="185.267,-66.2233 189.709,-68.6785 189.907,-63.075 " style="fill:#4c4d4e;stroke:#4c4d4e;stroke-width:5.80000019"></polygon>
+<text font-size="8.00" id="text30" style="font-size:8px;font-family:Arial;text-anchor:middle" x="185.5" y="-146.10001">0.60</text>
+</g>
+<g class="edge" id="e79d49535-33ec-49a8-8391-a2f40687c2f4" transform="translate(4,246)">
+<title id="title33">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;eebdb4049-6903-401e-9cfb-6ee5bda6c83f</title>
+<path d="m 286,-218 c 0,0 11.613,16.345 20,30 2.45,3.989 4.965,8.259 7.378,12.458" id="path35" inkscape:connector-curvature="0" style="fill:none;stroke:#737476;stroke-width:2.5999999"></path>
+<polygon id="polygon37" points="311.953,-174.509 314.994,-176.242 315.949,-171.031 " style="fill:#737476;stroke:#737476;stroke-width:2.5999999"></polygon>
+<text font-size="8.00" id="text39" style="font-size:8px;font-family:Arial;text-anchor:middle" x="321.5" y="-181.60001">0.20</text>
+</g>
+<g class="edge" id="eda023916-da78-4a5b-9109-1e2ae0589955" transform="translate(4,246)">
+<title id="title42">e554f3cc4-908c-4313-9138-46540f154eae-&gt;eb456e3c8-51a5-4759-9364-c896a2565ede</title>
+<path d="m 513,-149 c 0,0 -90.389,-27.475 -157.092,-47.75" id="path44" inkscape:connector-curvature="0" style="fill:none;stroke:#5f6062;stroke-width:4.19999981"></path>
+<polygon id="polygon46" points="356.064,-198.624 354.995,-195.107 350.745,-198.32 " style="fill:#5f6062;stroke:#5f6062;stroke-width:4.19999981"></polygon>
+<text font-size="8.00" id="text48" style="font-size:8px;font-family:Arial;text-anchor:middle" x="422.5" y="-181.60001">0.40</text>
+</g>
+<g class="edge" id="ee9196157-cc4a-442b-94d5-1ca6e18ef637" transform="translate(4,246)">
+<title id="title51">e554f3cc4-908c-4313-9138-46540f154eae-&gt;efdf20eed-2c2f-45a4-86af-af1f79f891a8</title>
+<path d="m 513,-147 c 0,0 -163.952,56.2426 -253.006,86.7917" id="path53" inkscape:connector-curvature="0" style="fill:none;stroke:#5f6062;stroke-width:4.19999981"></path>
+<polygon id="polygon55" points="259.158,-61.8643 260.351,-58.3881 255.025,-58.5037 " style="fill:#5f6062;stroke:#5f6062;stroke-width:4.19999981"></polygon>
+<text font-size="8.00" id="text57" style="font-size:8px;font-family:Arial;text-anchor:middle" x="430.5" y="-92.099998">0.40</text>
+</g>
+<g class="edge" id="ebd88b017-efd6-4efa-aa80-ebb7f046d479" transform="translate(4,246)">
+<title id="title60">eede49bad-0b23-4b49-8d28-34648634d0c3-&gt;ea5539af0-e3a3-4673-a580-73083feabfcd</title>
+<path d="m 67,-93 c 0,0 0,56.4521 0,78.6691" id="path62" inkscape:connector-curvature="0" style="fill:none;stroke:#c2b0ab;stroke-width:2;stroke-dasharray:5, 2"></path>
+<polygon id="polygon64" points="65.2501,-14.2598 68.7501,-14.2597 67,-9.25977 " style="fill:#c2b0ab;stroke:#c2b0ab;stroke-width:2"></polygon>
+</g>
+<g class="edge" id="e654aff95-6a1c-43ea-9d07-e0e143df0719" transform="translate(4,246)">
+<title id="title67">efdf20eed-2c2f-45a4-86af-af1f79f891a8-&gt;eb456e3c8-51a5-4759-9364-c896a2565ede</title>
+<path d="m 204,-41 c 0,0 -20.475,-80.145 9,-130 4.984,-8.43 12.14,-15.608 20.044,-21.627" id="path69" inkscape:connector-curvature="0" style="fill:none;stroke:#252526;stroke-width:9"></path>
+<polygon id="polygon71" points="235.76,-189.731 231.145,-196.112 237.504,-195.852 " style="fill:#252526;stroke:#252526;stroke-width:9"></polygon>
+<text font-size="8.00" id="text73" style="font-size:8px;font-family:Arial;text-anchor:middle" x="220" y="-146.10001">1.0</text>
+</g>
+<g class="edge" id="e916e694e-0291-44f7-9ffd-433d4651aebf" transform="translate(4,246)">
+<title id="title76">eebdb4049-6903-401e-9cfb-6ee5bda6c83f-&gt;eb456e3c8-51a5-4759-9364-c896a2565ede</title>
+<path d="m 328,-149 c 0,0 -33.658,-8.807 -45,-30 -1.893,-3.536 -2.752,-7.517 -2.955,-11.548" id="path78" inkscape:connector-curvature="0" style="fill:none;stroke:#737476;stroke-width:2.5999999"></path>
+<polygon id="polygon80" points="281.796,-190.63 278.297,-190.676 280.112,-195.652 " style="fill:#737476;stroke:#737476;stroke-width:2.5999999"></polygon>
+<text font-size="8.00" id="text82" style="font-size:8px;font-family:Arial;text-anchor:middle" x="292.5" y="-181.60001">0.20</text>
+</g>
+<g class="node" id="eb456e3c8-51a5-4759-9364-c896a2565ede" transform="translate(4,246)">
+<title id="title85">eb456e3c8-51a5-4759-9364-c896a2565ede</title>
+<path d="m 338.5,-242 c 0,0 -105,0 -105,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 105,0 105,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path87" inkscape:connector-curvature="0" style="fill:#0b4971;stroke:#000000"></path>
+<text font-size="22.00" id="text89" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="229.5" y="-221.39999">eclipse.exe</text>
+<text font-size="14.00" id="text91" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="338.5" y="-221.39999"></text>
+<text font-size="16.00" id="text93" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="274.5" y="-204.2">1.0</text>
+</g>
+<g class="node" id="e554f3cc4-908c-4313-9138-46540f154eae" transform="translate(4,246)">
+<title id="title96">e554f3cc4-908c-4313-9138-46540f154eae</title>
+<path d="m 576,-171 c 0,0 -126,0 -126,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 126,0 126,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path98" inkscape:connector-curvature="0" style="fill:#78a4be;stroke:#000000"></path>
+<text font-size="22.00" id="text100" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="446" y="-150.39999">Explorer.EXE</text>
+<text font-size="14.00" id="text102" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="576" y="-150.39999"></text>
+<text font-size="16.00" id="text104" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="497" y="-133.2">0.44</text>
+</g>
+<g class="node" id="eede49bad-0b23-4b49-8d28-34648634d0c3" transform="translate(4,246)">
+<title id="title107">eede49bad-0b23-4b49-8d28-34648634d0c3</title>
+<path d="m 122,-117 c 0,0 -110,0 -110,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 110,0 110,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path109" inkscape:connector-curvature="0" style="fill:#b9dbec;stroke:#000000"></path>
+<text font-size="22.00" id="text111" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="8" y="-96.400002">chrome.exe</text>
+<text font-size="14.00" id="text113" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="122" y="-96.400002"></text>
+<text font-size="16.00" id="text115" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="51" y="-79.199997">0.11</text>
+</g>
+<g class="node" id="efdf20eed-2c2f-45a4-86af-af1f79f891a8" transform="translate(4,246)">
+<title id="title118">efdf20eed-2c2f-45a4-86af-af1f79f891a8</title>
+<path d="m 243,-63 c 0,0 -78,0 -78,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 78,0 78,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path120" inkscape:connector-curvature="0" style="fill:#6292ae;stroke:#000000"></path>
+<text font-size="22.00" id="text122" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="161" y="-42.400002">cmd.exe</text>
+<text font-size="14.00" id="text124" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="243" y="-42.400002"></text>
+<text font-size="16.00" id="text126" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="188" y="-25.200001">0.56</text>
+</g>
+<g class="node" id="eebdb4049-6903-401e-9cfb-6ee5bda6c83f" transform="translate(4,246)">
+<title id="title129">eebdb4049-6903-401e-9cfb-6ee5bda6c83f</title>
+<path d="m 407.5,-171 c 0,0 -159,0 -159,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 159,0 159,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path131" inkscape:connector-curvature="0" style="fill:#b9dbec;stroke:#000000"></path>
+<text font-size="22.00" id="text133" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="244.5" y="-150.39999">sublime_text.exe</text>
+<text font-size="14.00" id="text135" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="407.5" y="-150.39999"></text>
+<text font-size="16.00" id="text137" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="312" y="-133.2">0.11</text>
+</g>
+<g class="node" id="ea5539af0-e3a3-4673-a580-73083feabfcd" transform="translate(4,246)">
+<title id="title140">ea5539af0-e3a3-4673-a580-73083feabfcd</title>
+<circle cx="67" cy="-4.5" id="ellipse142" r="4.5" style="fill:#d8bbb9;stroke:#614847"></circle>
+</g>
+</svg></p>
+<p>The complete code of this example is available in the GitHub repository <a href="https://github.com/beamline/examples">https://github.com/beamline/examples</a>.</p>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>It is important to emphasize that the active window might not really be the one that the user is currently using. For example, a user might be reading a webpage in a browser or a PDF document or another text document while having active another window. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Raw data as input (non-process mining ready)" class="md-footer__link md-footer__link--prev" href="../no-process-mining-as-input/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Raw data as input (non-process mining ready)
+            </div>
+</div>
+</a>
+<a aria-label="Next: MQTT-XES" class="md-footer__link md-footer__link--next" href="../../mqtt-xes/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              MQTT-XES
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022 Technical University of Denmark
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/beamline" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+<script src="../../assets/javascripts/bundle.5413a266.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js"></script>
+</body>
+</html>
