@@ -7,7 +7,7 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <link href="../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.2.3, mkdocs-material-8.2.4" name="generator"/>
-<title>DCR Miner - Beamline Framework</title>
+<title>Discovery dcr - Beamline Framework</title>
 <link href="../../assets/stylesheets/main.2d9f7617.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.e6a45f82.min.css" rel="stylesheet"/>
 <meta content="" name="theme-color"/>
@@ -45,7 +45,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              DCR Miner
+              Discovery dcr
             
           </span>
 </div>
@@ -106,7 +106,7 @@
     </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link md-tabs__link--active" href="../">
+<a class="md-tabs__link" href="../">
         Implemented techniques
       </a>
 </li>
@@ -163,8 +163,8 @@
         Getting started
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
 <label class="md-nav__link" for="__nav_3">
           Implemented techniques
           <span class="md-nav__icon md-icon"></span>
@@ -180,8 +180,8 @@
         Introduction
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
 <label class="md-nav__link" for="__nav_3_2">
           Control-flow discovery
           <span class="md-nav__icon md-icon"></span>
@@ -206,39 +206,6 @@
 <a class="md-nav__link" href="../discovery-declare/">
         Declare Miner
       </a>
-</li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-          DCR Miner
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./">
-        DCR Miner
-      </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#dependency">
-    Dependency
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#usage">
-    Usage
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#scientific-literature">
-    Scientific literature
-  </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -313,6 +280,11 @@
         Monitoring active windows (for Windows systems)
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/speech-recognition/">
+        Speech recognition
+      </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -336,7 +308,7 @@
 <a class="md-content__button md-icon" href="https://github.com/beamline/framework/edit/master/docs/implemented-techniques/discovery-dcr.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>DCR Miner</h1>
+<h1>Discovery dcr</h1>
 <h2 id="dependency">Dependency <a href="https://jitpack.io/#beamline/discovery-dcr"><img alt="" src="https://jitpack.io/v/beamline/discovery-dcr.svg"/></a></h2>
 <p>To use these algorithms in your Java Maven project it is necessary to include, in the <code>pom.xml</code> file, the dependency:
 <div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
@@ -405,7 +377,8 @@ See the <a href="../">introduction page</a> for further instructions.</p>
 <a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="p">});</span>
 </code></pre></div></p>
 <p>An example of the output produced is:</p>
-<p><svg height="324.94119" id="svg332" inkscape:version="0.92.1 r15371" sodipodi:docname="out.svg" version="1.1" viewbox="0 0 213.88954 324.94119" width="213.85083" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
+<figure>
+<svg height="324.94119" id="svg332" inkscape:version="0.92.1 r15371" sodipodi:docname="out.svg" version="1.1" viewbox="0 0 213.88954 324.94119" width="213.85083" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
 <metadata id="metadata338">
 <rdf:rdf>
 <cc:work rdf:about="">
@@ -467,7 +440,8 @@ See the <a href="../">introduction page</a> for further instructions.</p>
 <path d="m 137.78228,256.93486 c 0.607,8.35 0.622,17.91 0.047,26.323" id="path281" inkscape:connector-curvature="0" style="fill:none;stroke:#2993fc"></path>
 <circle cx="137.58926" cy="254.72685" id="ellipse283" r="2" style="fill:#2993fc;stroke:#2993fc"></circle>
 <polygon id="polygon285" points="143.066,-256.936 140.895,-252.104 139.579,-257.236 " style="fill:#2993fc;stroke:#2993fc" transform="translate(-3.5007241,540.43086)"></polygon>
-</svg></p>
+</svg>
+</figure>
 <h2 id="scientific-literature">Scientific literature</h2>
 <p>The techniques implemented in this package are described in:</p>
 <ul>
@@ -478,34 +452,6 @@ See the <a href="../">introduction page</a> for further instructions.</p>
 </div>
 </main>
 <footer class="md-footer">
-<nav aria-label="Footer" class="md-footer__inner md-grid">
-<a aria-label="Previous: Declare Miner" class="md-footer__link md-footer__link--prev" href="../discovery-declare/" rel="prev">
-<div class="md-footer__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</div>
-<div class="md-footer__title">
-<div class="md-ellipsis">
-<span class="md-footer__direction">
-                Previous
-              </span>
-              Declare Miner
-            </div>
-</div>
-</a>
-<a aria-label="Next: Behavioural Patterns" class="md-footer__link md-footer__link--next" href="../conformance-behavioural-patterns/" rel="next">
-<div class="md-footer__title">
-<div class="md-ellipsis">
-<span class="md-footer__direction">
-                Next
-              </span>
-              Behavioural Patterns
-            </div>
-</div>
-<div class="md-footer__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
-</div>
-</a>
-</nav>
 <div class="md-footer-meta md-typeset">
 <div class="md-footer-meta__inner md-grid">
 <div class="md-copyright">

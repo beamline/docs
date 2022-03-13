@@ -1,0 +1,572 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.2.3, mkdocs-material-8.2.4" name="generator"/>
+<title>Speech recognition - Beamline Framework</title>
+<link href="../../assets/stylesheets/main.2d9f7617.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.e6a45f82.min.css" rel="stylesheet"/>
+<meta content="" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="default" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Beamline Framework" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Beamline Framework
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Speech recognition
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Home
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/">
+      Getting started
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../implemented-techniques/">
+        Implemented techniques
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../">
+        Examples
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../mqtt-xes/">
+      MQTT-XES
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../about/">
+      About
+    </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Beamline Framework" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+    Beamline Framework
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/">
+        Getting started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Implemented techniques
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Implemented techniques" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Implemented techniques
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          Control-flow discovery
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Control-flow discovery" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Control-flow discovery
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-trivial/">
+        Trivial Miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-heuristics-miner/">
+        Heuristics Miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-declare/">
+        Declare Miner
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3">
+          Conformance checking
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Conformance checking" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Conformance checking
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/conformance-behavioural-patterns/">
+        Behavioural Patterns
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4">
+          Simulation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Simulation" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+          Simulation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/simulation-plg/">
+        Simulation with PLG
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Examples" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../no-process-mining-as-input/">
+        Raw data as input (non-process mining ready)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../monitoring-windows/">
+        Monitoring active windows (for Windows systems)
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Speech recognition
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../mqtt-xes/">
+        MQTT-XES
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../about/">
+        About
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/beamline/framework/edit/master/docs/examples/speech-recognition.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1>Speech recognition</h1>
+<p>In this example, we are going to explore a possible usage of streaming process mining in the context of speech recognition: each word a person is saying can be recognized as an activity and the sentences these words belong to can be the process instances. Every time a person waits a considerable amount of time between words, we can assume a new sentence is being said and thus a new case should be generated.</p>
+<p>To accomplish our goal we need to define a new <code>XesStream</code> which can listen to the microphone, perform the speech recognition, and generate corresponding events. For the speech recognition we are going to use the <a href="https://alphacephei.com/vosk/">Vosk speech recognition toolkit</a>. We also going to use the <a href="https://alphacephei.com/vosk/models"><code>vosk-model-small-en-us-0.15</code> model</a> which is available on the library website.</p>
+<p>First we need to setup the Maven dependencies by setting them in the <code>pom.xml</code> file:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>   <span class="nt">&lt;groupId&gt;</span>com.alphacephei<span class="nt">&lt;/groupId&gt;</span>
+<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a>   <span class="nt">&lt;artifactId&gt;</span>vosk<span class="nt">&lt;/artifactId&gt;</span>
+<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>   <span class="nt">&lt;version&gt;</span>0.3.33<span class="nt">&lt;/version&gt;</span>
+<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nt">&lt;/dependency&gt;</span>
+<a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="nt">&lt;dependency&gt;</span>
+<a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>   <span class="nt">&lt;groupId&gt;</span>org.json<span class="nt">&lt;/groupId&gt;</span>
+<a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a>   <span class="nt">&lt;artifactId&gt;</span>json<span class="nt">&lt;/artifactId&gt;</span>
+<a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a>   <span class="nt">&lt;version&gt;</span>20211205<span class="nt">&lt;/version&gt;</span>
+<a href="#__codelineno-0-10" id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></p>
+<p>Then, once the model folder is properly set, we can configure the source <code>SpeechRecognizerSource</code>. The main idea is to construct a new thread which remains listening for speech and translates it to a string. this has to be inserted into a (potentially never-ending) loop. Within the loop, we can extract the array of all words said until now with:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1">// getPartialResult returns a json object that we convert into its only string object</span>
+<a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">String</span> <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="n">String</span><span class="p">)</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="p">(</span><span class="n">recognizer</span><span class="p">.</span><span class="na">getPartialResult</span><span class="p">()).</span><span class="na">get</span><span class="p">(</span><span class="s">"partial"</span><span class="p">);</span>
+<a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">if</span> <span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+<a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>   <span class="c1">// if the text is empty we can skip this round</span>
+<a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>   <span class="k">continue</span><span class="p">;</span>
+<a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="p">}</span>
+<a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1">// split the sentence into the individual words</span>
+<a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="n">String</span><span class="o">[]</span> <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="na">split</span><span class="p">(</span><span class="s">" "</span><span class="p">);</span>
+</code></pre></div>
+<p>After the new words being said are identified (code not reported here), it is possible to construct the event with:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// processing new case ids</span>
+<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">if</span> <span class="p">(</span><span class="n">lastWordMillisecs</span> <span class="o">+</span> <span class="n">MILLISECS_FOR_NEW_CASE</span> <span class="o">&lt;</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">())</span> <span class="p">{</span>
+<a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a>   <span class="n">caseId</span><span class="o">++</span><span class="p">;</span>
+<a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="p">}</span>
+<a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="n">lastWordMillisecs</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+<a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a href="#__codelineno-2-7" id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1">// prepare the actual event</span>
+<a href="#__codelineno-2-8" id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="n">XEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createEvent</span><span class="p">();</span>
+<a href="#__codelineno-2-9" id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">word</span><span class="p">);</span>
+<a href="#__codelineno-2-10" id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="n">XTimeExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignTimestamp</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="k">new</span> <span class="n">Date</span><span class="p">());</span>
+<a href="#__codelineno-2-11" id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="n">XTrace</span> <span class="n">eventWrapper</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createTrace</span><span class="p">();</span>
+<a href="#__codelineno-2-12" id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">,</span> <span class="s">"case-"</span> <span class="o">+</span> <span class="n">caseId</span><span class="p">);</span>
+<a href="#__codelineno-2-13" id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="n">eventWrapper</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+<a href="#__codelineno-2-14" id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="n">ps</span><span class="p">.</span><span class="na">onNext</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">);</span>
+</code></pre></div></p>
+<p>Where <code>ps</code> is a subject created with :
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">Subject</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">PublishSubject</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
+</code></pre></div>
+and <code>MILLISECS_FOR_NEW_CASE</code> is a <code>long</code> indicating how many milliseconds separate each sentence (and hence creates a new case identifier).</p>
+<p>A simple consumer, in this case the <a href="../../implemented-techniques/discovery-trivial/">Trivial discovery miner</a>, can then be attached to the source with:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">TrivialDiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TrivialDiscoveryMiner</span><span class="p">();</span>
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a href="#__codelineno-4-5" id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1">// in the following statement we set a hook to save the map every 1000 events processed</span>
+<a href="#__codelineno-4-6" id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+<a href="#__codelineno-4-7" id="__codelineno-4-7" name="__codelineno-4-7"></a>   <span class="k">if</span> <span class="p">(</span><span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">()</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<a href="#__codelineno-4-8" id="__codelineno-4-8" name="__codelineno-4-8"></a>      <span class="k">try</span> <span class="p">{</span>
+<a href="#__codelineno-4-9" id="__codelineno-4-9" name="__codelineno-4-9"></a>         <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"src/main/resources/output/output.svg"</span><span class="p">);</span>
+<a href="#__codelineno-4-10" id="__codelineno-4-10" name="__codelineno-4-10"></a>         <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">().</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+<a href="#__codelineno-4-11" id="__codelineno-4-11" name="__codelineno-4-11"></a>      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<a href="#__codelineno-4-12" id="__codelineno-4-12" name="__codelineno-4-12"></a>   <span class="p">}</span>
+<a href="#__codelineno-4-13" id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="p">});</span>
+<a href="#__codelineno-4-14" id="__codelineno-4-14" name="__codelineno-4-14"></a>
+<a href="#__codelineno-4-15" id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="c1">// connects the miner to the actual source</span>
+<a href="#__codelineno-4-16" id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpeechRecognizerSource</span><span class="p">();</span>
+<a href="#__codelineno-4-17" id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
+<a href="#__codelineno-4-18" id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">().</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+</code></pre></div></p>
+<p>In the following example, I tested the system saying two sentences: </p>
+<ul>
+<li><em>"hello my name is peter"</em></li>
+<li><em>"good morning my name is bob"</em></li>
+</ul>
+<p>The result of the processing is shown below:</p>
+<figure>
+<svg height="390px" id="svg176" inkscape:version="0.92.1 r15371" sodipodi:docname="output.svg" version="1.1" viewbox="0.00 0.00 266.00 390.00" width="266px" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
+<metadata id="metadata182">
+<rdf:rdf>
+<cc:work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+<dc:title></dc:title>
+</cc:work>
+</rdf:rdf>
+</metadata>
+<defs id="defs180"></defs>
+<sodipodi:namedview bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" id="namedview178" inkscape:current-layer="svg176" inkscape:cx="16.097986" inkscape:cy="205.43612" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="1147" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="1912" inkscape:window-y="-8" inkscape:zoom="1.711561" objecttolerance="10" pagecolor="#ffffff" showgrid="false"></sodipodi:namedview>
+<g class="edge" id="eb2e4d85d-eae2-4ccf-a5f4-ad7c010370ff" transform="translate(4,386)">
+<title id="title6">ed02a384a-6632-421f-a0d3-f285208ad433-&gt;ed5e65ef0-3332-49ef-a154-dcc56b4bb259</title>
+<path d="m 86,-48 c 0,0 36.999,25.7781 53.367,37.1818" id="path8" inkscape:connector-curvature="0" style="fill:none;stroke:#c2b0ab;stroke-width:2;stroke-dasharray:5, 2"></path>
+<polygon id="polygon10" points="138.617,-9.20743 140.618,-12.0792 143.72,-7.78498 " style="fill:#c2b0ab;stroke:#c2b0ab;stroke-width:2"></polygon>
+</g>
+<g class="edge" id="e7d9f6164-e823-4e02-ae8d-6826267f9391" transform="translate(4,386)">
+<title id="title13">e42f106f3-0f3a-4c6d-badb-a136c2804361-&gt;ed5e65ef0-3332-49ef-a154-dcc56b4bb259</title>
+<path d="m 190,-48 c 0,0 -24.282,23.9997 -36.352,35.9293" id="path15" inkscape:connector-curvature="0" style="fill:none;stroke:#c2b0ab;stroke-width:2;stroke-dasharray:5, 2"></path>
+<polygon id="polygon17" points="152.147,-13.048 154.608,-10.5587 149.821,-8.28854 " style="fill:#c2b0ab;stroke:#c2b0ab;stroke-width:2"></polygon>
+</g>
+<g class="edge" id="ec9a00112-afc7-40dc-bed4-aa76274d4e54" transform="translate(4,386)">
+<title id="title20">e87219b72-6a16-4a85-95d7-9490a133978d-&gt;eb23e774d-b7bb-4a99-9442-5dd0552282dc</title>
+<path d="m 77,-332 c 0,0 15.0038,23.006 27.684,42.449" id="path22" inkscape:connector-curvature="0" style="fill:none;stroke:#565758;stroke-width:5"></path>
+<polygon id="polygon24" points="102.95,-288.205 106.615,-290.595 107.514,-285.212 " style="fill:#565758;stroke:#565758;stroke-width:5"></polygon>
+<text font-size="8.00" id="text26" style="font-size:8px;font-family:Arial;text-anchor:middle" x="112.5" y="-295.60001">0.50</text>
+</g>
+<g class="edge" id="e7df3cdae-88a6-4124-9bcb-20b3f1b8d328" transform="translate(4,386)">
+<title id="title29">ed2c17168-7e10-4975-a1f3-58afe71e03e1-&gt;e1f5b79b5-767d-45c9-a8ff-8e0a7d51e778</title>
+<path d="m 122,-190 c 0,0 0,22.239 0,41.466" id="path31" inkscape:connector-curvature="0" style="fill:none;stroke:#252526;stroke-width:9"></path>
+<polygon id="polygon33" points="118.063,-148.212 125.938,-148.212 122,-143.212 " style="fill:#252526;stroke:#252526;stroke-width:9"></polygon>
+<text font-size="8.00" id="text35" style="font-size:8px;font-family:Arial;text-anchor:middle" x="129" y="-153.60001">1.0</text>
+</g>
+<g class="edge" id="e82a77ed6-6666-4483-b44c-c60b91c15357" transform="translate(4,386)">
+<title id="title38">e1f5b79b5-767d-45c9-a8ff-8e0a7d51e778-&gt;ed02a384a-6632-421f-a0d3-f285208ad433</title>
+<path d="m 122,-119 c 0,0 -11.802,22.6208 -21.891,41.9583" id="path40" inkscape:connector-curvature="0" style="fill:none;stroke:#565758;stroke-width:5"></path>
+<polygon id="polygon42" points="97.9623,-77.6567 101.841,-75.6329 97.5888,-72.2118 " style="fill:#565758;stroke:#565758;stroke-width:5"></polygon>
+<text font-size="8.00" id="text44" style="font-size:8px;font-family:Arial;text-anchor:middle" x="116.5" y="-82.599998">0.50</text>
+</g>
+<g class="edge" id="e4c8beef1-d95f-44b3-8508-59e7f75a99b8" transform="translate(4,386)">
+<title id="title47">e1f5b79b5-767d-45c9-a8ff-8e0a7d51e778-&gt;e42f106f3-0f3a-4c6d-badb-a136c2804361</title>
+<path d="m 122,-119 c 0,0 23.055,23.3941 42.316,42.9386" id="path49" inkscape:connector-curvature="0" style="fill:none;stroke:#565758;stroke-width:5"></path>
+<polygon id="polygon51" points="163.042,-74.2376 166.158,-77.3086 168.11,-72.2118 " style="fill:#565758;stroke:#565758;stroke-width:5"></polygon>
+<text font-size="8.00" id="text53" style="font-size:8px;font-family:Arial;text-anchor:middle" x="169.5" y="-82.599998">0.50</text>
+</g>
+<g class="edge" id="e5de15572-12e2-445d-bf59-99796c2ea2a5" transform="translate(4,386)">
+<title id="title56">e4be75482-4189-4b15-adbf-06192a8ed49e-&gt;eb23e774d-b7bb-4a99-9442-5dd0552282dc</title>
+<path d="m 215,-332 c 0,0 -32.528,24.134 -59.109,43.855" id="path58" inkscape:connector-curvature="0" style="fill:none;stroke:#565758;stroke-width:5"></path>
+<polygon id="polygon60" points="154.394,-289.758 157,-286.244 151.681,-285.022 " style="fill:#565758;stroke:#565758;stroke-width:5"></polygon>
+<text font-size="8.00" id="text62" style="font-size:8px;font-family:Arial;text-anchor:middle" x="183.5" y="-295.60001">0.50</text>
+</g>
+<g class="edge" id="e8500b8f4-f263-4d79-a082-d97aba791c12" transform="translate(4,386)">
+<title id="title65">eb23e774d-b7bb-4a99-9442-5dd0552282dc-&gt;ed2c17168-7e10-4975-a1f3-58afe71e03e1</title>
+<path d="m 122,-261 c 0,0 0,22.239 0,41.466" id="path67" inkscape:connector-curvature="0" style="fill:none;stroke:#252526;stroke-width:9"></path>
+<polygon id="polygon69" points="118.063,-219.212 125.938,-219.212 122,-214.212 " style="fill:#252526;stroke:#252526;stroke-width:9"></polygon>
+<text font-size="8.00" id="text71" style="font-size:8px;font-family:Arial;text-anchor:middle" x="129" y="-224.60001">1.0</text>
+</g>
+<g class="edge" id="ee3beae3e-4e15-43e0-b0a8-675bc5ddd9d0" transform="translate(4,386)">
+<title id="title74">ecd6fc671-2941-4097-ab2b-bd3bbae4bef0-&gt;e87219b72-6a16-4a85-95d7-9490a133978d</title>
+<path d="m 159,-376.5 c 0,0 -16.35,8.474 -34.449,17.854" id="path76" inkscape:connector-curvature="0" style="fill:none;stroke:#acb89c;stroke-width:2;stroke-dasharray:5, 2"></path>
+<polygon id="polygon78" points="123.555,-360.1 125.166,-356.993 119.921,-356.246 " style="fill:#acb89c;stroke:#acb89c;stroke-width:2"></polygon>
+</g>
+<g class="edge" id="e0184621f-c9f0-476d-be50-0909dd6b814d" transform="translate(4,386)">
+<title id="title81">ecd6fc671-2941-4097-ab2b-bd3bbae4bef0-&gt;e4be75482-4189-4b15-adbf-06192a8ed49e</title>
+<path d="m 159,-376.5 c 0,0 10.605,8.049 22.586,17.141" id="path83" inkscape:connector-curvature="0" style="fill:none;stroke:#acb89c;stroke-width:2;stroke-dasharray:5, 2"></path>
+<polygon id="polygon85" points="180.647,-357.875 182.763,-360.663 185.688,-356.246 " style="fill:#acb89c;stroke:#acb89c;stroke-width:2"></polygon>
+</g>
+<g class="node" id="ed02a384a-6632-421f-a0d3-f285208ad433" transform="translate(4,386)">
+<title id="title88">ed02a384a-6632-421f-a0d3-f285208ad433</title>
+<path d="m 117,-72 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path90" inkscape:connector-curvature="0" style="fill:#6d9bb6;stroke:#000000"></path>
+<text font-size="22.00" id="text92" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="65.5" y="-51.400002">bob</text>
+<text font-size="14.00" id="text94" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="102.5" y="-51.400002"></text>
+<text font-size="16.00" id="text96" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="70" y="-34.200001">0.50</text>
+</g>
+<g class="node" id="e42f106f3-0f3a-4c6d-badb-a136c2804361" transform="translate(4,386)">
+<title id="title99">e42f106f3-0f3a-4c6d-badb-a136c2804361</title>
+<path d="m 221,-72 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path101" inkscape:connector-curvature="0" style="fill:#6d9bb6;stroke:#000000"></path>
+<text font-size="22.00" id="text103" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="163" y="-51.400002">peter</text>
+<text font-size="14.00" id="text105" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="213" y="-51.400002"></text>
+<text font-size="16.00" id="text107" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="174" y="-34.200001">0.50</text>
+</g>
+<g class="node" id="e87219b72-6a16-4a85-95d7-9490a133978d" transform="translate(4,386)">
+<title id="title110">e87219b72-6a16-4a85-95d7-9490a133978d</title>
+<path d="m 142,-356 c 0,0 -130,0 -130,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 130,0 130,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path112" inkscape:connector-curvature="0" style="fill:#6d9bb6;stroke:#000000"></path>
+<text font-size="22.00" id="text114" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="8" y="-335.39999">good morning</text>
+<text font-size="14.00" id="text116" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="142" y="-335.39999"></text>
+<text font-size="16.00" id="text118" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="61" y="-318.20001">0.50</text>
+</g>
+<g class="node" id="ed2c17168-7e10-4975-a1f3-58afe71e03e1" transform="translate(4,386)">
+<title id="title121">ed2c17168-7e10-4975-a1f3-58afe71e03e1</title>
+<path d="m 153,-214 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path123" inkscape:connector-curvature="0" style="fill:#0b4971;stroke:#000000"></path>
+<text font-size="22.00" id="text125" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="92.5" y="-193.39999">name</text>
+<text font-size="14.00" id="text127" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="147.5" y="-193.39999"></text>
+<text font-size="16.00" id="text129" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="110.5" y="-176.2">1.0</text>
+</g>
+<g class="node" id="e1f5b79b5-767d-45c9-a8ff-8e0a7d51e778" transform="translate(4,386)">
+<title id="title132">e1f5b79b5-767d-45c9-a8ff-8e0a7d51e778</title>
+<path d="m 153,-143 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path134" inkscape:connector-curvature="0" style="fill:#0b4971;stroke:#000000"></path>
+<text font-size="22.00" id="text136" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="111.5" y="-122.4">is</text>
+<text font-size="14.00" id="text138" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="128.5" y="-122.4"></text>
+<text font-size="16.00" id="text140" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="110.5" y="-105.2">1.0</text>
+</g>
+<g class="node" id="e4be75482-4189-4b15-adbf-06192a8ed49e" transform="translate(4,386)">
+<title id="title143">e4be75482-4189-4b15-adbf-06192a8ed49e</title>
+<path d="m 246,-356 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path145" inkscape:connector-curvature="0" style="fill:#6d9bb6;stroke:#000000"></path>
+<text font-size="22.00" id="text147" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="189.5" y="-335.39999">hello</text>
+<text font-size="14.00" id="text149" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="236.5" y="-335.39999"></text>
+<text font-size="16.00" id="text151" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="199" y="-318.20001">0.50</text>
+</g>
+<g class="node" id="eb23e774d-b7bb-4a99-9442-5dd0552282dc" transform="translate(4,386)">
+<title id="title154">eb23e774d-b7bb-4a99-9442-5dd0552282dc</title>
+<path d="m 153,-285 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path156" inkscape:connector-curvature="0" style="fill:#0b4971;stroke:#000000"></path>
+<text font-size="22.00" id="text158" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="105.5" y="-264.39999">my</text>
+<text font-size="14.00" id="text160" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="134.5" y="-264.39999"></text>
+<text font-size="16.00" id="text162" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="110.5" y="-247.2">1.0</text>
+</g>
+<g class="node" id="ecd6fc671-2941-4097-ab2b-bd3bbae4bef0" transform="translate(4,386)">
+<title id="title165">ecd6fc671-2941-4097-ab2b-bd3bbae4bef0</title>
+<circle cx="159" cy="-377.5" id="ellipse167" r="4.5" style="fill:#ced6bd;stroke:#595f45"></circle>
+</g>
+<g class="node" id="ed5e65ef0-3332-49ef-a154-dcc56b4bb259" transform="translate(4,386)">
+<title id="title170">ed5e65ef0-3332-49ef-a154-dcc56b4bb259</title>
+<circle cx="147" cy="-4.5" id="ellipse172" r="4.5" style="fill:#d8bbb9;stroke:#614847"></circle>
+</g>
+</svg>
+</figure>
+<p>The two sentences are recognized properly. It is worth noticing that on the second sentence the first 2 words (<em>good morning</em>) have been recognized together, probably because I've said them very quickly, one next to the other.</p>
+<p>The complete code of this example is available in the GitHub repository <a href="https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/speechRecognition">https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/speechRecognition</a>.</p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Monitoring active windows (for Windows systems)" class="md-footer__link md-footer__link--prev" href="../monitoring-windows/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Monitoring active windows (for Windows systems)
+            </div>
+</div>
+</a>
+<a aria-label="Next: MQTT-XES" class="md-footer__link md-footer__link--next" href="../../mqtt-xes/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              MQTT-XES
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022 Technical University of Denmark
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/beamline" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+<script src="../../assets/javascripts/bundle.5413a266.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js"></script>
+</body>
+</html>
