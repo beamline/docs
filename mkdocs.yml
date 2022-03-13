@@ -9,7 +9,7 @@ nav:
       - Trivial Miner: implemented-techniques/discovery-trivial.md
       - Heuristics Miner: implemented-techniques/discovery-heuristics-miner.md
       - Declare Miner: implemented-techniques/discovery-declare.md
-      - DCR Miner: implemented-techniques/discovery-dcr.md
+      # - DCR Miner: implemented-techniques/discovery-dcr.md
     - Conformance checking:
       - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
     - Simulation:
@@ -18,6 +18,7 @@ nav:
       - Introduction: examples/index.md
       - Raw data as input (non-process mining ready): examples/no-process-mining-as-input.md
       - Monitoring active windows (for Windows systems): examples/monitoring-windows.md
+      - Speech recognition: examples/speech-recognition.md
   - MQTT-XES: mqtt-xes.md
   - About: about.md
 

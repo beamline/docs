@@ -61,7 +61,7 @@ miner.setOnAfterEvent(() -> {
 ```
 
 An example of the output produced is:
-
+<figure>
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -385,7 +385,7 @@ An example of the output produced is:
      style="fill:#2993fc;stroke:#2993fc"
      transform="translate(-3.5007241,540.43086)" />
 </svg>
-
+</figure>
 
 
 

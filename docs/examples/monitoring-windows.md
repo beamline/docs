@@ -123,7 +123,7 @@ public class EnumerateWindows {
 ```
 
 Produces the following map:
-
+<figure>
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -529,7 +529,8 @@ Produces the following map:
        cx="67" />
   </g>
 </svg>
+</figure>
 
-The complete code of this example is available in the GitHub repository <https://github.com/beamline/examples>.
+The complete code of this example is available in the GitHub repository <https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/windowsWindowMonitor>.
 
 

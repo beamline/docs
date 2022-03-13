@@ -56,7 +56,7 @@ streamOfXTraces
 ```
 
 In this case, we configured the miner to consume all events and, once the stream is completed (in this case we do know that the stream will terminate) we dump the result of the miner into a file `output.svg` which will contain the following model:
-
+<figure>
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -297,5 +297,6 @@ In this case, we configured the miner to consume all events and, once the stream
        cx="43" />
   </g>
 </svg>
+</figure>
 
-The complete code of this example is available in the GitHub repository <https://github.com/beamline/examples>.
+The complete code of this example is available in the GitHub repository <https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/rawData>.

@@ -36,6 +36,7 @@ graph LR
 
 !!! note "TPN file format"
     A TPN file is just a text file where a Petri net is specified as the example below:
+    <figure>
     <svg width="422pt" height="60pt"
      viewBox="0.00 0.00 422.00 60.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 56)">
@@ -157,6 +158,7 @@ graph LR
     </g>
     </g>
     </svg>
+    </figure>
 
     ```
     place "place_0";
