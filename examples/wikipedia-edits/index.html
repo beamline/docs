@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.2.3, mkdocs-material-8.1.2" name="generator"/>
+<title>Wikipedia edits - Beamline Framework</title>
+<link href="../../assets/stylesheets/main.f7951f6f.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.e6a45f82.min.css" rel="stylesheet"/>
+<meta content="" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="" data-md-color-primary="default" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Beamline Framework" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Beamline Framework
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Wikipedia edits
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+      Home
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/">
+      Getting started
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../implemented-techniques/">
+        Implemented techniques
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../">
+        Examples
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../mqtt-xes/">
+      MQTT-XES
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../about/">
+      About
+    </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Beamline Framework" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+    Beamline Framework
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/">
+        Getting started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Implemented techniques
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Implemented techniques" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Implemented techniques
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          Control-flow discovery
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Control-flow discovery" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Control-flow discovery
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-trivial/">
+        Trivial Miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-heuristics-miner/">
+        Heuristics Miner
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-declare/">
+        Declare Miner
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3">
+          Conformance checking
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Conformance checking" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Conformance checking
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/conformance-behavioural-patterns/">
+        Behavioural Patterns
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4">
+          Simulation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Simulation" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+          Simulation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/simulation-plg/">
+        Simulation with PLG
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Examples" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../no-process-mining-as-input/">
+        Raw data as input (non-process mining ready)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../monitoring-windows/">
+        Monitoring active windows (for Windows systems)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../speech-recognition/">
+        Speech recognition
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Wikipedia edits
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../mqtt-xes/">
+        MQTT-XES
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../about/">
+        About
+      </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/beamline/framework/edit/master/docs/examples/wikipedia-edits.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1>Wikipedia edits</h1>
+<p>All edits actions happening on Wikipedia are recorded and available as a stream of data (see <a href="https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams">https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams</a> for further details). A possible way of process mine the stream of edits happening is by considering the page being edited as the instance of the editing process and the edit "action" as the actual activity name.</p>
+<p>To achieve this goal we can write a new <code>XesSource</code> that consumes the stream of edits and produces a stream of <code>XTrace</code>s that can then be forwarded to one of the miners. So we can first define our source as well as the set of websites we want to filter (in this case we will focus on edits happening on the English version of Wikipedia, i.e., <code>enwiki</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">Subject</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">PublishSubject</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">processesToStream</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"enwiki"</span><span class="p">);</span>
+</code></pre></div>
+<p>After then we can write the code to transform the JSON produced by the Wikipedia stream into a stream of <code>XTrace</code>s. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="p">.</span><span class="na">newClient</span><span class="p">();</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">WebTarget</span> <span class="n">target</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="na">target</span><span class="p">(</span><span class="s">"https://stream.wikimedia.org/v2/stream/recentchange"</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">SseEventSource</span> <span class="n">source</span> <span class="o">=</span> <span class="n">SseEventSource</span><span class="p">.</span><span class="na">target</span><span class="p">(</span><span class="n">target</span><span class="p">).</span><span class="na">reconnectingEvery</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">source</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="k">new</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">InboundSseEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>    <span class="nd">@Override</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="n">InboundSseEvent</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>        <span class="n">String</span> <span class="n">data</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="na">readData</span><span class="p">();</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>            <span class="n">JSONObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>            <span class="n">String</span> <span class="n">processName</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"wiki"</span><span class="p">);</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>            <span class="n">String</span> <span class="n">caseId</span> <span class="o">=</span> <span class="n">DigestUtils</span><span class="p">.</span><span class="na">md5Hex</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"title"</span><span class="p">));</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>            <span class="n">String</span> <span class="n">activityName</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"type"</span><span class="p">);</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">processesToStream</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">processName</span><span class="p">))</span> <span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>                <span class="c1">// prepare the actual event</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>                <span class="n">XEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createEvent</span><span class="p">();</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>                <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">activityName</span><span class="p">);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a>                <span class="n">XTimeExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignTimestamp</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="k">new</span> <span class="n">Date</span><span class="p">());</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>                <span class="n">XTrace</span> <span class="n">eventWrapper</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createTrace</span><span class="p">();</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>                <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">,</span> <span class="n">caseId</span><span class="p">);</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>                <span class="n">eventWrapper</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>                <span class="n">ps</span><span class="p">.</span><span class="na">onNext</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">);</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>            <span class="p">}</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>        <span class="p">}</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a>    <span class="p">}</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="p">});</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="n">source</span><span class="p">.</span><span class="na">open</span><span class="p">();</span>
+</code></pre></div>
+<p>This code can be wrapped in a thread that executes all the time, as soon as the source is <code>prepare</code>d. Also, the code can be added </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WikipediaEditSource</span> <span class="kd">implements</span> <span class="n">XesSource</span> <span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">XFactory</span> <span class="n">xesFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XFactoryNaiveImpl</span><span class="p">();</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">processesToStream</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"enwiki"</span><span class="p">);</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>    <span class="kd">private</span> <span class="n">Subject</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">ps</span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>    <span class="kd">public</span> <span class="nf">WikipediaEditSource</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>        <span class="k">this</span><span class="p">.</span><span class="na">ps</span> <span class="o">=</span> <span class="n">PublishSubject</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>    <span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>    <span class="nd">@Override</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>    <span class="kd">public</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="nf">getObservable</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>        <span class="k">return</span> <span class="n">ps</span><span class="p">;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>    <span class="p">}</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>    <span class="nd">@Override</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a>        <span class="k">new</span> <span class="n">Thread</span><span class="p">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a>            <span class="nd">@Override</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a>                <span class="c1">// code from previous listing</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a>                <span class="c1">// ...</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a>            <span class="p">}</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a>        <span class="p">}).</span><span class="na">start</span><span class="p">();</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a>    <span class="p">}</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="p">}</span>
+</code></pre></div>
+<p>A simple consumer, in this case the <a href="../../implemented-techniques/discovery-trivial/">Trivial discovery miner</a>, can then be attached to the source with:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">TrivialDiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TrivialDiscoveryMiner</span><span class="p">();</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">()</span> <span class="o">%</span> <span class="mi">50</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>        <span class="k">try</span> <span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>            <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"src/main/resources/output/output.svg"</span><span class="p">);</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>            <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">().</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>    <span class="p">}</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="p">});</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="c1">// connects the miner to the actual source</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WikipediaEditSource</span><span class="p">();</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">().</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+</code></pre></div></p>
+<p>After running the system for about 10 minutes, the following map was produced:</p>
+<figure>
+<svg height="196px" id="svg150" inkscape:version="0.92.1 r15371" sodipodi:docname="output.svg" version="1.1" viewbox="0.00 0.00 421.00 196.00" width="421px" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
+<metadata id="metadata156">
+<rdf:rdf>
+<cc:work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
+<dc:title></dc:title>
+</cc:work>
+</rdf:rdf>
+</metadata>
+<defs id="defs154"></defs>
+<sodipodi:namedview bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" id="namedview152" inkscape:current-layer="svg150" inkscape:cx="125.58106" inkscape:cy="164.23777" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="1147" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:zoom="1.4916865" objecttolerance="10" pagecolor="#ffffff" showgrid="false"></sodipodi:namedview>
+<path d="m 214,27 c 20.333,-8.5 61,-8.5 61,0 0,3.052 -5.243,5.008 -12.906,5.869" id="path8" inkscape:connector-curvature="0" style="fill:none;stroke:#838587;stroke-width:1.27039003"></path>
+<polygon id="polygon10" points="253.036,-158.737 257.885,-160.871 258.157,-157.381 " style="fill:#838587;stroke:#838587;stroke-width:1.27039003" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text12" style="font-size:8px;font-family:Arial;text-anchor:middle" x="286.5" y="28.899994">0.034</text>
+<path d="m 214,28 c 0,0 -58.724,11.024 -102,30 -9.0506,3.969 -18.3844,8.965 -27.0566,14.044" id="path17" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00437999"></path>
+<polygon id="polygon19" points="76.1996,-117.132 79.6005,-121.193 81.3911,-118.186 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00437999" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text21" style="font-size:8px;font-family:Arial;text-anchor:middle" x="128" y="64.400002">0.00055</text>
+<path d="m 214,28 c 0,0 -31.228,22.021 -47,47 -12.792,20.2592 -21.456,46.1382 -26.684,65.4507" id="path26" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00117004"></path>
+<polygon id="polygon28" points="134.931,-46.2865 134.511,-51.5672 137.896,-50.6768 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00117004" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text30" style="font-size:8px;font-family:Arial;text-anchor:middle" x="183" y="99.900002">0.00015</text>
+<path d="m 230,28 c 0,0 -12.038,24.15 -3,39 0.884,1.453 1.864,2.838 2.925,4.159" id="path35" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00088"></path>
+<polygon id="polygon37" points="211.281,-121.95 213.337,-117.068 208.685,-119.602 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00088" transform="translate(20,192)"></polygon>
+<text font-size="8.00" id="text39" style="font-size:8px;font-family:Arial;text-anchor:middle" x="243" y="64.400002">0.00011</text>
+<path d="m 47,98 c 20.3333,-8.5 61,-8.5 61,0 0,3.0521 -5.2432,5.0083 -12.9056,5.8685" id="path44" inkscape:connector-curvature="0" style="fill:none;stroke:#252526;stroke-width:9"></path>
+<polygon id="polygon46" points="86.0361,-87.7374 90.7152,-92.0514 91.3269,-84.2002 " style="fill:#252526;stroke:#252526;stroke-width:9" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text48" style="font-size:8px;font-family:Arial;text-anchor:middle" x="115" y="99.900002">1.0</text>
+<path d="m 47,99 c 0,0 -4.2748,25.4722 7,39 8.2163,9.8581 20.0161,16.4794 32.0389,20.9258" id="path53" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00934005"></path>
+<polygon id="polygon55" points="86.8306,-31.416 81.5332,-31.3974 82.6779,-34.705 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00934005" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text57" style="font-size:8px;font-family:Arial;text-anchor:middle" x="68" y="135.39999">0.0012</text>
+<path d="m 134,168 c 0,0 207.151,-4.7312 242,-47 13.006,-15.7744 12.278,-29.653 0,-46 C 362.268,56.718 305.014,43.252 262.441,35.529" id="path62" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00292003"></path>
+<polygon id="polygon64" points="253.326,-157.384 258.556,-158.228 257.941,-154.783 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00292003" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text66" style="font-size:8px;font-family:Arial;text-anchor:middle" x="401" y="99.900002">0.00037</text>
+<path d="m 134,168 c 0,0 -30.2389,-23.9826 -55.0618,-43.6697" id="path71" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.01810002"></path>
+<polygon id="polygon73" points="71.0062,-70.7882 76.0112,-69.0523 73.8363,-66.31 " style="fill:#86888a;stroke:#86888a;stroke-width:1.01810002" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text75" style="font-size:8px;font-family:Arial;text-anchor:middle" x="110" y="135.39999">0.0023</text>
+<path d="m 134,169 c 20.333,-8.5 61,-8.5 61,0 0,3.0521 -5.243,5.0083 -12.906,5.8685" id="path80" inkscape:connector-curvature="0" style="fill:none;stroke:#7e8082;stroke-width:1.65992999"></path>
+<polygon id="polygon82" points="173.036,-16.7374 177.885,-18.8706 178.157,-15.3811 " style="fill:#7e8082;stroke:#7e8082;stroke-width:1.65992999" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text84" style="font-size:8px;font-family:Arial;text-anchor:middle" x="206.5" y="170.89999">0.082</text>
+<path d="m 269,98 c 26.167,-8.5 78.5,-8.5 78.5,0 0,2.6396 -5.047,4.4596 -12.79,5.4597" id="path98" inkscape:connector-curvature="0" style="fill:none;stroke:#444546;stroke-width:6.42278004"></path>
+<polygon id="polygon100" points="325.562,-88.0234 330.256,-91.3188 330.817,-85.727 " style="fill:#444546;stroke:#444546;stroke-width:6.42278004" transform="translate(4,192)"></polygon>
+<text font-size="8.00" id="text102" style="font-size:8px;font-family:Arial;text-anchor:middle" x="357" y="99.900002">0.68</text>
+<path d="m 245,4 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path107" inkscape:connector-curvature="0" style="fill:#c8e7f6;stroke:#000000"></path>
+<text font-size="22.00" id="text109" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="192" y="24.600006">new</text>
+<text font-size="14.00" id="text111" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="232" y="24.600006"></text>
+<text font-size="16.00" id="text113" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="193.5" y="41.800003">0.034</text>
+<path d="m 78,75 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path118" inkscape:connector-curvature="0" style="fill:#0b4971;stroke:#000000"></path>
+<text font-size="22.00" id="text120" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="27" y="95.599998">edit</text>
+<text font-size="14.00" id="text122" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="63" y="95.599998"></text>
+<text font-size="16.00" id="text124" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="35.5" y="112.8">1.0</text>
+<path d="m 165,146 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path129" inkscape:connector-curvature="0" style="fill:#bfdff0;stroke:#000000"></path>
+<text font-size="22.00" id="text131" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="117" y="166.60001">log</text>
+<text font-size="14.00" id="text133" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="147" y="166.60001"></text>
+<text font-size="16.00" id="text135" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="113.5" y="183.8">0.083</text>
+<path d="m 317.5,75 c 0,0 -97,0 -97,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 97,0 97,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path140" inkscape:connector-curvature="0" style="fill:#5083a2;stroke:#000000"></path>
+<text font-size="22.00" id="text142" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="216.5" y="95.599998">categorize</text>
+<text font-size="14.00" id="text144" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="317.5" y="95.599998"></text>
+<text font-size="16.00" id="text146" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="253" y="112.8">0.65</text>
+</svg>
+</figure>
+<p>The complete code of this example is available in the GitHub repository <a href="https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/wikipedia">https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/wikipedia</a>.</p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Speech recognition" class="md-footer__link md-footer__link--prev" href="../speech-recognition/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Speech recognition
+            </div>
+</div>
+</a>
+<a aria-label="Next: MQTT-XES" class="md-footer__link md-footer__link--next" href="../../mqtt-xes/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              MQTT-XES
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022 Technical University of Denmark
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/beamline" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "toc.integrate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+<script src="../../assets/javascripts/bundle.649a939e.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js"></script>
+</body>
+</html>
