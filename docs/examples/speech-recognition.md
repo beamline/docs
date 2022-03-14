@@ -59,7 +59,6 @@ TrivialDiscoveryMiner miner = new TrivialDiscoveryMiner();
 miner.setModelRefreshRate(1);
 miner.setMinDependency(0);
 
-// in the following statement we set a hook to save the map every 1000 events processed
 miner.setOnAfterEvent(() -> {
    if (miner.getProcessedEvents() % 5 == 0) {
       try {
