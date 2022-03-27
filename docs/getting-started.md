@@ -54,7 +54,21 @@ In step 1 the stream source is configured and, in this specific case, the stream
 
 In this section the basic concepts of the Beamline framework are presented.
 
-### Observables
+
+### Streaming dataflow
+
+Each application based on Apache Flink relies on the concept of *streaming dataflow*. A streaming dataflow consists of the basic transformations applied to each event, from its origin (called *source*) until the end (called *sink*). In between, different *operators* can be chained together in order to transform the data according to the requirements. Once this pipeline of operations is defined, it can be deployed and Apache Flink will take care of the actual execution, including parallelizing possible operations and distributing the data across the network.
+
+<figure markdown>
+  ![](img/program_dataflow.svg)
+  <figcaption>
+    Conceptualization of the streaming dataflow as operated by Apache Flink. Picture from https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/learn-flink/overview.
+  </figcaption>
+</figure>
+
+
+
+### Sources
 
 > An *observer* subscribes to an *Observable*. Then that observer reacts to whatever item or sequence of items the Observable *emits*. This pattern facilitates concurrent operations because it does not need to block while waiting for the Observable to emit objects, but instead it creates a sentry in the form of an observer that stands ready to react appropriately at whatever future time the Observable does so.
 > -- <cite>Text from <https://reactivex.io/documentation/observable.html>.</cite>
