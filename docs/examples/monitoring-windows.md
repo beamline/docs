@@ -1,3 +1,6 @@
+!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
+    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
+
 One possible usage of streaming process mining could involve the monitoring of the current system. One possible way of achieving this goal is to monitor the window currently active (i.e., with the focus) as a proxy for the application being used by the user[^1].
 
 [^1]: It is important to emphasize that the active window might not really be the one that the user is currently using. For example, a user might be reading a webpage in a browser or a PDF document or another text document while having active another window.
