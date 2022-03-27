@@ -6,9 +6,9 @@ hide:
 
 # Beamline Framework
 
-Beamline is a *Java framework* designed to facilitate the prototyping and the development of ***streaming process mining*** algorithms.
+Beamline is a Java framework designed to facilitate the prototyping and the development of ***streaming process mining*** algorithms.
 
-The framework is designed around the [ReactiveX framework](https://reactivex.io/) (and its [RxJava implementation](https://github.com/ReactiveX/RxJava)) which allows composing asynchronous and event-based programs by using observable sequences.
+The framework is designed on top of [Apache Flink](https://flink.apache.org/) which makes it suitable for extremely efficient computation due to the distributed and stateful nature of its components. The Beamline consists of both algorithms as well as data structures, sources, and sinks to facilitate the development of process mining applications. While redefining the concept of *event*, Beamline tries to maintain compatibility with OpenXES and the IEEE XES standard.
 
 
 
@@ -23,10 +23,10 @@ In [streaming process mining](https://andrea.burattin.net/publications/2018-ency
 The picture below refers to the control-flow discovery case but, obviously, the same principle applies when [conformance checking](https://en.wikipedia.org/wiki/Conformance_checking) or enhancement algorithms are considered.
 
 <figure markdown> 
-  ![Streaming process mining idea](img/idea.png)
+  ![Streaming process mining idea](img/idea.svg)
   <figcaption>
     Conceptualization of the streaming process discovery.<br>
-    <sub><sup>Image source: A. Burattin, A. Sperduti, and W. van der Aalst. Control-
+    <sub><sup>Image adapted from: A. Burattin, A. Sperduti, and W. van der Aalst. Control-
 flow Discovery from Event Streams. In Proc. of IEEE WCCI-CEC, 2014.</sup></sub></figcaption>
 </figure>
 

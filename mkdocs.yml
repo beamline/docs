@@ -1,4 +1,5 @@
 site_name: Beamline Framework
+edit_uri: ""
 
 nav:
   - Home: index.md
