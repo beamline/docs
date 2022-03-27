@@ -1,3 +1,7 @@
+!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
+    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
+
+
 All edits actions happening on Wikipedia are recorded and available as a stream of data (see <https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams> for further details). A possible way of process mine the stream of edits happening is by considering the page being edited as the instance of the editing process and the edit "action" as the actual activity name.
 
 To achieve this goal we can write a new `XesSource` that consumes the stream of edits and produces a stream of `XTrace`s that can then be forwarded to one of the miners. So we can first define our source as well as the set of websites we want to filter (in this case we will focus on edits happening on the English version of Wikipedia, i.e., `enwiki`):

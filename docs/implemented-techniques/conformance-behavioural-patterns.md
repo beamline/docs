@@ -1,3 +1,7 @@
+!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
+    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
+
+
 ## Dependency [![](https://jitpack.io/v/beamline/conformance-behavioural-patterns.svg)](https://jitpack.io/#beamline/conformance-behavioural-patterns)
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
