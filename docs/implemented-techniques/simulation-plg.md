@@ -1,7 +1,3 @@
-!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
-    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
-
-
 ## Dependency [![](https://jitpack.io/v/beamline/simulation-plg.svg)](https://jitpack.io/#beamline/simulation-plg)
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
@@ -22,24 +18,17 @@ This wrapper of the [PLG library](https://github.com/delas/plg) allows the gener
 
 ```java linenums="1"
 Process p = new Process("");
-// randomization of the process with defatult parameters
 ProcessGenerator.randomizeProcess(p, RandomizationConfiguration.BASIC_VALUES);
 
-LogGenerator logGenerator = new LogGenerator(
-	p, // simulate process p
-	new SimulationConfiguration(100), // default simulation configuration to generte 100 traces
-	new ProgressAdapter());
+LogGenerator logGenerator = new LogGenerator(p, new SimulationConfiguration(100), new ProgressAdapter());
 XLog log = logGenerator.generateLog();
 
-// default xes log source generator
-XesSource source = new XesLogSource(log);
-source.prepare();
-source.getObservable()
-	.subscribe((t) -> { // simple consumer that just prints case id and activity name
-		System.out.println(
-			XConceptExtension.instance().extractName(t) + " - " +
-			XConceptExtension.instance().extractName(t.get(0)));
-	});	
+StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+env
+	.addSource(new XesLogSource(log))
+	.keyBy(BEvent::getProcessName)
+	.print();
+env.execute();
 ```
 
 ## Scientific literature
