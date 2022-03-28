@@ -339,10 +339,6 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1>Declare Miner</h1>
-<div class="admonition bug">
-<p class="admonition-title">Old documentation - Content valid only for Beamline v. 0.1.0</p>
-<p>The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.</p>
-</div>
 <h2 id="dependency">Dependency <a href="https://jitpack.io/#beamline/discovery-declare"><img alt="" src="https://jitpack.io/v/beamline/discovery-declare.svg"/></a></h2>
 <p>To use these algorithms in your Java Maven project it is necessary to include, in the <code>pom.xml</code> file, the dependency:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
@@ -357,7 +353,7 @@ See the <a href="../">introduction page</a> for further instructions.</p>
 <p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
 <span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">new</span> <span class="n">DeclareMinerLossyCounting</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">DeclareMinerLossyCounting</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DeclareMinerLossyCounting</span><span class="p">(</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2"></a>    <span class="mf">0.001</span><span class="p">,</span> <span class="c1">// the maximal approximation error</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3"></a>    <span class="mi">10</span> <span class="c1">// the number of declare constraints to show</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="p">);</span>
@@ -366,12 +362,36 @@ See the <a href="../">introduction page</a> for further instructions.</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">new</span> <span class="n">DeclareMinerBudgetLossyCounting</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">DeclareMinerBudgetLossyCounting</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DeclareMinerBudgetLossyCounting</span><span class="p">(</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2"></a>    <span class="mi">1000</span><span class="p">,</span> <span class="c1">// the available budget</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="mi">10</span> <span class="c1">// the number of declare constraints to show</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="p">);</span>
 </code></pre></div>
 </td></tr></table></p>
+<p>After the miner is configured, both can be used to produce a CNet which can be either exported into a <code>.cnet</code> file or visualized (currently the visualization does not support the bindings):</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">StreamExecutionEnvironment</span> <span class="n">env</span> <span class="o">=</span> <span class="n">StreamExecutionEnvironment</span><span class="p">.</span><span class="na">getExecutionEnvironment</span><span class="p">();</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="n">env</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>    <span class="p">.</span><span class="na">addSource</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>    <span class="p">.</span><span class="na">keyBy</span><span class="p">(</span><span class="n">BEvent</span><span class="p">::</span><span class="n">getProcessName</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>    <span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="n">miner</span><span class="p">.</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>    <span class="p">.</span><span class="na">addSink</span><span class="p">(</span><span class="k">new</span> <span class="n">SinkFunction</span><span class="o">&lt;</span><span class="n">DeclareModelView</span><span class="o">&gt;</span><span class="p">(){</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">DeclareModelView</span> <span class="n">value</span><span class="p">,</span> <span class="n">Context</span> <span class="n">context</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>            <span class="n">value</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"output.svg"</span><span class="p">));</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>        <span class="p">};</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>    <span class="p">});</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="n">env</span><span class="p">.</span><span class="na">execute</span><span class="p">();</span>
+</code></pre></div>
+</td></tr></table>
 <h2 id="scientific-literature">Scientific literature</h2>
 <p>The techniques implemented in this package are described in:</p>
 <ul>
