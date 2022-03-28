@@ -1,6 +1,3 @@
-!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
-    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
-
 One possible usage of streaming process mining could involve the monitoring of the current system. One possible way of achieving this goal is to monitor the window currently active (i.e., with the focus) as a proxy for the application being used by the user[^1].
 
 [^1]: It is important to emphasize that the active window might not really be the one that the user is currently using. For example, a user might be reading a webpage in a browser or a PDF document or another text document while having active another window.
@@ -49,489 +46,164 @@ class Informer {
 ```
 The documentation on the system calls used here can be found on the MSDN documentation (here, for example, the documentation for the [`GetForegroundWindow` function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getforegroundwindow)).
 
-With this information it is now possible to wrap the code in a hot producer with:
+With this information it is now possible to wrap the code in a proper source:
 ```java
-public class CurrentlyRunningProcess implements XesSource {
+public class WindowsWindowMonitorSource implements BeamlineAbstractSource {
 
-	private static final int POLLING_DELAY = 100; // milliseconds between checks of the active window
-	private static final XFactory xesFactory = new XFactoryNaiveImpl();
-	
-	private String caseId;
-	private String latestProcess = null;
-	private Subject<XTrace> ps;
-	
-	public CurrentlyRunningProcess() {
-		// each run of the system will create one process instance, so the case id is fixed
-		this.caseId = UUID.randomUUID().toString();
-		this.ps = PublishSubject.create();
-	}
-	
-	@Override
-	public Observable<XTrace> getObservable() {
-		return ps;
-	}
+   private static final int POLLING_DELAY = 100; // milliseconds between checks of the active window
 
-	@Override
-	public void prepare() throws Exception {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while(true) {
-					String currentProcess = Informer.getWindowName();
-					if (!currentProcess.isEmpty() && !currentProcess.equals(latestProcess)) {
-						latestProcess = currentProcess;
-						XEvent event = xesFactory.createEvent();
-						XConceptExtension.instance().assignName(event, currentProcess);
-						XTimeExtension.instance().assignTimestamp(event, new Date());
-						XTrace eventWrapper = xesFactory.createTrace();
-						XConceptExtension.instance().assignName(eventWrapper, caseId);
-						eventWrapper.add(event);
-						ps.onNext(eventWrapper);
-					}
-					
-					try {
-						Thread.sleep(POLLING_DELAY);
-					} catch (InterruptedException e) { }
-				}
-			}
-		}).start();
-	}
+   @Override
+   public void run(SourceContext<BEvent> ctx) throws Exception {
+      Queue<BEvent> buffer = new LinkedList<>();
+      
+      String caseId = UUID.randomUUID().toString();
+      new Thread(new Runnable() {
+         @Override
+         public void run() {
+            String latestProcess = "";
+            while(isRunning()) {
+               String currentProcess = getWindowName();
+               if (!currentProcess.isEmpty() && !currentProcess.equals(latestProcess)) {
+                  latestProcess = currentProcess;
+                  try {
+                     buffer.add(BEvent.create("window", caseId, currentProcess));
+                  } catch (EventException e) { }
+               }
+               
+               try {
+                  Thread.sleep(POLLING_DELAY);
+               } catch (InterruptedException e) { }
+            }
+         }
+      }).start();
+      
+      while(isRunning()) {
+         while (isRunning() && buffer.isEmpty()) {
+            Thread.sleep(100l);
+         }
+         if (isRunning()) {
+            synchronized (ctx.getCheckpointLock()) {
+               BEvent e = buffer.poll();
+               ctx.collect(e);
+            }
+         }
+      }
+   }
 }
 ```
 The basic idea is to check every `POLLING_DELAY` milliseconds for the name of the window currently on focus and, if this has changed, then a new event is published.
 
 An example run of the application utilizing the [Trivial Miner](../implemented-techniques/discovery-trivial.md) and the following code:
 ```java
-public class EnumerateWindows {
-	public static void main(String[] args) throws Exception {
-		TrivialDiscoveryMiner miner = new TrivialDiscoveryMiner();
-		miner.setModelRefreshRate(1);
-		miner.setMinDependency(0);
-
-		miner.setOnAfterEvent(() -> {
-			if (miner.getProcessedEvents() % 5 == 0) {
-				try {
-					File f = new File("output.svg");
-					miner.getLatestResponse().generateDot().exportToSvg(f);
-				} catch (IOException e) { }
-			}
-		});
-		
-		// connects the miner to the actual source
-		XesSource source = new CurrentlyRunningProcess();
-		source.prepare();
-		source.getObservable().subscribe(miner);
-	}
+public class WindowsWindowMonitor {
+   public static void main(String[] args) throws Exception {
+      StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+      env
+         .addSource(new WindowsWindowMonitorSource())
+         .keyBy(BEvent::getProcessName)
+         .flatMap(new DirectlyFollowsDependencyDiscoveryMiner().setModelRefreshRate(1).setMinDependency(0))
+         .addSink(new SinkFunction<ProcessMap>(){
+            public void invoke(ProcessMap value, Context context) throws Exception {
+               value.generateDot().exportToSvg(new File("src/main/resources/output/output.svg"));
+            };
+         });
+      env.execute();
+   }
 }
 ```
 
 Produces the following map:
 <figure>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="596px"
-   height="250px"
-   viewBox="0.00 0.00 596.00 250.00"
-   version="1.1"
-   id="svg146"
-   sodipodi:docname="output.svg"
-   inkscape:version="0.92.1 r15371">
-  <metadata
-     id="metadata152">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs150" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="863"
-     inkscape:window-height="480"
-     id="namedview148"
-     showgrid="false"
-     inkscape:zoom="0.52684564"
-     inkscape:cx="33.216561"
-     inkscape:cy="125"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg146" />
-  <g
-     class="edge"
-     id="ea72017f1-2831-4e79-a792-5220f4904b43"
-     transform="translate(4,246)">
-    <title
-       id="title6">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;e554f3cc4-908c-4313-9138-46540f154eae</title>
-    <path
-       style="fill:none;stroke:#38393a;stroke-width:7.4000001"
-       inkscape:connector-curvature="0"
-       id="path8"
-       d="m 286,-218 c 0,0 90.232,5.737 157,30 10.431,3.791 21.16,9.007 30.987,14.391" />
-    <polygon
-       style="fill:#38393a;stroke:#38393a;stroke-width:7.4000001"
-       id="polygon10"
-       points="472.49,-170.737 475.645,-176.391 478.434,-171.128 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text12"
-       font-size="8.00"
-       y="-181.60001"
-       x="472.5">0.80</text>
-  </g>
-  <g
-     class="edge"
-     id="e80a3e3a3-f48c-4bc3-b733-2aaa930f7fc0"
-     transform="translate(4,246)">
-    <title
-       id="title15">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;eede49bad-0b23-4b49-8d28-34648634d0c3</title>
-    <path
-       style="fill:none;stroke:#737476;stroke-width:2.5999999"
-       inkscape:connector-curvature="0"
-       id="path17"
-       d="m 286,-218 c 0,0 -139.009,7.391 -170,30 -21.8387,15.932 -34.8099,44.563 -41.8639,65.863" />
-    <polygon
-       style="fill:#737476;stroke:#737476;stroke-width:2.5999999"
-       id="polygon19"
-       points="72.4027,-122.461 75.7375,-121.398 72.5521,-117.166 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text21"
-       font-size="8.00"
-       y="-181.60001"
-       x="125.5">0.20</text>
-  </g>
-  <g
-     class="edge"
-     id="eee487632-feff-4da6-bcd7-d28682ab394b"
-     transform="translate(4,246)">
-    <title
-       id="title24">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;efdf20eed-2c2f-45a4-86af-af1f79f891a8</title>
-    <path
-       style="fill:none;stroke:#4c4d4e;stroke-width:5.80000019"
-       inkscape:connector-curvature="0"
-       id="path26"
-       d="m 286,-218 c 0,0 -80.871,2.526 -110,47 -20.568,31.402 -3.714,75.3561 11.323,103.2506" />
-    <polygon
-       style="fill:#4c4d4e;stroke:#4c4d4e;stroke-width:5.80000019"
-       id="polygon28"
-       points="185.267,-66.2233 189.709,-68.6785 189.907,-63.075 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text30"
-       font-size="8.00"
-       y="-146.10001"
-       x="185.5">0.60</text>
-  </g>
-  <g
-     class="edge"
-     id="e79d49535-33ec-49a8-8391-a2f40687c2f4"
-     transform="translate(4,246)">
-    <title
-       id="title33">eb456e3c8-51a5-4759-9364-c896a2565ede-&gt;eebdb4049-6903-401e-9cfb-6ee5bda6c83f</title>
-    <path
-       style="fill:none;stroke:#737476;stroke-width:2.5999999"
-       inkscape:connector-curvature="0"
-       id="path35"
-       d="m 286,-218 c 0,0 11.613,16.345 20,30 2.45,3.989 4.965,8.259 7.378,12.458" />
-    <polygon
-       style="fill:#737476;stroke:#737476;stroke-width:2.5999999"
-       id="polygon37"
-       points="311.953,-174.509 314.994,-176.242 315.949,-171.031 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text39"
-       font-size="8.00"
-       y="-181.60001"
-       x="321.5">0.20</text>
-  </g>
-  <g
-     class="edge"
-     id="eda023916-da78-4a5b-9109-1e2ae0589955"
-     transform="translate(4,246)">
-    <title
-       id="title42">e554f3cc4-908c-4313-9138-46540f154eae-&gt;eb456e3c8-51a5-4759-9364-c896a2565ede</title>
-    <path
-       style="fill:none;stroke:#5f6062;stroke-width:4.19999981"
-       inkscape:connector-curvature="0"
-       id="path44"
-       d="m 513,-149 c 0,0 -90.389,-27.475 -157.092,-47.75" />
-    <polygon
-       style="fill:#5f6062;stroke:#5f6062;stroke-width:4.19999981"
-       id="polygon46"
-       points="356.064,-198.624 354.995,-195.107 350.745,-198.32 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text48"
-       font-size="8.00"
-       y="-181.60001"
-       x="422.5">0.40</text>
-  </g>
-  <g
-     class="edge"
-     id="ee9196157-cc4a-442b-94d5-1ca6e18ef637"
-     transform="translate(4,246)">
-    <title
-       id="title51">e554f3cc4-908c-4313-9138-46540f154eae-&gt;efdf20eed-2c2f-45a4-86af-af1f79f891a8</title>
-    <path
-       style="fill:none;stroke:#5f6062;stroke-width:4.19999981"
-       inkscape:connector-curvature="0"
-       id="path53"
-       d="m 513,-147 c 0,0 -163.952,56.2426 -253.006,86.7917" />
-    <polygon
-       style="fill:#5f6062;stroke:#5f6062;stroke-width:4.19999981"
-       id="polygon55"
-       points="259.158,-61.8643 260.351,-58.3881 255.025,-58.5037 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text57"
-       font-size="8.00"
-       y="-92.099998"
-       x="430.5">0.40</text>
-  </g>
-  <g
-     class="edge"
-     id="ebd88b017-efd6-4efa-aa80-ebb7f046d479"
-     transform="translate(4,246)">
-    <title
-       id="title60">eede49bad-0b23-4b49-8d28-34648634d0c3-&gt;ea5539af0-e3a3-4673-a580-73083feabfcd</title>
-    <path
-       style="fill:none;stroke:#c2b0ab;stroke-width:2;stroke-dasharray:5, 2"
-       inkscape:connector-curvature="0"
-       id="path62"
-       d="m 67,-93 c 0,0 0,56.4521 0,78.6691" />
-    <polygon
-       style="fill:#c2b0ab;stroke:#c2b0ab;stroke-width:2"
-       id="polygon64"
-       points="65.2501,-14.2598 68.7501,-14.2597 67,-9.25977 " />
-  </g>
-  <g
-     class="edge"
-     id="e654aff95-6a1c-43ea-9d07-e0e143df0719"
-     transform="translate(4,246)">
-    <title
-       id="title67">efdf20eed-2c2f-45a4-86af-af1f79f891a8-&gt;eb456e3c8-51a5-4759-9364-c896a2565ede</title>
-    <path
-       style="fill:none;stroke:#252526;stroke-width:9"
-       inkscape:connector-curvature="0"
-       id="path69"
-       d="m 204,-41 c 0,0 -20.475,-80.145 9,-130 4.984,-8.43 12.14,-15.608 20.044,-21.627" />
-    <polygon
-       style="fill:#252526;stroke:#252526;stroke-width:9"
-       id="polygon71"
-       points="235.76,-189.731 231.145,-196.112 237.504,-195.852 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text73"
-       font-size="8.00"
-       y="-146.10001"
-       x="220">1.0</text>
-  </g>
-  <g
-     class="edge"
-     id="e916e694e-0291-44f7-9ffd-433d4651aebf"
-     transform="translate(4,246)">
-    <title
-       id="title76">eebdb4049-6903-401e-9cfb-6ee5bda6c83f-&gt;eb456e3c8-51a5-4759-9364-c896a2565ede</title>
-    <path
-       style="fill:none;stroke:#737476;stroke-width:2.5999999"
-       inkscape:connector-curvature="0"
-       id="path78"
-       d="m 328,-149 c 0,0 -33.658,-8.807 -45,-30 -1.893,-3.536 -2.752,-7.517 -2.955,-11.548" />
-    <polygon
-       style="fill:#737476;stroke:#737476;stroke-width:2.5999999"
-       id="polygon80"
-       points="281.796,-190.63 278.297,-190.676 280.112,-195.652 " />
-    <text
-       style="font-size:8px;font-family:Arial;text-anchor:middle"
-       id="text82"
-       font-size="8.00"
-       y="-181.60001"
-       x="292.5">0.20</text>
-  </g>
-  <g
-     class="node"
-     id="eb456e3c8-51a5-4759-9364-c896a2565ede"
-     transform="translate(4,246)">
-    <title
-       id="title85">eb456e3c8-51a5-4759-9364-c896a2565ede</title>
-    <path
-       style="fill:#0b4971;stroke:#000000"
-       inkscape:connector-curvature="0"
-       id="path87"
-       d="m 338.5,-242 c 0,0 -105,0 -105,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 105,0 105,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" />
-    <text
-       style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff"
-       id="text89"
-       font-size="22.00"
-       y="-221.39999"
-       x="229.5">eclipse.exe</text>
-    <text
-       style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff"
-       id="text91"
-       font-size="14.00"
-       y="-221.39999"
-       x="338.5" />
-    <text
-       style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff"
-       id="text93"
-       font-size="16.00"
-       y="-204.2"
-       x="274.5">1.0</text>
-  </g>
-  <g
-     class="node"
-     id="e554f3cc4-908c-4313-9138-46540f154eae"
-     transform="translate(4,246)">
-    <title
-       id="title96">e554f3cc4-908c-4313-9138-46540f154eae</title>
-    <path
-       style="fill:#78a4be;stroke:#000000"
-       inkscape:connector-curvature="0"
-       id="path98"
-       d="m 576,-171 c 0,0 -126,0 -126,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 126,0 126,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" />
-    <text
-       style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text100"
-       font-size="22.00"
-       y="-150.39999"
-       x="446">Explorer.EXE</text>
-    <text
-       style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text102"
-       font-size="14.00"
-       y="-150.39999"
-       x="576" />
-    <text
-       style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text104"
-       font-size="16.00"
-       y="-133.2"
-       x="497">0.44</text>
-  </g>
-  <g
-     class="node"
-     id="eede49bad-0b23-4b49-8d28-34648634d0c3"
-     transform="translate(4,246)">
-    <title
-       id="title107">eede49bad-0b23-4b49-8d28-34648634d0c3</title>
-    <path
-       style="fill:#b9dbec;stroke:#000000"
-       inkscape:connector-curvature="0"
-       id="path109"
-       d="m 122,-117 c 0,0 -110,0 -110,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 110,0 110,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" />
-    <text
-       style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text111"
-       font-size="22.00"
-       y="-96.400002"
-       x="8">chrome.exe</text>
-    <text
-       style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text113"
-       font-size="14.00"
-       y="-96.400002"
-       x="122" />
-    <text
-       style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text115"
-       font-size="16.00"
-       y="-79.199997"
-       x="51">0.11</text>
-  </g>
-  <g
-     class="node"
-     id="efdf20eed-2c2f-45a4-86af-af1f79f891a8"
-     transform="translate(4,246)">
-    <title
-       id="title118">efdf20eed-2c2f-45a4-86af-af1f79f891a8</title>
-    <path
-       style="fill:#6292ae;stroke:#000000"
-       inkscape:connector-curvature="0"
-       id="path120"
-       d="m 243,-63 c 0,0 -78,0 -78,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 78,0 78,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" />
-    <text
-       style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text122"
-       font-size="22.00"
-       y="-42.400002"
-       x="161">cmd.exe</text>
-    <text
-       style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text124"
-       font-size="14.00"
-       y="-42.400002"
-       x="243" />
-    <text
-       style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text126"
-       font-size="16.00"
-       y="-25.200001"
-       x="188">0.56</text>
-  </g>
-  <g
-     class="node"
-     id="eebdb4049-6903-401e-9cfb-6ee5bda6c83f"
-     transform="translate(4,246)">
-    <title
-       id="title129">eebdb4049-6903-401e-9cfb-6ee5bda6c83f</title>
-    <path
-       style="fill:#b9dbec;stroke:#000000"
-       inkscape:connector-curvature="0"
-       id="path131"
-       d="m 407.5,-171 c 0,0 -159,0 -159,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 159,0 159,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" />
-    <text
-       style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text133"
-       font-size="22.00"
-       y="-150.39999"
-       x="244.5">sublime_text.exe</text>
-    <text
-       style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text135"
-       font-size="14.00"
-       y="-150.39999"
-       x="407.5" />
-    <text
-       style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000"
-       id="text137"
-       font-size="16.00"
-       y="-133.2"
-       x="312">0.11</text>
-  </g>
-  <g
-     class="node"
-     id="ea5539af0-e3a3-4673-a580-73083feabfcd"
-     transform="translate(4,246)">
-    <title
-       id="title140">ea5539af0-e3a3-4673-a580-73083feabfcd</title>
-    <circle
-       style="fill:#d8bbb9;stroke:#614847"
-       r="4.5"
-       id="ellipse142"
-       cy="-4.5"
-       cx="67" />
-  </g>
+
+<svg width="324px" height="281px"
+ viewBox="0.00 0.00 323.50 281.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 277.0)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-277 319.5,-277 319.5,4 -4,4"/>
+<!-- e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494&#45;&gt;e886f2ff8&#45;9c79&#45;453a&#45;b67e&#45;a8ab38501ee0 -->
+<g id="e0cb93538&#45;c36f&#45;416d&#45;a3a7&#45;a12ce9b8df3d" class="edge"><title>e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494&#45;&gt;e886f2ff8&#45;9c79&#45;453a&#45;b67e&#45;a8ab38501ee0</title>
+<path fill="none" stroke="#252526" stroke-width="9" d="M204,-151.5C204,-151.5 154.08,-127.834 114.952,-109.285"/>
+<polygon fill="#252526" stroke="#252526" stroke-width="9" points="116.443,-105.634 110.238,-107.05 113.069,-112.75 116.443,-105.634"/>
+<text text-anchor="middle" x="158.5" y="-117.6" font-family="Arial" font-size="8.00"> 1.0 (1)</text>
+</g>
+<!-- e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494&#45;&gt;ef91712ff&#45;1664&#45;431b&#45;9547&#45;561693db89c9 -->
+<g id="e95208fa4&#45;1fa4&#45;41a5&#45;941c&#45;eacff0041769" class="edge"><title>e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494&#45;&gt;ef91712ff&#45;1664&#45;431b&#45;9547&#45;561693db89c9</title>
+<path fill="none" stroke="#252526" stroke-width="9" d="M204,-151.5C204,-151.5 172.653,-132.971 180,-115 180.487,-113.808 181.054,-112.639 181.686,-111.498"/>
+<polygon fill="#252526" stroke="#252526" stroke-width="9" points="185.035,-113.569 184.411,-107.236 178.4,-109.327 185.035,-113.569"/>
+<text text-anchor="middle" x="193.5" y="-117.6" font-family="Arial" font-size="8.00"> 1.0 (1)</text>
+</g>
+<!-- e98d60a8f&#45;7389&#45;47c7&#45;aea3&#45;7b135deb82db&#45;&gt;e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494 -->
+<g id="e45c99a84&#45;b50f&#45;4a79&#45;b06b&#45;e322d6628509" class="edge"><title>e98d60a8f&#45;7389&#45;47c7&#45;aea3&#45;7b135deb82db&#45;&gt;e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494</title>
+<path fill="none" stroke="#252526" stroke-width="9" d="M227,-21.5C227,-21.5 257.48,-41.1689 267,-66 273.523,-83.0147 275.381,-90.8194 267,-107 262.583,-115.528 255.696,-122.77 248.07,-128.778"/>
+<polygon fill="#252526" stroke="#252526" stroke-width="9" points="245.42,-125.842 243.769,-131.988 250.131,-132.153 245.42,-125.842"/>
+<text text-anchor="middle" x="285.5" y="-84.6" font-family="Arial" font-size="8.00"> 1.0 (1)</text>
+</g>
+<!-- e886f2ff8&#45;9c79&#45;453a&#45;b67e&#45;a8ab38501ee0&#45;&gt;e98d60a8f&#45;7389&#45;47c7&#45;aea3&#45;7b135deb82db -->
+<g id="edf90044f&#45;5944&#45;45a0&#45;aa96&#45;dc8d00ce9018" class="edge"><title>e886f2ff8&#45;9c79&#45;453a&#45;b67e&#45;a8ab38501ee0&#45;&gt;e98d60a8f&#45;7389&#45;47c7&#45;aea3&#45;7b135deb82db</title>
+<path fill="none" stroke="#252526" stroke-width="9" d="M69,-85.5C69,-85.5 128.14,-61.5448 174.055,-42.946"/>
+<polygon fill="#252526" stroke="#252526" stroke-width="9" points="175.58,-46.5766 178.736,-41.0499 172.624,-39.2776 175.58,-46.5766"/>
+<text text-anchor="middle" x="171.5" y="-51.6" font-family="Arial" font-size="8.00"> 1.0 (1)</text>
+</g>
+<!-- e3c37b245&#45;6359&#45;445f&#45;b594&#45;77d60b1ea9c8&#45;&gt;e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494 -->
+<g id="ece05f8f4&#45;aab5&#45;482a&#45;9466&#45;446784c855c3" class="edge"><title>e3c37b245&#45;6359&#45;445f&#45;b594&#45;77d60b1ea9c8&#45;&gt;e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494</title>
+<path fill="none" stroke="#252526" stroke-width="9" d="M204,-217.5C204,-217.5 204,-196.451 204,-178.496"/>
+<polygon fill="#252526" stroke="#252526" stroke-width="9" points="207.938,-178.05 204,-173.05 200.063,-178.05 207.938,-178.05"/>
+<text text-anchor="middle" x="217.5" y="-183.6" font-family="Arial" font-size="8.00"> 1.0 (1)</text>
+</g>
+<!-- ef91712ff&#45;1664&#45;431b&#45;9547&#45;561693db89c9&#45;&gt;e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494 -->
+<g id="e963f7715&#45;2ed9&#45;4784&#45;911d&#45;9ca26e5aaf5e" class="edge"><title>ef91712ff&#45;1664&#45;431b&#45;9547&#45;561693db89c9&#45;&gt;e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494</title>
+<path fill="none" stroke="#252526" stroke-width="9" d="M207,-87.5C207,-87.5 207.881,-107.802 207,-124 206.947,-124.971 206.884,-125.961 206.812,-126.96"/>
+<polygon fill="#252526" stroke="#252526" stroke-width="9" points="202.884,-126.682 206.393,-131.992 210.732,-127.336 202.884,-126.682"/>
+<text text-anchor="middle" x="220.5" y="-117.6" font-family="Arial" font-size="8.00"> 1.0 (1)</text>
+</g>
+<!-- ef949dfe4&#45;9d22&#45;4d8e&#45;8a7a&#45;04df7737f67d&#45;&gt;e3c37b245&#45;6359&#45;445f&#45;b594&#45;77d60b1ea9c8 -->
+<g id="ebd0e2212&#45;4726&#45;4f61&#45;81dc&#45;0651204015b6" class="edge"><title>ef949dfe4&#45;9d22&#45;4d8e&#45;8a7a&#45;04df7737f67d&#45;&gt;e3c37b245&#45;6359&#45;445f&#45;b594&#45;77d60b1ea9c8</title>
+<path fill="none" stroke="#acb89c" stroke-width="2" stroke-dasharray="5,2" d="M204,-267.5C204,-267.5 204,-255.872 204,-244.062"/>
+<polygon fill="#acb89c" stroke="#acb89c" stroke-width="2" points="205.75,-244.023 204,-239.023 202.25,-244.023 205.75,-244.023"/>
+<text text-anchor="middle" x="205.5" y="-249.6" font-family="Arial" font-size="8.00"> </text>
+</g>
+<!-- e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494 -->
+<g id="e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494" class="node"><title>e3e9b1010&#45;99f2&#45;42f2&#45;9a8b&#45;b87c95a37494</title>
+<path fill="#0b4971" stroke="black" d="M256.5,-173C256.5,-173 151.5,-173 151.5,-173 145.5,-173 139.5,-167 139.5,-161 139.5,-161 139.5,-144 139.5,-144 139.5,-138 145.5,-132 151.5,-132 151.5,-132 256.5,-132 256.5,-132 262.5,-132 268.5,-138 268.5,-144 268.5,-144 268.5,-161 268.5,-161 268.5,-167 262.5,-173 256.5,-173"/>
+<text text-anchor="start" x="147.5" y="-152.4" font-family="Arial" font-size="22.00" fill="#ffffff">eclipse.exe</text>
+<text text-anchor="start" x="256.5" y="-152.4" font-family="Arial" font-size="14.00" fill="#ffffff"> </text>
+<text text-anchor="start" x="188" y="-139.2" font-family="Arial" font-size="11.00" fill="#ffffff">1.0 (3)</text>
+</g>
+<!-- e98d60a8f&#45;7389&#45;47c7&#45;aea3&#45;7b135deb82db -->
+<g id="e98d60a8f&#45;7389&#45;47c7&#45;aea3&#45;7b135deb82db" class="node"><title>e98d60a8f&#45;7389&#45;47c7&#45;aea3&#45;7b135deb82db</title>
+<path fill="#8eb6cd" stroke="black" d="M303.5,-41C303.5,-41 150.5,-41 150.5,-41 144.5,-41 138.5,-35 138.5,-29 138.5,-29 138.5,-12 138.5,-12 138.5,-6 144.5,-0 150.5,-0 150.5,-0 303.5,-0 303.5,-0 309.5,-0 315.5,-6 315.5,-12 315.5,-12 315.5,-29 315.5,-29 315.5,-35 309.5,-41 303.5,-41"/>
+<text text-anchor="start" x="146.5" y="-20.4" font-family="Arial" font-size="22.00" fill="#000000">OUTLOOK.EXE</text>
+<text text-anchor="start" x="303.5" y="-20.4" font-family="Arial" font-size="14.00" fill="#000000"> </text>
+<text text-anchor="start" x="208" y="-7.2" font-family="Arial" font-size="11.00" fill="#000000">0.33 (1)</text>
+</g>
+<!-- e886f2ff8&#45;9c79&#45;453a&#45;b67e&#45;a8ab38501ee0 -->
+<g id="e886f2ff8&#45;9c79&#45;453a&#45;b67e&#45;a8ab38501ee0" class="node"><title>e886f2ff8&#45;9c79&#45;453a&#45;b67e&#45;a8ab38501ee0</title>
+<path fill="#8eb6cd" stroke="black" d="M126,-107C126,-107 12,-107 12,-107 6,-107 0,-101 0,-95 0,-95 0,-78 0,-78 0,-72 6,-66 12,-66 12,-66 126,-66 126,-66 132,-66 138,-72 138,-78 138,-78 138,-95 138,-95 138,-101 132,-107 126,-107"/>
+<text text-anchor="start" x="8" y="-86.4" font-family="Arial" font-size="22.00" fill="#000000">explorer.exe</text>
+<text text-anchor="start" x="126" y="-86.4" font-family="Arial" font-size="14.00" fill="#000000"> </text>
+<text text-anchor="start" x="50" y="-73.2" font-family="Arial" font-size="11.00" fill="#000000">0.33 (1)</text>
+</g>
+<!-- e3c37b245&#45;6359&#45;445f&#45;b594&#45;77d60b1ea9c8 -->
+<g id="e3c37b245&#45;6359&#45;445f&#45;b594&#45;77d60b1ea9c8" class="node"><title>e3c37b245&#45;6359&#45;445f&#45;b594&#45;77d60b1ea9c8</title>
+<path fill="#8eb6cd" stroke="black" d="M259,-239C259,-239 149,-239 149,-239 143,-239 137,-233 137,-227 137,-227 137,-210 137,-210 137,-204 143,-198 149,-198 149,-198 259,-198 259,-198 265,-198 271,-204 271,-210 271,-210 271,-227 271,-227 271,-233 265,-239 259,-239"/>
+<text text-anchor="start" x="145" y="-218.4" font-family="Arial" font-size="22.00" fill="#000000">chrome.exe</text>
+<text text-anchor="start" x="259" y="-218.4" font-family="Arial" font-size="14.00" fill="#000000"> </text>
+<text text-anchor="start" x="185" y="-205.2" font-family="Arial" font-size="11.00" fill="#000000">0.33 (1)</text>
+</g>
+<!-- ef91712ff&#45;1664&#45;431b&#45;9547&#45;561693db89c9 -->
+<g id="ef91712ff&#45;1664&#45;431b&#45;9547&#45;561693db89c9" class="node"><title>ef91712ff&#45;1664&#45;431b&#45;9547&#45;561693db89c9</title>
+<path fill="#8eb6cd" stroke="black" d="M246,-107C246,-107 168,-107 168,-107 162,-107 156,-101 156,-95 156,-95 156,-78 156,-78 156,-72 162,-66 168,-66 168,-66 246,-66 246,-66 252,-66 258,-72 258,-78 258,-78 258,-95 258,-95 258,-101 252,-107 246,-107"/>
+<text text-anchor="start" x="164" y="-86.4" font-family="Arial" font-size="22.00" fill="#000000">cmd.exe</text>
+<text text-anchor="start" x="246" y="-86.4" font-family="Arial" font-size="14.00" fill="#000000"> </text>
+<text text-anchor="start" x="188" y="-73.2" font-family="Arial" font-size="11.00" fill="#000000">0.33 (1)</text>
+</g>
+<!-- ef949dfe4&#45;9d22&#45;4d8e&#45;8a7a&#45;04df7737f67d -->
+<g id="ef949dfe4&#45;9d22&#45;4d8e&#45;8a7a&#45;04df7737f67d" class="node"><title>ef949dfe4&#45;9d22&#45;4d8e&#45;8a7a&#45;04df7737f67d</title>
+<ellipse fill="#ced6bd" stroke="#595f45" cx="204" cy="-268.5" rx="4.5" ry="4.5"/>
+</g>
+</g>
 </svg>
+
 </figure>
 
 The complete code of this example is available in the GitHub repository <https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/windowsWindowMonitor>.
