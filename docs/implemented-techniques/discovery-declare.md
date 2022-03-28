@@ -1,7 +1,3 @@
-!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
-    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
-
-
 ## Dependency [![](https://jitpack.io/v/beamline/discovery-declare.svg)](https://jitpack.io/#beamline/discovery-declare)
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
@@ -20,16 +16,32 @@ See the [introduction page](index.md) for further instructions.
 It is possible to call the two miners `beamline.miners.declare.DeclareMinerLossyCounting` and `beamline.miners.declare.DeclareMinerBudgetLossyCounting` using the following:
 
 ```java linenums="1"
-new DeclareMinerLossyCounting(
+DeclareMinerLossyCounting miner = new DeclareMinerLossyCounting(
 	0.001, // the maximal approximation error
 	10 // the number of declare constraints to show
 );
 ```
 ```java linenums="1"
-new DeclareMinerBudgetLossyCounting(
+DeclareMinerBudgetLossyCounting miner = new DeclareMinerBudgetLossyCounting(
 	1000, // the available budget
 	10 // the number of declare constraints to show
 );
+```
+
+After the miner is configured, both can be used to produce a CNet which can be either exported into a `.cnet` file or visualized (currently the visualization does not support the bindings):
+
+```java linenums="5"
+StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+env
+	.addSource(source)
+	.keyBy(BEvent::getProcessName)
+	.flatMap(miner.setModelRefreshRate(100))
+	.addSink(new SinkFunction<DeclareModelView>(){
+		public void invoke(DeclareModelView value, Context context) throws Exception {
+			value.generateDot().exportToSvg(new File("output.svg"));
+		};
+	});
+env.execute();
 ```
 
 ## Scientific literature
