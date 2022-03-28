@@ -1,7 +1,3 @@
-!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
-    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
-
-
 ## Dependency [![](https://jitpack.io/v/beamline/discovery-heuristics.svg)](https://jitpack.io/#beamline/discovery-heuristics)
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
@@ -41,30 +37,17 @@ HeuristicsMinerBudgetLossyCounting miner = new HeuristicsMinerBudgetLossyCountin
 After the miner is configured, both can be used to produce a CNet which can be either exported into a `.cnet` file or visualized (currently the visualization does not support the bindings):
 
 ```java linenums="7"
-// in the following statement we set a hook to save the map every 1000 events processed
-miner.setOnAfterEvent(new HookEventProcessing() {
-	@Override
-	public void trigger() {
-		if (miner.getProcessedEvents() % 1000 == 0) {
-			try {
-				CNet model = miner.updateModel();
-				
-				// exports the model as cnet
-				ExportCNet e = new ExportCNet();
-				e.exportCNetToCNetFile(model, new File("output-" + miner.getProcessedEvents() +".cnet"));
-
-				// export a simplified visualization of the cnet
-				Dot dot = new CNetSimplifiedModelView(model);
-				dot.exportToSvg(new File("output-" + miner.getProcessedEvents() +".svg"));
-			} catch (IOException e) { }
-		}
-	}
-});
-		
-// connects the miner to the actual source
-XesSource source = ...
-source.prepare();
-source.getObservable().subscribe(miner);
+StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+env
+	.addSource(source)
+	.keyBy(BEvent::getProcessName)
+	.flatMap(miner.setModelRefreshRate(100))
+	.addSink(new SinkFunction<StreamingCNet>(){
+		public void invoke(StreamingCNet value, Context context) throws Exception {
+			new CNetSimplifiedModelView(value.getCnet()).exportToSvg(new File("output.svg"));
+		};
+	});
+env.execute();
 ```
 
 ## Scientific literature
