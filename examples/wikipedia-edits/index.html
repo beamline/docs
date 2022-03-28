@@ -309,152 +309,205 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1>Wikipedia edits</h1>
-<div class="admonition bug">
-<p class="admonition-title">Old documentation - Content valid only for Beamline v. 0.1.0</p>
-<p>The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.</p>
-</div>
 <p>All edits actions happening on Wikipedia are recorded and available as a stream of data (see <a href="https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams">https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams</a> for further details). A possible way of process mine the stream of edits happening is by considering the page being edited as the instance of the editing process and the edit "action" as the actual activity name.</p>
-<p>To achieve this goal we can write a new <code>XesSource</code> that consumes the stream of edits and produces a stream of <code>XTrace</code>s that can then be forwarded to one of the miners. So we can first define our source as well as the set of websites we want to filter (in this case we will focus on edits happening on the English version of Wikipedia, i.e., <code>enwiki</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">Subject</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">PublishSubject</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">processesToStream</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"enwiki"</span><span class="p">);</span>
+<p>To achieve this goal we can write a new <code>BeamlineAbstractSource</code> that consumes the stream of edits and produces a stream of <code>BEvent</code>s that can then be forwarded to one of the miners. So we can first define our source as well as the set of websites we want to filter (in this case we will focus on edits happening on the English version of Wikipedia, i.e., <code>enwiki</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">processesToStream</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"enwiki"</span><span class="p">);</span>
 </code></pre></div>
 <p>After then we can write the code to transform the JSON produced by the Wikipedia stream into a stream of <code>XTrace</code>s. </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="p">.</span><span class="na">newClient</span><span class="p">();</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">WebTarget</span> <span class="n">target</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="na">target</span><span class="p">(</span><span class="s">"https://stream.wikimedia.org/v2/stream/recentchange"</span><span class="p">);</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">SseEventSource</span> <span class="n">source</span> <span class="o">=</span> <span class="n">SseEventSource</span><span class="p">.</span><span class="na">target</span><span class="p">(</span><span class="n">target</span><span class="p">).</span><span class="na">reconnectingEvery</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">source</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="k">new</span> <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">InboundSseEvent</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a>    <span class="nd">@Override</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="n">InboundSseEvent</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a>        <span class="n">String</span> <span class="n">data</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="na">readData</span><span class="p">();</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a>            <span class="n">JSONObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>   <span class="nd">@Override</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="p">(</span><span class="n">InboundSseEvent</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>      <span class="n">String</span> <span class="n">data</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="na">readData</span><span class="p">();</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>      <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>         <span class="n">JSONObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10"></a>
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a>            <span class="n">String</span> <span class="n">processName</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"wiki"</span><span class="p">);</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12"></a>            <span class="n">String</span> <span class="n">caseId</span> <span class="o">=</span> <span class="n">DigestUtils</span><span class="p">.</span><span class="na">md5Hex</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"title"</span><span class="p">));</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13"></a>            <span class="n">String</span> <span class="n">activityName</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"type"</span><span class="p">);</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>         <span class="n">String</span> <span class="n">processName</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"wiki"</span><span class="p">);</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>         <span class="n">String</span> <span class="n">caseId</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"title"</span><span class="p">);</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>         <span class="n">String</span> <span class="n">activityName</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">"type"</span><span class="p">);</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14"></a>
-<a id="__codelineno-1-15" name="__codelineno-1-15"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">processesToStream</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">processName</span><span class="p">))</span> <span class="p">{</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16"></a>                <span class="c1">// prepare the actual event</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17"></a>                <span class="n">XEvent</span> <span class="n">event</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createEvent</span><span class="p">();</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18"></a>                <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">activityName</span><span class="p">);</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19"></a>                <span class="n">XTimeExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignTimestamp</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="k">new</span> <span class="n">Date</span><span class="p">());</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20"></a>                <span class="n">XTrace</span> <span class="n">eventWrapper</span> <span class="o">=</span> <span class="n">xesFactory</span><span class="p">.</span><span class="na">createTrace</span><span class="p">();</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21"></a>                <span class="n">XConceptExtension</span><span class="p">.</span><span class="na">instance</span><span class="p">().</span><span class="na">assignName</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">,</span> <span class="n">caseId</span><span class="p">);</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22"></a>                <span class="n">eventWrapper</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23"></a>                <span class="n">ps</span><span class="p">.</span><span class="na">onNext</span><span class="p">(</span><span class="n">eventWrapper</span><span class="p">);</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24"></a>            <span class="p">}</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25"></a>        <span class="p">}</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26"></a>    <span class="p">}</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="p">});</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="n">source</span><span class="p">.</span><span class="na">open</span><span class="p">();</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>         <span class="k">if</span> <span class="p">(</span><span class="n">processesToStream</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">processName</span><span class="p">))</span> <span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>            <span class="c1">// prepare the actual event</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>            <span class="k">try</span> <span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>               <span class="n">buffer</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">BEvent</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="n">processName</span><span class="p">,</span> <span class="n">caseId</span><span class="p">,</span> <span class="n">activityName</span><span class="p">));</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a>            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">EventException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>               <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>            <span class="p">}</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>         <span class="p">}</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>      <span class="p">}</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>   <span class="p">}</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="p">});</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="n">source</span><span class="p">.</span><span class="na">open</span><span class="p">();</span>
 </code></pre></div>
-<p>This code can be wrapped in a thread that executes all the time, as soon as the source is <code>prepare</code>d. Also, the code can be added </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WikipediaEditSource</span> <span class="kd">implements</span> <span class="n">XesSource</span> <span class="p">{</span>
+<p>This code can be wrapped in a thread that executes all the time, and stores each event in a buffer for further dispatching:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WikipediaEditSource</span> <span class="kd">extends</span> <span class="n">BeamlineAbstractSource</span> <span class="p">{</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">XFactory</span> <span class="n">xesFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XFactoryNaiveImpl</span><span class="p">();</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">processesToStream</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"enwiki"</span><span class="p">);</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>    <span class="kd">private</span> <span class="n">Subject</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="n">ps</span><span class="p">;</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a>    <span class="kd">public</span> <span class="nf">WikipediaEditSource</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a>        <span class="k">this</span><span class="p">.</span><span class="na">ps</span> <span class="o">=</span> <span class="n">PublishSubject</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a>    <span class="p">}</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a>    <span class="nd">@Override</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12"></a>    <span class="kd">public</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">XTrace</span><span class="o">&gt;</span> <span class="nf">getObservable</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13"></a>        <span class="k">return</span> <span class="n">ps</span><span class="p">;</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14"></a>    <span class="p">}</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15"></a>
-<a id="__codelineno-2-16" name="__codelineno-2-16"></a>    <span class="nd">@Override</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18"></a>        <span class="k">new</span> <span class="n">Thread</span><span class="p">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19"></a>            <span class="nd">@Override</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20"></a>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21"></a>                <span class="c1">// code from previous listing</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22"></a>                <span class="c1">// ...</span>
-<a id="__codelineno-2-23" name="__codelineno-2-23"></a>            <span class="p">}</span>
-<a id="__codelineno-2-24" name="__codelineno-2-24"></a>        <span class="p">}).</span><span class="na">start</span><span class="p">();</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25"></a>    <span class="p">}</span>
-<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="p">}</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">608025607423103621L</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>   <span class="kd">private</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">processesToStream</span> <span class="o">=</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">"enwiki"</span><span class="p">);</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">(</span><span class="n">SourceContext</span><span class="o">&lt;</span><span class="n">BEvent</span><span class="o">&gt;</span> <span class="n">ctx</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>      <span class="n">Queue</span><span class="o">&lt;</span><span class="n">BEvent</span><span class="o">&gt;</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>      <span class="k">new</span> <span class="n">Thread</span><span class="p">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>         <span class="nd">@Override</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>            <span class="c1">// code from previous listing</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>            <span class="c1">// ...</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>         <span class="p">}</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>      <span class="p">}).</span><span class="na">start</span><span class="p">();</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>      <span class="k">while</span><span class="p">(</span><span class="n">isRunning</span><span class="p">())</span> <span class="p">{</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a>         <span class="k">while</span> <span class="p">(</span><span class="n">isRunning</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">buffer</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="p">{</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a>            <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">100l</span><span class="p">);</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a>         <span class="p">}</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a>         <span class="k">if</span> <span class="p">(</span><span class="n">isRunning</span><span class="p">())</span> <span class="p">{</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a>            <span class="kd">synchronized</span> <span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="na">getCheckpointLock</span><span class="p">())</span> <span class="p">{</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a>               <span class="n">BEvent</span> <span class="n">e</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a>               <span class="n">ctx</span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a>            <span class="p">}</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a>         <span class="p">}</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a>      <span class="p">}</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a>   <span class="p">}</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="p">}</span>
 </code></pre></div>
 <p>A simple consumer, in this case the <a href="../../implemented-techniques/discovery-trivial/">Trivial discovery miner</a>, can then be attached to the source with:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">TrivialDiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TrivialDiscoveryMiner</span><span class="p">();</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">{</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">()</span> <span class="o">%</span> <span class="mi">50</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a>        <span class="k">try</span> <span class="p">{</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a>            <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"src/main/resources/output/output.svg"</span><span class="p">);</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9"></a>            <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">().</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10"></a>        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11"></a>    <span class="p">}</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="p">});</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="c1">// connects the miner to the actual source</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WikipediaEditSource</span><span class="p">();</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">().</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">StreamExecutionEnvironment</span> <span class="n">env</span> <span class="o">=</span> <span class="n">StreamExecutionEnvironment</span><span class="p">.</span><span class="na">getExecutionEnvironment</span><span class="p">();</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">env</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>   <span class="p">.</span><span class="na">addSource</span><span class="p">(</span><span class="k">new</span> <span class="n">WikipediaEditSource</span><span class="p">())</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>   <span class="p">.</span><span class="na">keyBy</span><span class="p">(</span><span class="n">BEvent</span><span class="p">::</span><span class="n">getProcessName</span><span class="p">)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>   <span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="k">new</span> <span class="n">DirectlyFollowsDependencyDiscoveryMiner</span><span class="p">().</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>   <span class="p">.</span><span class="na">addSink</span><span class="p">(</span><span class="k">new</span> <span class="n">SinkFunction</span><span class="o">&lt;</span><span class="n">ProcessMap</span><span class="o">&gt;</span><span class="p">(){</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">ProcessMap</span> <span class="n">value</span><span class="p">,</span> <span class="n">Context</span> <span class="n">context</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>         <span class="n">value</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"src/main/resources/output/output.svg"</span><span class="p">));</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>      <span class="p">};</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>   <span class="p">});</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="n">env</span><span class="p">.</span><span class="na">execute</span><span class="p">();</span>
 </code></pre></div></p>
-<p>After running the system for about 10 minutes, the following map was produced:</p>
+<p>After running the system for about a couple of minutes, the following map was produced:</p>
 <figure>
-<svg height="196px" id="svg150" inkscape:version="0.92.1 r15371" sodipodi:docname="output.svg" version="1.1" viewbox="0.00 0.00 421.00 196.00" width="421px" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
-<metadata id="metadata156">
-<rdf:rdf>
-<cc:work rdf:about="">
-<dc:format>image/svg+xml</dc:format>
-<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
-<dc:title></dc:title>
-</cc:work>
-</rdf:rdf>
-</metadata>
-<defs id="defs154"></defs>
-<sodipodi:namedview bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" id="namedview152" inkscape:current-layer="svg150" inkscape:cx="125.58106" inkscape:cy="164.23777" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="1147" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:zoom="1.4916865" objecttolerance="10" pagecolor="#ffffff" showgrid="false"></sodipodi:namedview>
-<path d="m 214,27 c 20.333,-8.5 61,-8.5 61,0 0,3.052 -5.243,5.008 -12.906,5.869" id="path8" inkscape:connector-curvature="0" style="fill:none;stroke:#838587;stroke-width:1.27039003"></path>
-<polygon id="polygon10" points="253.036,-158.737 257.885,-160.871 258.157,-157.381 " style="fill:#838587;stroke:#838587;stroke-width:1.27039003" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text12" style="font-size:8px;font-family:Arial;text-anchor:middle" x="286.5" y="28.899994">0.034</text>
-<path d="m 214,28 c 0,0 -58.724,11.024 -102,30 -9.0506,3.969 -18.3844,8.965 -27.0566,14.044" id="path17" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00437999"></path>
-<polygon id="polygon19" points="76.1996,-117.132 79.6005,-121.193 81.3911,-118.186 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00437999" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text21" style="font-size:8px;font-family:Arial;text-anchor:middle" x="128" y="64.400002">0.00055</text>
-<path d="m 214,28 c 0,0 -31.228,22.021 -47,47 -12.792,20.2592 -21.456,46.1382 -26.684,65.4507" id="path26" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00117004"></path>
-<polygon id="polygon28" points="134.931,-46.2865 134.511,-51.5672 137.896,-50.6768 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00117004" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text30" style="font-size:8px;font-family:Arial;text-anchor:middle" x="183" y="99.900002">0.00015</text>
-<path d="m 230,28 c 0,0 -12.038,24.15 -3,39 0.884,1.453 1.864,2.838 2.925,4.159" id="path35" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00088"></path>
-<polygon id="polygon37" points="211.281,-121.95 213.337,-117.068 208.685,-119.602 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00088" transform="translate(20,192)"></polygon>
-<text font-size="8.00" id="text39" style="font-size:8px;font-family:Arial;text-anchor:middle" x="243" y="64.400002">0.00011</text>
-<path d="m 47,98 c 20.3333,-8.5 61,-8.5 61,0 0,3.0521 -5.2432,5.0083 -12.9056,5.8685" id="path44" inkscape:connector-curvature="0" style="fill:none;stroke:#252526;stroke-width:9"></path>
-<polygon id="polygon46" points="86.0361,-87.7374 90.7152,-92.0514 91.3269,-84.2002 " style="fill:#252526;stroke:#252526;stroke-width:9" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text48" style="font-size:8px;font-family:Arial;text-anchor:middle" x="115" y="99.900002">1.0</text>
-<path d="m 47,99 c 0,0 -4.2748,25.4722 7,39 8.2163,9.8581 20.0161,16.4794 32.0389,20.9258" id="path53" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00934005"></path>
-<polygon id="polygon55" points="86.8306,-31.416 81.5332,-31.3974 82.6779,-34.705 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00934005" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text57" style="font-size:8px;font-family:Arial;text-anchor:middle" x="68" y="135.39999">0.0012</text>
-<path d="m 134,168 c 0,0 207.151,-4.7312 242,-47 13.006,-15.7744 12.278,-29.653 0,-46 C 362.268,56.718 305.014,43.252 262.441,35.529" id="path62" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.00292003"></path>
-<polygon id="polygon64" points="253.326,-157.384 258.556,-158.228 257.941,-154.783 " style="fill:#86888a;stroke:#86888a;stroke-width:1.00292003" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text66" style="font-size:8px;font-family:Arial;text-anchor:middle" x="401" y="99.900002">0.00037</text>
-<path d="m 134,168 c 0,0 -30.2389,-23.9826 -55.0618,-43.6697" id="path71" inkscape:connector-curvature="0" style="fill:none;stroke:#86888a;stroke-width:1.01810002"></path>
-<polygon id="polygon73" points="71.0062,-70.7882 76.0112,-69.0523 73.8363,-66.31 " style="fill:#86888a;stroke:#86888a;stroke-width:1.01810002" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text75" style="font-size:8px;font-family:Arial;text-anchor:middle" x="110" y="135.39999">0.0023</text>
-<path d="m 134,169 c 20.333,-8.5 61,-8.5 61,0 0,3.0521 -5.243,5.0083 -12.906,5.8685" id="path80" inkscape:connector-curvature="0" style="fill:none;stroke:#7e8082;stroke-width:1.65992999"></path>
-<polygon id="polygon82" points="173.036,-16.7374 177.885,-18.8706 178.157,-15.3811 " style="fill:#7e8082;stroke:#7e8082;stroke-width:1.65992999" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text84" style="font-size:8px;font-family:Arial;text-anchor:middle" x="206.5" y="170.89999">0.082</text>
-<path d="m 269,98 c 26.167,-8.5 78.5,-8.5 78.5,0 0,2.6396 -5.047,4.4596 -12.79,5.4597" id="path98" inkscape:connector-curvature="0" style="fill:none;stroke:#444546;stroke-width:6.42278004"></path>
-<polygon id="polygon100" points="325.562,-88.0234 330.256,-91.3188 330.817,-85.727 " style="fill:#444546;stroke:#444546;stroke-width:6.42278004" transform="translate(4,192)"></polygon>
-<text font-size="8.00" id="text102" style="font-size:8px;font-family:Arial;text-anchor:middle" x="357" y="99.900002">0.68</text>
-<path d="m 245,4 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path107" inkscape:connector-curvature="0" style="fill:#c8e7f6;stroke:#000000"></path>
-<text font-size="22.00" id="text109" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="192" y="24.600006">new</text>
-<text font-size="14.00" id="text111" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="232" y="24.600006"></text>
-<text font-size="16.00" id="text113" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="193.5" y="41.800003">0.034</text>
-<path d="m 78,75 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path118" inkscape:connector-curvature="0" style="fill:#0b4971;stroke:#000000"></path>
-<text font-size="22.00" id="text120" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="27" y="95.599998">edit</text>
-<text font-size="14.00" id="text122" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="63" y="95.599998"></text>
-<text font-size="16.00" id="text124" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="35.5" y="112.8">1.0</text>
-<path d="m 165,146 c 0,0 -62,0 -62,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 62,0 62,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path129" inkscape:connector-curvature="0" style="fill:#bfdff0;stroke:#000000"></path>
-<text font-size="22.00" id="text131" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#000000" x="117" y="166.60001">log</text>
-<text font-size="14.00" id="text133" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#000000" x="147" y="166.60001"></text>
-<text font-size="16.00" id="text135" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#000000" x="113.5" y="183.8">0.083</text>
-<path d="m 317.5,75 c 0,0 -97,0 -97,0 -6,0 -12,6 -12,12 0,0 0,22 0,22 0,6 6,12 12,12 0,0 97,0 97,0 6,0 12,-6 12,-12 0,0 0,-22 0,-22 0,-6 -6,-12 -12,-12" id="path140" inkscape:connector-curvature="0" style="fill:#5083a2;stroke:#000000"></path>
-<text font-size="22.00" id="text142" style="font-size:22px;font-family:Arial;text-anchor:start;fill:#ffffff" x="216.5" y="95.599998">categorize</text>
-<text font-size="14.00" id="text144" style="font-size:14px;font-family:Arial;text-anchor:start;fill:#ffffff" x="317.5" y="95.599998"></text>
-<text font-size="16.00" id="text146" style="font-size:16px;font-family:Arial;text-anchor:start;fill:#ffffff" x="253" y="112.8">0.65</text>
+<svg height="281px" viewbox="0.00 0.00 346.61 281.00" width="347px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 277.0)">
+<title>G</title>
+<polygon fill="white" points="-4,4 -4,-277 342.612,-277 342.612,4 -4,4" stroke="none"></polygon>
+<!-- e9f086037&#45;f263&#45;4023&#45;a09a&#45;65194c88011b&#45;&gt;e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9 -->
+<g class="edge" id="e8f92521a-e8ac-46e8-8224-2d53af5a0b4e"><title>e9f086037-f263-4023-a09a-65194c88011b-&gt;e0615c600-1e15-47f0-94f6-9ce57be6cab9</title>
+<path d="M83.612,-217.5C83.612,-217.5 50.9186,-198.498 40.612,-173 33.7832,-156.106 30.5244,-147.175 40.612,-132 53.606,-112.452 77.032,-101.473 98.5628,-95.3158" fill="none" stroke="#848688" stroke-width="1.14035"></path>
+<polygon fill="#848688" points="99.0433,-96.9987 103.41,-93.9998 98.1262,-93.621 99.0433,-96.9987" stroke="#848688" stroke-width="1.14035"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="58.612" y="-150.6"> 0.018 (3)</text>
+</g>
+<!-- e9f086037&#45;f263&#45;4023&#45;a09a&#45;65194c88011b&#45;&gt;eb542aaf4&#45;fda2&#45;48c0&#45;96c2&#45;b404ab6e59ce -->
+<g class="edge" id="ed987db2c-2603-403d-a848-66ccfc9e1557"><title>e9f086037-f263-4023-a09a-65194c88011b-&gt;eb542aaf4-fda2-48c0-96c2-b404ab6e59ce</title>
+<path d="M83.612,-217.5C83.612,-217.5 71.5832,-194.543 80.612,-181 81.5759,-179.554 82.6319,-178.184 83.7668,-176.886" fill="none" stroke="#858789" stroke-width="1.04678"></path>
+<polygon fill="#858789" points="85.1327,-177.993 87.3958,-173.203 82.6398,-175.536 85.1327,-177.993" stroke="#858789" stroke-width="1.04678"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="100.612" y="-183.6"> 0.0058 (1)</text>
+</g>
+<!-- ecdf5f385&#45;1425&#45;4bad&#45;8feb&#45;175f435d6826&#45;&gt;e9f086037&#45;f263&#45;4023&#45;a09a&#45;65194c88011b -->
+<g class="edge" id="e0590e795-48b7-4755-a73f-06ad5de85bce"><title>ecdf5f385-1425-4bad-8feb-175f435d6826-&gt;e9f086037-f263-4023-a09a-65194c88011b</title>
+<path d="M145.612,-21.5C145.612,-21.5 40.1738,-48.748 4.61196,-115 -11.3745,-144.783 18.7154,-174.962 46.2451,-194.784" fill="none" stroke="#858789" stroke-width="1.04678"></path>
+<polygon fill="#858789" points="45.5384,-196.427 50.6341,-197.875 47.5537,-193.565 45.5384,-196.427" stroke="#858789" stroke-width="1.04678"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="24.612" y="-117.6"> 0.0058 (1)</text>
+</g>
+<!-- ecdf5f385&#45;1425&#45;4bad&#45;8feb&#45;175f435d6826&#45;&gt;ecdf5f385&#45;1425&#45;4bad&#45;8feb&#45;175f435d6826 -->
+<g class="edge" id="e3af7cd2f-ee0b-4edc-8ccf-e87cb93316d8"><title>ecdf5f385-1425-4bad-8feb-175f435d6826-&gt;ecdf5f385-1425-4bad-8feb-175f435d6826</title>
+<path d="M145.612,-20.5C165.945,-28.5 206.612,-28.5 206.612,-20.5 206.612,-17.6274 201.369,-15.7863 193.706,-14.9767" fill="none" stroke="#727375" stroke-width="2.68421"></path>
+<polygon fill="#727375" points="193.763,-13.2262 188.648,-14.6058 193.507,-16.7168 193.763,-13.2262" stroke="#727375" stroke-width="2.68421"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="224.612" y="-18.6"> 0.21 (36)</text>
+</g>
+<!-- ecdf5f385&#45;1425&#45;4bad&#45;8feb&#45;175f435d6826&#45;&gt;e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9 -->
+<g class="edge" id="e7023d429-3b1b-48b5-a150-b708eb371e2a"><title>ecdf5f385-1425-4bad-8feb-175f435d6826-&gt;e0615c600-1e15-47f0-94f6-9ce57be6cab9</title>
+<path d="M145.612,-21.5C145.612,-21.5 151.816,-36.3984 153.612,-49 154.162,-52.8626 154.062,-56.9369 153.588,-60.9074" fill="none" stroke="#7c7e80" stroke-width="1.79532"></path>
+<polygon fill="#7c7e80" points="151.858,-60.646 152.808,-65.8575 155.315,-61.1907 151.858,-60.646" stroke="#7c7e80" stroke-width="1.79532"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="174.612" y="-51.6"> 0.099 (17)</text>
+</g>
+<!-- e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9&#45;&gt;ecdf5f385&#45;1425&#45;4bad&#45;8feb&#45;175f435d6826 -->
+<g class="edge" id="e5dd47088-5df3-49e6-8c3f-c907cd948c9c"><title>e0615c600-1e15-47f0-94f6-9ce57be6cab9-&gt;ecdf5f385-1425-4bad-8feb-175f435d6826</title>
+<path d="M146.612,-85.5C146.612,-85.5 121.71,-75.2893 113.612,-58 111.608,-53.7215 112.016,-49.5664 113.877,-45.686" fill="none" stroke="#818385" stroke-width="1.42105"></path>
+<polygon fill="#818385" points="115.478,-46.4275 116.67,-41.2658 112.52,-44.5577 115.478,-46.4275" stroke="#818385" stroke-width="1.42105"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="131.612" y="-51.6"> 0.053 (9)</text>
+</g>
+<!-- e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9&#45;&gt;e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9 -->
+<g class="edge" id="e992962b7-89cd-4897-82a7-b935cb498248"><title>e0615c600-1e15-47f0-94f6-9ce57be6cab9-&gt;e0615c600-1e15-47f0-94f6-9ce57be6cab9</title>
+<path d="M146.612,-86.5C166.945,-94.5 207.612,-94.5 207.612,-86.5 207.612,-83.6274 202.369,-81.7863 194.706,-80.9767" fill="none" stroke="#313233" stroke-width="7.97076"></path>
+<polygon fill="#313233" points="194.89,-77.4936 189.648,-80.6058 194.38,-84.4494 194.89,-77.4936" stroke="#313233" stroke-width="7.97076"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="227.612" y="-84.6"> 0.87 (149)</text>
+</g>
+<!-- eb542aaf4&#45;fda2&#45;48c0&#45;96c2&#45;b404ab6e59ce&#45;&gt;e9f086037&#45;f263&#45;4023&#45;a09a&#45;65194c88011b -->
+<g class="edge" id="ed2ee42a2-4f99-40ae-83fd-858b661044b8"><title>eb542aaf4-fda2-48c0-96c2-b404ab6e59ce-&gt;e9f086037-f263-4023-a09a-65194c88011b</title>
+<path d="M146.612,-153.5C146.612,-153.5 137.677,-176.287 124.612,-190 123.149,-191.536 121.585,-193.032 119.954,-194.481" fill="none" stroke="#858789" stroke-width="1.04678"></path>
+<polygon fill="#858789" points="118.74,-193.216 116.043,-197.775 120.995,-195.893 118.74,-193.216" stroke="#858789" stroke-width="1.04678"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="151.612" y="-183.6"> 0.0058 (1)</text>
+</g>
+<!-- eb542aaf4&#45;fda2&#45;48c0&#45;96c2&#45;b404ab6e59ce&#45;&gt;e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9 -->
+<g class="edge" id="ef9820d3c-5b53-4baa-af69-79b8ba0a9b59"><title>eb542aaf4-fda2-48c0-96c2-b404ab6e59ce-&gt;e0615c600-1e15-47f0-94f6-9ce57be6cab9</title>
+<path d="M146.612,-151.5C146.612,-151.5 146.612,-130.451 146.612,-112.496" fill="none" stroke="#858789" stroke-width="1.04678"></path>
+<polygon fill="#858789" points="148.362,-112.05 146.612,-107.05 144.862,-112.05 148.362,-112.05" stroke="#858789" stroke-width="1.04678"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="166.612" y="-117.6"> 0.0058 (1)</text>
+</g>
+<!-- eb542aaf4&#45;fda2&#45;48c0&#45;96c2&#45;b404ab6e59ce&#45;&gt;eb542aaf4&#45;fda2&#45;48c0&#45;96c2&#45;b404ab6e59ce -->
+<g class="edge" id="e5bea5029-153b-42ca-8ef2-f96d63c93ea5"><title>eb542aaf4-fda2-48c0-96c2-b404ab6e59ce-&gt;eb542aaf4-fda2-48c0-96c2-b404ab6e59ce</title>
+<path d="M146.612,-152.5C172.779,-160.5 225.112,-160.5 225.112,-152.5 225.112,-150.016 220.065,-148.303 212.322,-147.361" fill="none" stroke="#252526" stroke-width="9"></path>
+<polygon fill="#252526" points="212.522,-143.425 207.173,-146.875 211.781,-151.265 212.522,-143.425" stroke="#252526" stroke-width="9"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="243.112" y="-150.6"> 1.0 (171)</text>
+</g>
+<!-- e5c219b19&#45;76ba&#45;4a89&#45;81e8&#45;472c2f157271&#45;&gt;e9f086037&#45;f263&#45;4023&#45;a09a&#45;65194c88011b -->
+<g class="edge" id="e4ac9e20c-cfeb-446f-8126-69be3c2e15f7"><title>e5c219b19-76ba-4a89-81e8-472c2f157271-&gt;e9f086037-f263-4023-a09a-65194c88011b</title>
+<path d="M259.612,-267.5C259.612,-267.5 233.406,-261.484 212.612,-256 185.823,-248.935 156.056,-240.549 131.873,-233.598" fill="none" stroke="#acb89c" stroke-dasharray="5,2" stroke-width="2"></path>
+<polygon fill="#acb89c" points="132.089,-231.839 126.8,-232.137 131.121,-235.202 132.089,-231.839" stroke="#acb89c" stroke-width="2"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="214.112" y="-249.6"> </text>
+</g>
+<!-- e5c219b19&#45;76ba&#45;4a89&#45;81e8&#45;472c2f157271&#45;&gt;ecdf5f385&#45;1425&#45;4bad&#45;8feb&#45;175f435d6826 -->
+<g class="edge" id="ef14974f0-6a88-4e4c-9c1c-0f5327645ca4"><title>e5c219b19-76ba-4a89-81e8-472c2f157271-&gt;ecdf5f385-1425-4bad-8feb-175f435d6826</title>
+<path d="M259.612,-267.5C259.612,-267.5 335.612,-259.451 335.612,-219.5 335.612,-219.5 335.612,-219.5 335.612,-85.5 335.612,-55.5981 250.028,-37.0052 193.739,-28.0103" fill="none" stroke="#acb89c" stroke-dasharray="5,2" stroke-width="2"></path>
+<polygon fill="#acb89c" points="193.937,-26.27 188.726,-27.2221 193.393,-29.7275 193.937,-26.27" stroke="#acb89c" stroke-width="2"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="337.112" y="-150.6"> </text>
+</g>
+<!-- e5c219b19&#45;76ba&#45;4a89&#45;81e8&#45;472c2f157271&#45;&gt;e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9 -->
+<g class="edge" id="ee95bf413-0f3b-42e1-9904-a75d0422b09d"><title>e5c219b19-76ba-4a89-81e8-472c2f157271-&gt;e0615c600-1e15-47f0-94f6-9ce57be6cab9</title>
+<path d="M259.612,-267.5C259.612,-267.5 305.379,-181.415 270.612,-132 253.514,-107.698 221.835,-96.6014 194.778,-91.5656" fill="none" stroke="#acb89c" stroke-dasharray="5,2" stroke-width="2"></path>
+<polygon fill="#acb89c" points="195.011,-89.8298 189.785,-90.6941 194.409,-93.2777 195.011,-89.8298" stroke="#acb89c" stroke-width="2"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="284.112" y="-183.6"> </text>
+</g>
+<!-- e5c219b19&#45;76ba&#45;4a89&#45;81e8&#45;472c2f157271&#45;&gt;eb542aaf4&#45;fda2&#45;48c0&#45;96c2&#45;b404ab6e59ce -->
+<g class="edge" id="e5e2fbe2d-0460-4277-a498-1e6478a65845"><title>e5c219b19-76ba-4a89-81e8-472c2f157271-&gt;eb542aaf4-fda2-48c0-96c2-b404ab6e59ce</title>
+<path d="M259.612,-267.5C259.612,-267.5 213.729,-218.667 175.612,-181 174.249,-179.653 172.842,-178.276 171.417,-176.892" fill="none" stroke="#acb89c" stroke-dasharray="5,2" stroke-width="2"></path>
+<polygon fill="#acb89c" points="172.432,-175.44 167.619,-173.226 170.001,-177.958 172.432,-175.44" stroke="#acb89c" stroke-width="2"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="234.112" y="-216.6"> </text>
+</g>
+<!-- e9f086037&#45;f263&#45;4023&#45;a09a&#45;65194c88011b -->
+<g class="node" id="e9f086037-f263-4023-a09a-65194c88011b"><title>e9f086037-f263-4023-a09a-65194c88011b</title>
+<path d="M114.612,-239C114.612,-239 52.612,-239 52.612,-239 46.612,-239 40.612,-233 40.612,-227 40.612,-227 40.612,-210 40.612,-210 40.612,-204 46.612,-198 52.612,-198 52.612,-198 114.612,-198 114.612,-198 120.612,-198 126.612,-204 126.612,-210 126.612,-210 126.612,-227 126.612,-227 126.612,-233 120.612,-239 114.612,-239" fill="#c8e7f6" stroke="black"></path>
+<text fill="#000000" font-family="Arial" font-size="22.00" text-anchor="start" x="61.612" y="-218.4">new</text>
+<text fill="#000000" font-family="Arial" font-size="14.00" text-anchor="start" x="101.612" y="-218.4"> </text>
+<text fill="#000000" font-family="Arial" font-size="11.00" text-anchor="start" x="58.612" y="-205.2">0.035 (34)</text>
+</g>
+<!-- ecdf5f385&#45;1425&#45;4bad&#45;8feb&#45;175f435d6826 -->
+<g class="node" id="ecdf5f385-1425-4bad-8feb-175f435d6826"><title>ecdf5f385-1425-4bad-8feb-175f435d6826</title>
+<path d="M176.612,-41C176.612,-41 114.612,-41 114.612,-41 108.612,-41 102.612,-35 102.612,-29 102.612,-29 102.612,-12 102.612,-12 102.612,-6 108.612,-0 114.612,-0 114.612,-0 176.612,-0 176.612,-0 182.612,-0 188.612,-6 188.612,-12 188.612,-12 188.612,-29 188.612,-29 188.612,-35 182.612,-41 176.612,-41" fill="#b6d8ea" stroke="black"></path>
+<text fill="#000000" font-family="Arial" font-size="22.00" text-anchor="start" x="128.612" y="-20.4">log</text>
+<text fill="#000000" font-family="Arial" font-size="14.00" text-anchor="start" x="158.612" y="-20.4"> </text>
+<text fill="#000000" font-family="Arial" font-size="11.00" text-anchor="start" x="120.612" y="-7.2">0.13 (121)</text>
+</g>
+<!-- e0615c600&#45;1e15&#45;47f0&#45;94f6&#45;9ce57be6cab9 -->
+<g class="node" id="e0615c600-1e15-47f0-94f6-9ce57be6cab9"><title>e0615c600-1e15-47f0-94f6-9ce57be6cab9</title>
+<path d="M177.612,-107C177.612,-107 115.612,-107 115.612,-107 109.612,-107 103.612,-101 103.612,-95 103.612,-95 103.612,-78 103.612,-78 103.612,-72 109.612,-66 115.612,-66 115.612,-66 177.612,-66 177.612,-66 183.612,-66 189.612,-72 189.612,-78 189.612,-78 189.612,-95 189.612,-95 189.612,-101 183.612,-107 177.612,-107" fill="#0b4971" stroke="black"></path>
+<text fill="#ffffff" font-family="Arial" font-size="22.00" text-anchor="start" x="126.612" y="-86.4">edit</text>
+<text fill="#ffffff" font-family="Arial" font-size="14.00" text-anchor="start" x="162.612" y="-86.4"> </text>
+<text fill="#ffffff" font-family="Arial" font-size="11.00" text-anchor="start" x="124.612" y="-73.2">1.0 (963)</text>
+</g>
+<!-- eb542aaf4&#45;fda2&#45;48c0&#45;96c2&#45;b404ab6e59ce -->
+<g class="node" id="eb542aaf4-fda2-48c0-96c2-b404ab6e59ce"><title>eb542aaf4-fda2-48c0-96c2-b404ab6e59ce</title>
+<path d="M195.112,-173C195.112,-173 98.112,-173 98.112,-173 92.112,-173 86.112,-167 86.112,-161 86.112,-161 86.112,-144 86.112,-144 86.112,-138 92.112,-132 98.112,-132 98.112,-132 195.112,-132 195.112,-132 201.112,-132 207.112,-138 207.112,-144 207.112,-144 207.112,-161 207.112,-161 207.112,-167 201.112,-173 195.112,-173" fill="#7ba7c0" stroke="black"></path>
+<text fill="#000000" font-family="Arial" font-size="22.00" text-anchor="start" x="94.112" y="-152.4">categorize</text>
+<text fill="#000000" font-family="Arial" font-size="14.00" text-anchor="start" x="195.112" y="-152.4"> </text>
+<text fill="#000000" font-family="Arial" font-size="11.00" text-anchor="start" x="121.612" y="-139.2">0.43 (412)</text>
+</g>
+<!-- e5c219b19&#45;76ba&#45;4a89&#45;81e8&#45;472c2f157271 -->
+<g class="node" id="e5c219b19-76ba-4a89-81e8-472c2f157271"><title>e5c219b19-76ba-4a89-81e8-472c2f157271</title>
+<ellipse cx="259.612" cy="-268.5" fill="#ced6bd" rx="4.5" ry="4.5" stroke="#595f45"></ellipse>
+</g>
+</g>
 </svg>
 </figure>
 <p>The complete code of this example is available in the GitHub repository <a href="https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/wikipedia">https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/wikipedia</a>.</p>
