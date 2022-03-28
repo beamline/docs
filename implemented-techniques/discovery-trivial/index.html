@@ -339,10 +339,6 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1>Trivial Miner</h1>
-<div class="admonition bug">
-<p class="admonition-title">Old documentation - Content valid only for Beamline v. 0.1.0</p>
-<p>The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.</p>
-</div>
 <h2 id="dependency">Dependency <a href="https://jitpack.io/#beamline/discovery-trivial"><img alt="" src="https://jitpack.io/v/beamline/discovery-trivial.svg"/></a></h2>
 <p>To use these algorithms in your Java Maven project it is necessary to include, in the <code>pom.xml</code> file, the dependency:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
@@ -368,33 +364,21 @@ See the <a href="../">introduction page</a> for further instructions.</p>
 <span class="normal"><a href="#__codelineno-1-12">12</a></span>
 <span class="normal"><a href="#__codelineno-1-13">13</a></span>
 <span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span>
-<span class="normal"><a href="#__codelineno-1-20">20</a></span>
-<span class="normal"><a href="#__codelineno-1-21">21</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">TrivialDiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TrivialDiscoveryMiner</span><span class="p">();</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mf">0.99</span><span class="p">);</span> <span class="c1">// configures the dependency threshold for the miner</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c1">// in the following statement we set a hook to save the map every 1000 events processed</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">miner</span><span class="p">.</span><span class="na">setOnAfterEvent</span><span class="p">(</span><span class="k">new</span> <span class="n">HookEventProcessing</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a>    <span class="nd">@Override</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">trigger</span><span class="p">()</span> <span class="p">{</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">()</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a>            <span class="k">try</span> <span class="p">{</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10"></a>                <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"output_"</span> <span class="o">+</span> <span class="n">miner</span><span class="p">.</span><span class="na">getProcessedEvents</span><span class="p">()</span> <span class="o">+</span> <span class="s">".svg"</span><span class="p">);</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a>                <span class="n">GraphvizResponse</span> <span class="n">resp</span> <span class="o">=</span> <span class="n">miner</span><span class="p">.</span><span class="na">getLatestResponse</span><span class="p">();</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12"></a>                <span class="n">resp</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13"></a>            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14"></a>        <span class="p">}</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15"></a>    <span class="p">}</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="p">});</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17"></a>
-<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="c1">// connects the miner to the actual source</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="n">XesSource</span> <span class="n">source</span> <span class="o">=</span> <span class="p">...</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="n">source</span><span class="p">.</span><span class="na">prepare</span><span class="p">();</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="n">source</span><span class="p">.</span><span class="na">getObservable</span><span class="p">().</span><span class="na">subscribe</span><span class="p">(</span><span class="n">miner</span><span class="p">);</span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">DirectlyFollowsDependencyDiscoveryMiner</span> <span class="n">miner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DirectlyFollowsDependencyDiscoveryMiner</span><span class="p">();</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">miner</span><span class="p">.</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// configure how ofter the mining algorithm should emit a new model</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">miner</span><span class="p">.</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mf">0.8</span><span class="p">);</span> <span class="c1">// configure the dependency threshold</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">StreamExecutionEnvironment</span> <span class="n">env</span> <span class="o">=</span> <span class="n">StreamExecutionEnvironment</span><span class="p">.</span><span class="na">getExecutionEnvironment</span><span class="p">();</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="n">env</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>    <span class="p">.</span><span class="na">addSource</span><span class="p">(</span><span class="k">new</span> <span class="n">StringTestSource</span><span class="p">(</span><span class="s">"ABCDF"</span><span class="p">,</span> <span class="s">"ABCEF"</span><span class="p">))</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>    <span class="p">.</span><span class="na">keyBy</span><span class="p">(</span><span class="n">BEvent</span><span class="p">::</span><span class="n">getProcessName</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>    <span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="n">miner</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>    <span class="p">.</span><span class="na">addSink</span><span class="p">(</span><span class="k">new</span> <span class="n">SinkFunction</span><span class="o">&lt;</span><span class="n">ProcessMap</span><span class="o">&gt;</span><span class="p">(){</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">invoke</span><span class="p">(</span><span class="n">ProcessMap</span> <span class="n">value</span><span class="p">,</span> <span class="n">Context</span> <span class="n">context</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>            <span class="n">value</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="s">"output.svg"</span><span class="p">));</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>        <span class="p">};</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>    <span class="p">});</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="n">env</span><span class="p">.</span><span class="na">execute</span><span class="p">();</span>
 </code></pre></div>
 </td></tr></table>
 <h2 id="scientific-literature">Scientific literature</h2>
