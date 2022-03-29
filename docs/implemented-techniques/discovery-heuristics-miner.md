@@ -1,4 +1,4 @@
-## Dependency [![](https://jitpack.io/v/beamline/discovery-heuristics.svg)](https://jitpack.io/#beamline/discovery-heuristics)
+## Dependency
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
 ```xml
@@ -9,6 +9,8 @@ To use these algorithms in your Java Maven project it is necessary to include, i
 </dependency>
 ```
 See the [introduction page](index.md) for further instructions.
+
+[![](https://jitpack.io/v/beamline/discovery-heuristics.svg)](https://jitpack.io/#beamline/discovery-heuristics)
 
 
 ## Usage
