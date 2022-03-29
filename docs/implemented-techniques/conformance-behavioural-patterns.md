@@ -1,8 +1,4 @@
-!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
-    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
-
-
-## Dependency [![](https://jitpack.io/v/beamline/conformance-behavioural-patterns.svg)](https://jitpack.io/#beamline/conformance-behavioural-patterns)
+## Dependency
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
 ```xml
@@ -14,24 +10,35 @@ To use these algorithms in your Java Maven project it is necessary to include, i
 ```
 See the [introduction page](index.md) for further instructions.
 
+[![](https://jitpack.io/v/beamline/conformance-behavioural-patterns.svg)](https://jitpack.io/#beamline/conformance-behavioural-patterns)
+
 
 ## Usage
 
 To use the technique you need to create the conformance checker object using:
 
 ```java linenums="1"
-SimpleConformance conformance = new SimpleConformance();
-conformance.loadModel(new File("reference-model.tpn"));
+SimpleConformance conformance = new SimpleConformance(new File("reference-model.tpn"));
+StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+env
+    .addSource(source)
+    .keyBy(BEvent::getTraceName)
+    .flatMap(conformance)
+    .addSink(new SinkFunction<ConformanceResponse>(){
+        public void invoke(ConformanceResponse value, Context context) throws Exception {
+            System.out.println(
+                value.getCost() + " - " +
+                value.getLastEvent().getEventName() + " - " +
+                value.getLastEvent().getTraceName());
+        };
+    });
+env.execute();
 
-conformance.setOnAfterEvent(new HookEventProcessing() {
-    @Override
-    public void trigger() {
-        System.out.println(miner.getLatestResponse());
-    }
-});
 ```
 
-In the current version, the reference model must be expressed as a Petri Net stored in TPN format. Additionally, in this version, the response is expressed as a `Pair<Integer, String>` object, where the first component is the cost of the execution of the current event (0 means the event was compliant, > 0 means the process was not compliant). The code above will print, after each event, the cost of the corresponding replay.
+It is worth highlighting that since each trace can be processed independently from the others, it is possible to increase the parallelism by keying the stream based on the case identifier (`BEvent::getTraceName`, line 5).
+
+In the current version, the reference model must be expressed as a Petri Net stored in TPN format. Additionally, in this version, the response is expressed as a `ConformanceResponse` object containing information regarding the latest event processed as well as the cost of replaying it.
 
 <div class="mermaid">
 graph LR     
