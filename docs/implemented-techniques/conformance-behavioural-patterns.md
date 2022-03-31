@@ -46,7 +46,7 @@ graph LR
 </div>
 
 !!! note "TPN file format"
-    A TPN file is just a text file where a Petri net is specified as the example below:
+    A TPN file is just a text file where a Petri net below:
     <figure>
     <svg width="422pt" height="60pt"
      viewBox="0.00 0.00 422.00 60.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -170,7 +170,7 @@ graph LR
     </g>
     </svg>
     </figure>
-
+    Is represented as follows:
     ```
     place "place_0";
     place "place_1";
@@ -185,6 +185,7 @@ graph LR
     trans "t_11"~"E" in "place_0" out "place_2" ;
     trans "t_12"~"F" in "place_0" out "place_2" ;
     ```
+    A tool that is capable of exporting TPN files is [PLG](https://github.com/delas/plg). For example, it is possible to import a simple Signavio BPMN file into PLG and then export the model (after conversion to Petri net) as TPN.
 
 In order to properly pre-process the Petri net, it is necessary to set up a [property file](https://en.wikipedia.org/wiki/.properties) called `javaOfflinePreProcessor.properties` with the following content:
 
