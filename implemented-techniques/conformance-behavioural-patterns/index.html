@@ -390,7 +390,7 @@ graph LR
 </div>
 <div class="admonition note">
 <p class="admonition-title">TPN file format</p>
-<p>A TPN file is just a text file where a Petri net is specified as the example below:
+<p>A TPN file is just a text file where a Petri net below:
 <figure>
 <svg height="60pt" viewbox="0.00 0.00 422.00 60.00" width="422pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 56)">
@@ -512,7 +512,8 @@ graph LR
 </g>
 </g>
 </svg>
-</figure></p>
+</figure>
+Is represented as follows:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>place "place_0";
 <a id="__codelineno-2-2" name="__codelineno-2-2"></a>place "place_1";
 <a id="__codelineno-2-3" name="__codelineno-2-3"></a>place "place_2";
@@ -526,6 +527,7 @@ graph LR
 <a id="__codelineno-2-11" name="__codelineno-2-11"></a>trans "t_11"~"E" in "place_0" out "place_2" ;
 <a id="__codelineno-2-12" name="__codelineno-2-12"></a>trans "t_12"~"F" in "place_0" out "place_2" ;
 </code></pre></div>
+A tool that is capable of exporting TPN files is <a href="https://github.com/delas/plg">PLG</a>. For example, it is possible to import a simple Signavio BPMN file into PLG and then export the model (after conversion to Petri net) as TPN.</p>
 </div>
 <p>In order to properly pre-process the Petri net, it is necessary to set up a <a href="https://en.wikipedia.org/wiki/.properties">property file</a> called <code>javaOfflinePreProcessor.properties</code> with the following content:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="na">JAVA_BIN</span> <span class="o">=</span> <span class="s">FULL_PATH_OF_THE_JAVA_EXECUTABLE</span>
