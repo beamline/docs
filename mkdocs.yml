@@ -21,6 +21,7 @@ nav:
       - Monitoring active windows (for Windows systems): examples/monitoring-windows.md
       - Speech recognition: examples/speech-recognition.md
       - Wikipedia edits: examples/wikipedia-edits.md
+      - OpenSky monitoring: examples/open-sky-monitoring.md
   - MQTT-XES: mqtt-xes.md
   - About: about.md
 
