@@ -1,7 +1,6 @@
 # MQTT-XES
 
 MQTT-XES is a lightweight library for real-time logging over MQTT, for process mining purposes. 
-
 The MQTT-XES library is described in the corresponding paper:
 
 - [MQTT-XES: Real-time Telemetry for Process Event Data](https://andrea.burattin.net/publications/2020-bpm-demo)  
@@ -33,7 +32,7 @@ See <https://jitpack.io/#beamline/mqtt-xes> for further details (e.g., using it 
 
 ### Sending events
 
-To generate events to be sent using MQTT-XES it is possible ot use the following code snippet, first to create the client:
+To generate events to be sent using MQTT-XES it is possible to use the following code snippet, first to create the client:
 ```java
 XesMqttProducer client = new XesMqttProducer("broker.hivemq.com", "BASE");
 ```

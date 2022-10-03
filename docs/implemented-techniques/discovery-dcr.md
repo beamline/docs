@@ -1,6 +1,4 @@
-!!! bug "Old documentation - Content valid only for Beamline v. 0.1.0"
-    The content of this page refers an old version of the library (0.1.0). The current version of Beamline uses completely different technology and thus the content migh be invalid.
-
+# Discovery DCR
 
 ## Dependency [![](https://jitpack.io/v/beamline/discovery-dcr.svg)](https://jitpack.io/#beamline/discovery-dcr)
 
@@ -9,7 +7,7 @@ To use these algorithms in your Java Maven project it is necessary to include, i
 <dependency>
     <groupId>com.github.beamline</groupId>
     <artifactId>discovery-dcr</artifactId>
-    <version>master-SNAPSHOT</version>
+    <version>beamline-framework-SNAPSHOT</version>
 </dependency>
 ```
 See the [introduction page](index.md) for further instructions.
@@ -20,12 +18,17 @@ See the [introduction page](index.md) for further instructions.
 To construct a DCR miner it is possible to construct it with the following code:
 
 ```java linenums="1"
-DFGBasedMiner miner = new DFGBasedMiner();
+Reflections reflections = new Reflections("beamline");
+DFGBasedMiner miner = new DFGBasedMiner(reflections.getTypesAnnotatedWith(ExposedDcrPattern.class));
 ```
+In this case we use `Reflections` to identify and provide all the classes annoted with the `@ExposedDcrPattern`.
 
 It is possible (though not necessary) to configure the miner with the following parameters:
 
-```java linenums="2"
+```java linenums="3"
+// configuration of the refresh rate (i.e., how many events between models update)
+model.setModelRefreshRate(1);
+
 // configuration of list of patters
 miner.setDcrPatternsForMining("Response", "Condition", "Include", "Exclude");
 
@@ -37,358 +40,130 @@ miner.setStreamMinerType(new UnlimitedStreamMiner());
 miner.setDcrConstraintsForVisualization(RELATION.CONDITION, RELATION.RESPONSE);
 
 // configure the threshold
-miner.setRelationsThreshold(1);
+miner.setRelationsThreshold(0);
 
 // configure the transitive reduction
 miner.setTransitiveReductionList(RELATION.CONDITION, RELATION.RESPONSE);
 ```
 
 Once the miner is properly configured, it can be used as any other consumer. For example, using the following code:
-```java linenums="17"
-XesSource source = ...
-source.prepare();
-source
-	.getObservable()
-	.subscribe(miner);
+```java linenums="21"
+StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+env
+    .addSource(new StringTestSource("ABCDF", "ABCEF"))
+    .keyBy(BEvent::getProcessName)
+    .flatMap(miner)
+    .addSink(new SinkFunction<DeclareModelView>(){
+        public void invoke(DeclareModelView value, Context context) throws Exception {
+            value.generateDot().exportToSvg(new File("output.svg"));
+        };
+    });
+env.execute();
 
-```
-
-It is also possible to attach hooks to the miner, for example to export the model every so often:
-```java
-miner.setOnAfterEvent(() -> {
-	if (miner.getProcessedEvents() % 1000 == 0) {
-		try {
-			new DcrModelView(miner.getDcrModel()).exportToSvg(new File("out.svg"));
-		} catch (IOException e) { }
-	}
-});
 ```
 
 An example of the output produced is:
 <figure>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="213.85083"
-   height="324.94119"
-   viewBox="0 0 213.88954 324.94119"
-   version="1.1"
-   id="svg332"
-   sodipodi:docname="out.svg"
-   inkscape:version="0.92.1 r15371">
-  <metadata
-     id="metadata338">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs336" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1147"
-     id="namedview334"
-     showgrid="false"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:zoom="1.2356021"
-     inkscape:cx="166.3297"
-     inkscape:cy="86.296716"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg332" />
-  <polygon
-     points="72,-504 126,-504 126,-540 72,-540 "
-     id="polygon65"
-     style="fill:#f8f6ec;stroke:#cbcbcb"
-     transform="translate(0.5,540.43086)" />
-  <text
-     x="99.5"
-     y="20.930861"
-     font-size="10.00"
-     id="text67"
-     style="font-size:10px;font-family:arial;text-anchor:middle">G</text>
-  <polygon
-     points="72,-432 126,-432 126,-468 72,-468 "
-     id="polygon72"
-     style="fill:#f8f6ec;stroke:#cbcbcb"
-     transform="translate(0.5,540.43086)" />
-  <text
-     x="99.5"
-     y="92.930862"
-     font-size="10.00"
-     id="text74"
-     style="font-size:10px;font-family:arial;text-anchor:middle">E</text>
-  <path
-     d="m 97.58502,36.73386 c -0.822,7.969 -1.0366,17.597 -0.6438,26.433"
-     id="path79"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#ffa500" />
-  <circle
-     cx="97.460907"
-     cy="70.331863"
-     id="ellipse81"
-     r="2"
-     style="fill:#ffa500;stroke:#ffa500" />
-  <polygon
-     points="90.7083,-476.954 94.1991,-477.207 92.8155,-472.094 "
-     id="polygon83"
-     style="fill:#ffa500;stroke:#ffa500"
-     transform="translate(4.500724,540.43086)" />
-  <polygon
-     points="0,-360 54,-360 54,-396 0,-396 "
-     id="polygon97"
-     style="fill:#f8f6ec;stroke:#cbcbcb"
-     transform="translate(0.5,540.43086)" />
-  <text
-     x="27.5"
-     y="164.93086"
-     font-size="10.00"
-     id="text99"
-     style="font-size:10px;font-family:arial;text-anchor:middle">L</text>
-  <path
-     d="m 75.7865,108.73386 c -9.8812,8.732 -21.0841,19.457 -30.2877,28.947"
-     id="path104"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#ffa500" />
-  <circle
-     cx="40.574001"
-     cy="142.87486"
-     id="ellipse106"
-     r="2.00001"
-     style="fill:#ffa500;stroke:#ffa500" />
-  <polygon
-     points="46.1601,-401.432 41.4501,-399.007 43.6202,-403.84 "
-     id="polygon108"
-     style="fill:#ffa500;stroke:#ffa500"
-     transform="translate(0.5,540.43086)" />
-  <path
-     d="m 84.686,111.86186 c -8.6327,9.099 -19.6309,19.798 -29.7309,28.922"
-     id="path113"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#2993fc" />
-  <circle
-     cx="86.250099"
-     cy="110.19386"
-     id="ellipse115"
-     r="2.00002"
-     style="fill:#2993fc;stroke:#2993fc" />
-  <polygon
-     points="55.383,-398.13 50.4881,-396.104 53.0516,-400.74 "
-     id="polygon117"
-     style="fill:#2993fc;stroke:#2993fc"
-     transform="translate(0.5,540.43086)" />
-  <polygon
-     points="72,-360 126,-360 126,-396 72,-396 "
-     id="polygon122"
-     style="fill:#f8f6ec;stroke:#cbcbcb"
-     transform="translate(0.5,540.43086)" />
-  <text
-     x="99.5"
-     y="164.93086"
-     font-size="10.00"
-     id="text124"
-     style="font-size:10px;font-family:arial;text-anchor:middle">M</text>
-  <path
-     d="m 93.5843,108.73386 c -0.822,7.969 -1.0366,17.597 -0.6438,26.433"
-     id="path129"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#ffa500" />
-  <circle
-     cx="93.460197"
-     cy="142.33186"
-     id="ellipse131"
-     r="2"
-     style="fill:#ffa500;stroke:#ffa500" />
-  <polygon
-     points="94.1991,-405.207 92.8155,-400.094 90.7083,-404.954 "
-     id="polygon133"
-     style="fill:#ffa500;stroke:#ffa500"
-     transform="translate(0.5,540.43086)" />
-  <path
-     d="m 105.783,112.93486 c 0.607,8.35 0.622,17.91 0.047,26.323"
-     id="path138"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#2993fc" />
-  <circle
-     cx="105.59"
-     cy="110.72685"
-     id="ellipse140"
-     r="2"
-     style="fill:#2993fc;stroke:#2993fc" />
-  <polygon
-     points="107.066,-400.936 104.895,-396.104 103.579,-401.236 "
-     id="polygon142"
-     style="fill:#2993fc;stroke:#2993fc"
-     transform="translate(0.5,540.43086)" />
-  <polygon
-     points="144,-360 198,-360 198,-396 144,-396 "
-     id="polygon147"
-     style="fill:#f8f6ec;stroke:#cbcbcb"
-     transform="translate(0.5,540.43086)" />
-  <text
-     x="171.5"
-     y="164.93086"
-     font-size="10.00"
-     id="text149"
-     style="font-size:10px;font-family:arial;text-anchor:middle">K</text>
-  <path
-     d="m 111.382,108.73386 c 8.237,8.901 19.363,19.874 29.86,29.498"
-     id="path154"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#ffa500" />
-  <circle
-     cx="146.52499"
-     cy="142.98888"
-     id="ellipse156"
-     r="2.00001"
-     style="fill:#ffa500;stroke:#ffa500" />
-  <polygon
-     points="141.994,-403.426 144.539,-398.781 139.652,-400.825 "
-     id="polygon158"
-     style="fill:#ffa500;stroke:#ffa500"
-     transform="translate(0.5,540.43086)" />
-  <path
-     d="m 126.42,111.59586 c 10.065,9.065 21.084,19.759 29.798,28.912"
-     id="path163"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#2993fc" />
-  <circle
-     cx="124.70599"
-     cy="110.06587"
-     id="ellipse165"
-     r="2.00002"
-     style="fill:#2993fc;stroke:#2993fc" />
-  <polygon
-     points="157.157,-400.948 159.302,-396.104 154.604,-398.553 "
-     id="polygon167"
-     style="fill:#2993fc;stroke:#2993fc"
-     transform="translate(0.5,540.43086)" />
-  <polygon
-     points="108,-288 162,-288 162,-324 108,-324 "
-     id="polygon172"
-     style="fill:#f8f6ec;stroke:#cbcbcb"
-     transform="translate(0.5,540.43086)" />
-  <text
-     x="135.5"
-     y="236.93086"
-     font-size="10.00"
-     id="text174"
-     style="font-size:10px;font-family:arial;text-anchor:middle">H</text>
-  <path
-     d="m 126.701,96.35286 c 25.827,6.275 63.235,19.894 80.799,48.078 8.462,13.579 7.219,21.721 0,36 -7.845,15.516 -22.61,27.601 -36.737,36.287"
-     id="path179"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#ffa500" />
-  <circle
-     cx="164.30901"
-     cy="220.43987"
-     id="ellipse181"
-     r="2.00001"
-     style="fill:#ffa500;stroke:#ffa500" />
-  <polygon
-     points="170.747,-321.972 165.542,-320.99 168.999,-325.004 "
-     id="polygon183"
-     style="fill:#ffa500;stroke:#ffa500"
-     transform="translate(0.5,540.43086)" />
-  <path
-     d="m 57.5183,182.88686 c 14.6329,9.485 32.214,20.88 46.9757,30.448"
-     id="path238"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#2993fc" />
-  <circle
-     cx="55.598099"
-     cy="181.64287"
-     id="ellipse240"
-     r="2.00002"
-     style="fill:#2993fc;stroke:#2993fc" />
-  <polygon
-     points="105.235,-328.378 108.479,-324.19 103.331,-325.441 "
-     id="polygon242"
-     style="fill:#2993fc;stroke:#2993fc"
-     transform="translate(0.5,540.43086)" />
-  <path
-     d="m 110.283,184.39686 c 4.425,8.604 9.547,18.564 14.014,27.251"
-     id="path247"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#2993fc" />
-  <circle
-     cx="109.314"
-     cy="182.51286"
-     id="ellipse249"
-     r="2.00002"
-     style="fill:#2993fc;stroke:#2993fc" />
-  <polygon
-     points="125.473,-329.351 126.203,-324.104 122.36,-327.75 "
-     id="polygon251"
-     style="fill:#2993fc;stroke:#2993fc"
-     transform="translate(0.5,540.43086)" />
-  <path
-     d="m 160.717,184.39686 c -4.425,8.604 -9.547,18.564 -14.014,27.251"
-     id="path256"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#2993fc" />
-  <circle
-     cx="161.686"
-     cy="182.51286"
-     id="ellipse258"
-     r="2.00002"
-     style="fill:#2993fc;stroke:#2993fc" />
-  <polygon
-     points="147.64,-327.75 143.797,-324.104 144.527,-329.351 "
-     id="polygon260"
-     style="fill:#2993fc;stroke:#2993fc"
-     transform="translate(0.5,540.43086)" />
-  <polygon
-     points="108,-216 162,-216 162,-252 108,-252 "
-     id="polygon265"
-     style="fill:#f8f6ec;stroke:#cbcbcb"
-     transform="translate(0.5,540.43086)" />
-  <text
-     x="135.5"
-     y="308.93085"
-     font-size="10.00"
-     id="text267"
-     style="font-size:10px;font-family:arial;text-anchor:middle">F</text>
-  <path
-     d="m 137.78228,256.93486 c 0.607,8.35 0.622,17.91 0.047,26.323"
-     id="path281"
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:#2993fc" />
-  <circle
-     cx="137.58926"
-     cy="254.72685"
-     id="ellipse283"
-     r="2"
-     style="fill:#2993fc;stroke:#2993fc" />
-  <polygon
-     points="143.066,-256.936 140.895,-252.104 139.579,-257.236 "
-     id="polygon285"
-     style="fill:#2993fc;stroke:#2993fc"
-     transform="translate(-3.5007241,540.43086)" />
+
+<svg width="134px" height="332px"
+ viewBox="0.00 0.00 134.00 332.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 328.0)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-328 130,-328 130,4 -4,4"/>
+<!-- e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a -->
+<g id="e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a" class="node"><title>e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a</title>
+<polygon fill="#f8f6ec" stroke="#cbcbcb" points="90,-252 36,-252 36,-216 90,-216 90,-252"/>
+<text text-anchor="middle" x="63" y="-231.5" font-family="arial" font-size="10.00">B</text>
+</g>
+<!-- e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734 -->
+<g id="e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734" class="node"><title>e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734</title>
+<polygon fill="#f8f6ec" stroke="#cbcbcb" points="90,-180 36,-180 36,-144 90,-144 90,-180"/>
+<text text-anchor="middle" x="63" y="-159.5" font-family="arial" font-size="10.00">C</text>
+</g>
+<!-- e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a&#45;&gt;e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734 -->
+<g id="e9f1df9d6&#45;9481&#45;476c&#45;9972&#45;428b54fb3119" class="edge"><title>e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a&#45;&gt;e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734</title>
+<path fill="none" stroke="#2993fc" d="M56.7174,-211.496C56.1104,-203.146 56.0946,-193.586 56.6702,-185.173"/>
+<ellipse fill="#2993fc" stroke="#2993fc" cx="56.9102" cy="-213.704" rx="2" ry="2"/>
+<polygon fill="#2993fc" stroke="#2993fc" points="58.4212,-185.236 57.105,-180.104 54.934,-184.936 58.4212,-185.236"/>
+</g>
+<!-- e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a&#45;&gt;e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734 -->
+<g id="e860cfbe0&#45;665d&#45;40a9&#45;a2db&#45;cc4e66681c82" class="edge"><title>e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a&#45;&gt;e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734</title>
+<path fill="none" stroke="#ffa500" d="M68.9157,-215.697C69.7377,-207.728 69.9523,-198.1 69.5595,-189.264"/>
+<ellipse fill="#ffa500" stroke="#ffa500" cx="69.0398" cy="-182.099" rx="2" ry="2"/>
+<polygon fill="#ffa500" stroke="#ffa500" points="71.2917,-188.954 69.1845,-184.094 67.8009,-189.207 71.2917,-188.954"/>
+</g>
+<!-- e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3 -->
+<g id="e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3" class="node"><title>e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3</title>
+<polygon fill="#f8f6ec" stroke="#cbcbcb" points="54,-108 0,-108 0,-72 54,-72 54,-108"/>
+<text text-anchor="middle" x="27" y="-87.5" font-family="arial" font-size="10.00">D</text>
+</g>
+<!-- e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3 -->
+<g id="e2efb5638&#45;5f1d&#45;45be&#45;9769&#45;ef2545ce1a85" class="edge"><title>e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3</title>
+<path fill="none" stroke="#ffa500" d="M48.1854,-143.697C43.1085,-135.474 37.7689,-125.483 33.5534,-116.421"/>
+<ellipse fill="#ffa500" stroke="#ffa500" cx="30.7056" cy="-109.936" rx="2.00001" ry="2.00001"/>
+<polygon fill="#ffa500" stroke="#ffa500" points="35.1225,-115.641 31.5098,-111.767 31.9178,-117.048 35.1225,-115.641"/>
+</g>
+<!-- e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3 -->
+<g id="ef32502f0&#45;7862&#45;434f&#45;8321&#45;aeb098e50b80" class="edge"><title>e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3</title>
+<path fill="none" stroke="#2993fc" d="M58.342,-139.765C54.5787,-131.209 49.5192,-121.347 44.4804,-112.74"/>
+<ellipse fill="#2993fc" stroke="#2993fc" cx="59.233" cy="-141.857" rx="2.00001" ry="2.00001"/>
+<polygon fill="#2993fc" stroke="#2993fc" points="45.7686,-111.487 41.6915,-108.104 42.7694,-113.291 45.7686,-111.487"/>
+</g>
+<!-- ec24f6d71&#45;e3be&#45;4240&#45;8cc5&#45;18467c2ba26e -->
+<g id="ec24f6d71&#45;e3be&#45;4240&#45;8cc5&#45;18467c2ba26e" class="node"><title>ec24f6d71&#45;e3be&#45;4240&#45;8cc5&#45;18467c2ba26e</title>
+<polygon fill="#f8f6ec" stroke="#cbcbcb" points="126,-108 72,-108 72,-72 126,-72 126,-108"/>
+<text text-anchor="middle" x="99" y="-87.5" font-family="arial" font-size="10.00">K</text>
+</g>
+<!-- e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;ec24f6d71&#45;e3be&#45;4240&#45;8cc5&#45;18467c2ba26e -->
+<g id="eabd67ac4&#45;8654&#45;4ff4&#45;8943&#45;8a12a3a6aaa8" class="edge"><title>e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;ec24f6d71&#45;e3be&#45;4240&#45;8cc5&#45;18467c2ba26e</title>
+<path fill="none" stroke="#2993fc" d="M67.658,-139.765C71.4213,-131.209 76.4808,-121.347 81.5196,-112.74"/>
+<ellipse fill="#2993fc" stroke="#2993fc" cx="66.767" cy="-141.857" rx="2.00001" ry="2.00001"/>
+<polygon fill="#2993fc" stroke="#2993fc" points="83.2306,-113.291 84.3085,-108.104 80.2314,-111.487 83.2306,-113.291"/>
+</g>
+<!-- e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;ec24f6d71&#45;e3be&#45;4240&#45;8cc5&#45;18467c2ba26e -->
+<g id="e3e27f89e&#45;c93d&#45;4a9f&#45;a7ec&#45;364cfae8dd00" class="edge"><title>e67c9c115&#45;c541&#45;48e8&#45;80e5&#45;6901bb8b4734&#45;&gt;ec24f6d71&#45;e3be&#45;4240&#45;8cc5&#45;18467c2ba26e</title>
+<path fill="none" stroke="#ffa500" d="M77.8146,-143.697C82.8915,-135.474 88.2311,-125.483 92.4466,-116.421"/>
+<ellipse fill="#ffa500" stroke="#ffa500" cx="95.2944" cy="-109.936" rx="2.00001" ry="2.00001"/>
+<polygon fill="#ffa500" stroke="#ffa500" points="94.0822,-117.048 94.4902,-111.767 90.8775,-115.641 94.0822,-117.048"/>
+</g>
+<!-- eba1a3825&#45;bd6b&#45;4990&#45;bb2a&#45;9995b74ff782 -->
+<g id="eba1a3825&#45;bd6b&#45;4990&#45;bb2a&#45;9995b74ff782" class="node"><title>eba1a3825&#45;bd6b&#45;4990&#45;bb2a&#45;9995b74ff782</title>
+<polygon fill="#f8f6ec" stroke="#cbcbcb" points="54,-36 0,-36 0,-0 54,-0 54,-36"/>
+<text text-anchor="middle" x="27" y="-15.5" font-family="arial" font-size="10.00">E</text>
+</g>
+<!-- e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3&#45;&gt;eba1a3825&#45;bd6b&#45;4990&#45;bb2a&#45;9995b74ff782 -->
+<g id="e2317ff2c&#45;1bf8&#45;4b01&#45;aa23&#45;dcbcb5545884" class="edge"><title>e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3&#45;&gt;eba1a3825&#45;bd6b&#45;4990&#45;bb2a&#45;9995b74ff782</title>
+<path fill="none" stroke="#2993fc" d="M20.7174,-67.4955C20.1104,-59.1456 20.0946,-49.5856 20.6702,-41.173"/>
+<ellipse fill="#2993fc" stroke="#2993fc" cx="20.9102" cy="-69.7042" rx="2" ry="2"/>
+<polygon fill="#2993fc" stroke="#2993fc" points="22.4212,-41.2356 21.105,-36.1043 18.934,-40.9364 22.4212,-41.2356"/>
+</g>
+<!-- e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3&#45;&gt;eba1a3825&#45;bd6b&#45;4990&#45;bb2a&#45;9995b74ff782 -->
+<g id="ee6b71ca8&#45;47d8&#45;4b7e&#45;a165&#45;6d65d8056f7a" class="edge"><title>e3677451c&#45;681d&#45;46aa&#45;94c8&#45;b6a991735be3&#45;&gt;eba1a3825&#45;bd6b&#45;4990&#45;bb2a&#45;9995b74ff782</title>
+<path fill="none" stroke="#ffa500" d="M32.9157,-71.6966C33.7377,-63.7284 33.9523,-54.0995 33.5595,-45.2641"/>
+<ellipse fill="#ffa500" stroke="#ffa500" cx="33.0398" cy="-38.0991" rx="2" ry="2"/>
+<polygon fill="#ffa500" stroke="#ffa500" points="35.2917,-44.9541 33.1845,-40.0938 31.8009,-45.2074 35.2917,-44.9541"/>
+</g>
+<!-- e4b48c5a5&#45;016c&#45;458c&#45;b830&#45;243e25a8c96d -->
+<g id="e4b48c5a5&#45;016c&#45;458c&#45;b830&#45;243e25a8c96d" class="node"><title>e4b48c5a5&#45;016c&#45;458c&#45;b830&#45;243e25a8c96d</title>
+<polygon fill="#f8f6ec" stroke="#cbcbcb" points="90,-324 36,-324 36,-288 90,-288 90,-324"/>
+<text text-anchor="middle" x="63" y="-303.5" font-family="arial" font-size="10.00">A</text>
+</g>
+<!-- e4b48c5a5&#45;016c&#45;458c&#45;b830&#45;243e25a8c96d&#45;&gt;e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a -->
+<g id="e7f526626&#45;2b97&#45;46c5&#45;8c5e&#45;e758a95d7821" class="edge"><title>e4b48c5a5&#45;016c&#45;458c&#45;b830&#45;243e25a8c96d&#45;&gt;e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a</title>
+<path fill="none" stroke="#2993fc" d="M56.7174,-283.496C56.1104,-275.146 56.0946,-265.586 56.6702,-257.173"/>
+<ellipse fill="#2993fc" stroke="#2993fc" cx="56.9102" cy="-285.704" rx="2" ry="2"/>
+<polygon fill="#2993fc" stroke="#2993fc" points="58.4212,-257.236 57.105,-252.104 54.934,-256.936 58.4212,-257.236"/>
+</g>
+<!-- e4b48c5a5&#45;016c&#45;458c&#45;b830&#45;243e25a8c96d&#45;&gt;e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a -->
+<g id="e770e2439&#45;2bbf&#45;494c&#45;b232&#45;4a2a8e2d62bb" class="edge"><title>e4b48c5a5&#45;016c&#45;458c&#45;b830&#45;243e25a8c96d&#45;&gt;e578f0930&#45;aba5&#45;467e&#45;880d&#45;bca6ba0b097a</title>
+<path fill="none" stroke="#ffa500" d="M68.9157,-287.697C69.7377,-279.728 69.9523,-270.1 69.5595,-261.264"/>
+<ellipse fill="#ffa500" stroke="#ffa500" cx="69.0398" cy="-254.099" rx="2" ry="2"/>
+<polygon fill="#ffa500" stroke="#ffa500" points="71.2917,-260.954 69.1845,-256.094 67.8009,-261.207 71.2917,-260.954"/>
+</g>
+</g>
 </svg>
+
+
 </figure>
 
 
@@ -397,4 +172,6 @@ An example of the output produced is:
 
 The techniques implemented in this package are described in:
 
-- TBA
+- Uncovering Change: A Streaming Approach for Declarative Processes   
+A. Burattin, H. A. López, L. Starklit  
+In *Proceedings of ICPM Workshop* (SA4PM), 2022.

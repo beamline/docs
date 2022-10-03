@@ -52,4 +52,4 @@ The techniques implemented in this package are described in:
 
 - [Online Discovery of Declarative Process Models from Event Streams](https://andrea.burattin.net/publications/2015-tsc)  
 A. Burattin, M. Cimitile, F. Maggi, A. Sperduti  
-In IEEE Transactions on Services Computing, vol. 8 (2015), no. 6, pp. 833-846.
+In *IEEE Transactions on Services Computing*, vol. 8 (2015), no. 6, pp. 833-846.

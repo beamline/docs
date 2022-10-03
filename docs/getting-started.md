@@ -50,7 +50,7 @@ env.addSource(source)
 env.execute();
 ```
 
-In step 1 the stream source is configured and, in this specific case, the stream is defined as coming from a static IEEE XES file. In step 2, an hypothetical miner is created and configured, using custom methods (such as the `setMinDependency` method). Step 3 consists of the definition of the chain of operations to be performed on each event of the stream. In this case, after the source is connected (`addSink`), we inform Flink that events can be distributed but all those that belong to the same process should be treated together (`keyBy`); then the events are `flatMap`ped - meaning that not all events will result in a mining result - by the miner; and finally a sink is connected to save the SVG map to file (`addSink`). In step 4, the defined pipeline is finally executed.
+In step 1 the stream source is configured and, in this specific case, the stream is defined as coming from a static IEEE XES file. In step 2, an hypothetical miner is created and configured, using custom methods (such as the `setMinDependency` method). Step 3 consists of the definition of the chain of operations to be performed on each event of the stream. In this case, after the source is connected (`addSource`), we inform Flink that events can be distributed but all those that belong to the same process should be treated together (`keyBy`); then the events are `flatMap`ped - meaning that not all events will result in a mining result - by the miner; and finally a sink is connected to save the SVG map to file (`addSink`). In step 4, the defined pipeline is finally executed.
 
 
 
@@ -100,7 +100,7 @@ Essentially, a Beamline event, consists of 3 maps for attributes referring to th
 ### Sources
 
 In the context of Beamline it is possible to define sources to create any possible type of event. The framework comes with some sources already defined for the generation of `BEvent`s. The base class of all sources is called `BeamlineAbstractSource` which implements a `RichSourceFunction`. In Apache Flink, a "rich" function is a function which can have access to the distributed state and thus become [stateful](https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/concepts/stateful-stream-processing/).
-Sources already implemented are `XesLogSource`, `MQTTXesSource`, `CSVLogSource`, and `StringTestSource`. A `XesLogSource` creates an observable from a static log (useful for testing purposes). An `MQTTXesSource` generates and observable from an [MQTT-XES](mqtt-xes.md) stream. `CSVLogSource` is a source which reads events from a text file, and `StringTestSource` allows the definition of simple log directly in its constructor (useful for testing purposes).
+Sources already implemented are `XesLogSource`, `MQTTXesSource`, `CSVLogSource`, and `StringTestSource`. A `XesLogSource` creates a source from a static log (useful for testing purposes). An `MQTTXesSource` generates an source from an [MQTT-XES](mqtt-xes.md) stream. `CSVLogSource` is a source which reads events from a text file, and `StringTestSource` allows the definition of simple log directly in its constructor (useful for testing purposes).
 The class diagram of the observable sources available in Beamline Framework is reported below:
 
 <figure>
