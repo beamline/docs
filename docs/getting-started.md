@@ -34,7 +34,7 @@ The following code represents a minimum running example that, once implemented i
 
 ```java linenums="1"
 // step 1: configuration of the event source (in this case a static file, for reproducibility)
-XesSource source = new XesLogSource("log-file.xes");
+XesLogSource source = new XesLogSource("log-file.xes");
 
 // step 2: configuration of the algorithm
 DiscoveryMiner miner = new DiscoveryMiner();
