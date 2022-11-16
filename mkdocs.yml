@@ -22,7 +22,9 @@ nav:
       - Speech recognition: examples/speech-recognition.md
       - Wikipedia edits: examples/wikipedia-edits.md
       - OpenSky monitoring: examples/open-sky-monitoring.md
-  - MQTT-XES: mqtt-xes.md
+  - Additional libraries:
+      - MQTT-XES: mqtt-xes.md
+      - simple-pnml: simple-pnml.md
   - About: about.md
 
 theme:
