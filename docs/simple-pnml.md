@@ -34,6 +34,30 @@ To import a Petri net from a PNML file you can use the following code:
 
 ```java
 Object[] i = PnmlImportNet.importFromStream(new FileInputStream(new File("file.pnml")));
+
 Petrinet net = (Petrinet) i[0];
-Marking m = (Marking) i[1];
+Marking marking = (Marking) i[1];
+```
+
+### Importing a Petri net from a TPN file
+
+To import a Petri net from a TPN file you can use the following code:
+
+```java
+Object[] i = TpnImport.importFromStream(new FileInputStream(new File("file.tpn")));
+
+Petrinet net = (Petrinet) i[0];
+Marking marking = (Marking) i[1];
+```
+
+
+### Exporting a Petri net into a PNML file
+
+To export a Petri net into a PNML file you can use the following code:
+
+```java
+Petrinet net = ...;
+Marking marking = ...;
+
+PnmlExportNetToPNML.exportPetriNetToPNMLFile(net, marking, new File("file.pnml"));
 ```
