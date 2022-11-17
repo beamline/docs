@@ -24,7 +24,7 @@ nav:
       - OpenSky monitoring: examples/open-sky-monitoring.md
   - Additional libraries:
       - MQTT-XES: mqtt-xes.md
-      - simple-pnml: simple-pnml.md
+      - Simple PNML: simple-pnml.md
   - About: about.md
 
 theme:
