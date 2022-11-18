@@ -15,6 +15,9 @@ nav:
       - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
     - Simulation:
       - Simulation with PLG: implemented-techniques/simulation-plg.md
+  - Additional libraries:
+      - MQTT-XES: mqtt-xes.md
+      - Simple PNML: simple-pnml.md
   - Examples:
       - Introduction: examples/index.md
       - Raw data as input (non-process mining ready): examples/no-process-mining-as-input.md
@@ -22,9 +25,6 @@ nav:
       - Speech recognition: examples/speech-recognition.md
       - Wikipedia edits: examples/wikipedia-edits.md
       - OpenSky monitoring: examples/open-sky-monitoring.md
-  - Additional libraries:
-      - MQTT-XES: mqtt-xes.md
-      - Simple PNML: simple-pnml.md
   - About: about.md
 
 theme:
