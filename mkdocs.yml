@@ -11,8 +11,10 @@ nav:
       - Heuristics Miner: implemented-techniques/discovery-heuristics-miner.md
       - Declare Miner: implemented-techniques/discovery-declare.md
       - DCR Miner: implemented-techniques/discovery-dcr.md
+      - Soft Conformance Model Miner: implemented-techniques/discovery-soft.md
     - Conformance checking:
       - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
+      - Soft Conformance: implemented-techniques/conformance-soft.md
     - Simulation:
       - Simulation with PLG: implemented-techniques/simulation-plg.md
   - Additional libraries:
