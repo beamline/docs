@@ -16,10 +16,12 @@ Control-flow discovery techniques implemented:
 - [Heuristics miner](discovery-heuristics-miner.md)
 - [Declare miner](discovery-declare.md)
 - [DCR Miner](discovery-dcr.md)
+- [Soft Conformance Model Miner](discovery-soft.md)
 
 Conformance checking techniques implemented:
 
 - [Behavioural Patterns](conformance-behavioural-patterns.md)
+- [Soft Conformance](conformance-soft.md)
 
 Random generation of processes and simulation:
 
