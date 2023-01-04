@@ -15,6 +15,7 @@ See the [introduction page](index.md) for further instructions.
 
 ## Usage
 
+
 This conformance approach uses a descriptive model (i.e., a pattern of the observed behavior over a certain amount of time) which is not necessarily referring to the control-flow (e.g., it can be based on the social network of handover of work). To create such a model you need to specify the states and the probability of transitioning. Additionally, it is necessary to specify the likelihood of a random walk (i.e., the parameter &alpha;):
 
 ```java linenums="1"
@@ -25,16 +26,61 @@ reference.addNode("C");
 reference.addEdge("A", "A", 0.2);
 reference.addEdge("A", "B", 0.8);
 reference.addEdge("B", "C", 1);
-
-reference = WeightsNormalizer.normalize(reference, alpha);
 ```
-
-The model can be visualized with
+This model can be visualized with:
 ```java
 PDFAVisualizer.getDot(reference).exportToSvg(new File("test.svg"));
 ```
+And here is the output:
 <figure>
+<svg width="269px" height="77px"
+ viewBox="0.00 0.00 269.00 77.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 73.0)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-73 265,-73 265,4 -4,4"/>
+<!-- e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2 -->
+<g id="e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2" class="node"><title>e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2</title>
+<ellipse fill="none" stroke="black" cx="27" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="27" y="-14.3" font-family="Calibri" font-size="14.00">A</text>
+</g>
+<!-- e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2&#45;&gt;e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2 -->
+<g id="e718c3661&#45;f48b&#45;4ee5&#45;9b71&#45;9d8bb74357c7" class="edge"><title>e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2&#45;&gt;e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2</title>
+<path fill="none" stroke="black" stroke-width="1.5" d="M17.4312,-35.0373C15.4784,-44.8579 18.668,-54 27,-54 32.2075,-54 35.4063,-50.4289 36.5963,-45.3529"/>
+<polygon fill="black" stroke="black" stroke-width="1.5" points="40.0955,-45.0279 36.5688,-35.0373 33.0955,-45.0466 40.0955,-45.0279"/>
+<text text-anchor="middle" x="27" y="-57.8" font-family="Calibri" font-size="14.00">0.2</text>
+</g>
+<!-- e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715 -->
+<g id="e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715" class="node"><title>e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715</title>
+<ellipse fill="none" stroke="black" cx="136" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="136" y="-14.3" font-family="Calibri" font-size="14.00">B</text>
+</g>
+<!-- e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2&#45;&gt;e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715 -->
+<g id="e2ee0e5cb&#45;7597&#45;4231&#45;b0ff&#45;8ddb0518ac6f" class="edge"><title>e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2&#45;&gt;e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715</title>
+<path fill="none" stroke="black" stroke-width="4.5" d="M54.1751,-18C67.5177,-18 83.9597,-18 98.5231,-18"/>
+<polygon fill="black" stroke="black" stroke-width="4.5" points="98.7243,-21.9376 108.724,-18 98.7242,-14.0626 98.7243,-21.9376"/>
+<text text-anchor="middle" x="81.5" y="-21.8" font-family="Calibri" font-size="14.00">0.8</text>
+</g>
+<!-- e87bdcf03&#45;5fcf&#45;4aa6&#45;b098&#45;e2ab971bca74 -->
+<g id="e87bdcf03&#45;5fcf&#45;4aa6&#45;b098&#45;e2ab971bca74" class="node"><title>e87bdcf03&#45;5fcf&#45;4aa6&#45;b098&#45;e2ab971bca74</title>
+<ellipse fill="none" stroke="black" cx="234" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="234" y="-14.3" font-family="Calibri" font-size="14.00">C</text>
+</g>
+<!-- e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715&#45;&gt;e87bdcf03&#45;5fcf&#45;4aa6&#45;b098&#45;e2ab971bca74 -->
+<g id="e8433120a&#45;6458&#45;4ff1&#45;9754&#45;465b02a36614" class="edge"><title>e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715&#45;&gt;e87bdcf03&#45;5fcf&#45;4aa6&#45;b098&#45;e2ab971bca74</title>
+<path fill="none" stroke="black" stroke-width="5.5" d="M163.232,-18C173.498,-18 185.448,-18 196.527,-18"/>
+<polygon fill="black" stroke="black" stroke-width="5.5" points="196.799,-22.8126 206.799,-18 196.799,-13.1876 196.799,-22.8126"/>
+<text text-anchor="middle" x="185" y="-21.8" font-family="Calibri" font-size="14.00">1</text>
+</g>
+</g>
+</svg>
+</figure>
 
+As can be seen, the model does not allow for any deviation, so it is possible to add weights for possible deviations by using:
+```java linenums="8"
+reference = WeightsNormalizer.normalize(reference, alpha);
+```
+Which transforms the model into:
+<figure>
 <svg width="296px" height="125px"
  viewBox="0.00 0.00 296.00 124.89" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 120.889)">
@@ -111,15 +157,12 @@ PDFAVisualizer.getDot(reference).exportToSvg(new File("test.svg"));
 </g>
 </g>
 </svg>
-
 </figure>
 
 Please note that [these models can also be mined](discovery-soft.md).
-
 Once a model is available, it is possible to use it for conformance checking with:
 
-```java linenums="10"
-
+```java linenums="9"
 PDFA reference = ...;
 int maxCasesToStore = 1000; // max expected number of parallel process instances
 
@@ -143,7 +186,7 @@ env.execute();
 
 ```
 
-It is worth highlighting that since each trace can be processed independently from the others, it is possible to increase the parallelism by keying the stream based on the case identifier (`BEvent::getTraceName`, line 17).
+It is worth highlighting that since each trace can be processed independently from the others, it is possible to increase the parallelism by keying the stream based on the case identifier (`BEvent::getTraceName`, line 16).
 
 ## Scientific literature
 
