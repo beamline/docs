@@ -22,13 +22,13 @@ The pyBeamline framework comes with its own definition of event, called `BEvent`
 <div class="mermaid">
 classDiagram
 class BEvent {
-    +dict processAttributes
-    +dict traceAttributes
-    +dict eventAttributes
-    +getProcessName(): str
-    +getTraceName(): str
-    +getEventName(): str
-    +getEventTime(): datetime
+    +dict process_attributes
+    +dict trace_attributes
+    +dict event_attributes
+    +get_process_name(): str
+    +get_trace_name(): str
+    +get_event_name(): str
+    +get_event_time(): datetime
 }
 </div>
 </figure>
@@ -151,9 +151,11 @@ Please note that filters can be chained together in order to achieve the desired
 
 ### Mappers and mining algorithms
 
-The current version of Beamline supports some mappers too, which allow to change the shape of the stream in order to consume different events. In ReactiveX there are two main types of map operators: [`map`](https://reactivex.io/documentation/operators/map.html) and [`flatMap`](https://reactivex.io/documentation/operators/flatmap.html). The former maps all events into new events, the latter can also merge some of the events together.
+pyBeamline comes with some mining algorithms, which are essentially instantiations of [`map`](https://reactivex.io/documentation/operators/map.html) and [`flatMap`](https://reactivex.io/documentation/operators/flatmap.html) operators. This section reports some detail on these.
 
-In the core of the pyBeamline library there are few mappers/mining algorithms implemented:
+#### Mining techniques
+
+In the core of the pyBeamline library, currently, there is only one mining algorithm implemented:
 
 ??? note "Details on `infinite_size_directly_follows_mapper`"
     An algorithm that transforms each pair of consequent event appearing in the same case as a directly follows operator (generating a tuple with the two event names). This mapper is called *infinite* because it's memory footprint will grow as the case ids grow.
@@ -176,10 +178,14 @@ In the core of the pyBeamline library there are few mappers/mining algorithms im
     ('C', 'B')
     ```
 
-It is very easy to apply any windowing policy on a stream, leveraging the [windowing operators already available](https://ninmesara.github.io/RxPY/api/operators/window.html). Each window can be processed to produce an event log that can be consumed, for example, with PM4PY. 
+#### Windowing techniques
+
+ReactiveX comes with a very rich set of [windowing operators](https://ninmesara.github.io/RxPY/api/operators/window.html) that can be fully reused in pyBeamline. Applying a windowing techniques allows the reusage of offline algorithms (for example implemented in PM4PY) as each window is converted into a Pandas DataFrame.
+
+To transform the window into a DataFrame, the `sliding_window_to_log` operators need to be piped to the source.
 
 ??? note "Details on `sliding_window_to_log`"
-    Let's assume, that we want to apply the DFG discovery implemented on PM4PY on a stream usind a tumbling window policy of size 3. We can pipe the window operator to the `sliding_window_to_log` so that we can subscribe to `EventLog`s objects.
+    Let's assume, that we want to apply the [DFG discovery implemented on PM4PY](https://pm4py.fit.fraunhofer.de/static/assets/api/2.3.0/pm4py.html#pm4py.discovery.discover_dfg_typed) on a stream usind a tumbling window of size 3. We can pipe the window operator to the `sliding_window_to_log` so that we can subscribe to `EventLog`s objects.
 
     An example is shown in the following:
     ```python
@@ -189,17 +195,17 @@ It is very easy to apply any windowing policy on a stream, leveraging the [windo
     import pm4py
 
     string_test_source(["ABC", "ABD"]).pipe(
-        ops.window_with_count(3, 3),
+        ops.window_with_count(3),
         sliding_window_to_log()
-    ).subscribe(lambda x: print(pm4py.discover_dfg(x)))
+    ).subscribe(lambda x: print(pm4py.discover_dfg_typed(x)))
     ```
     This code will print:
     ```
-    (Counter({('A', 'B'): 1, ('B', 'C'): 1}), {'A': 1}, {'C': 1})
-    (Counter({('A', 'B'): 1, ('B', 'D'): 1}), {'A': 1}, {'D': 1})
+    Counter({('A', 'B'): 1, ('B', 'C'): 1})
+    Counter({('A', 'B'): 1, ('B', 'D'): 1})
     ```
-    As can be seen the 2 DFGs are mined from the 2 traces separately (as the tumbling window has size 3, which corresponds to the size of each trace). Using a tumbling window of size 6 (i.e., `ops.window_with_count(6, 6)`) will produce the following:
+    As can be seen the 2 DFGs are mined from the 2 traces separately (as the tumbling window has size 3, which corresponds to the size of each trace). Using a tumbling window of size 6 (i.e., `ops.window_with_count(6)`) will produce the following:
     ```
-    (Counter({('A', 'B'): 2, ('B', 'C'): 1, ('B', 'D'): 1}), {'A': 2}, {'C': 1, 'D': 1})
+    Counter({('A', 'B'): 2, ('B', 'C'): 1, ('B', 'D'): 1})
     ```
     In this case, the only model extracted embeds both traces inside.
