@@ -265,13 +265,13 @@ To transform the window into a DataFrame, the `sliding_window_to_log` operators 
     from reactivex.operators import window_with_count
     import pm4py
 
-    def process_log(log):
+    def mine(log):
         print(pm4py.discover_dfg_typed(x))
 
     log_source(["ABC", "ABD"]).pipe(
         window_with_count(3),
         sliding_window_to_log()
-    ).subscribe(process_log)
+    ).subscribe(mine)
     ```
     This code will print:
     ```
