@@ -86,9 +86,9 @@ Essentially, a Beamline event, consists of 3 maps for attributes referring to th
 > An *observer* subscribes to an *Observable*. Then that observer reacts to whatever item or sequence of items the Observable *emits*. This pattern facilitates concurrent operations because it does not need to block while waiting for the Observable to emit objects, but instead it creates a sentry in the form of an observer that stands ready to react appropriately at whatever future time the Observable does so.
 > -- <cite>Text from <https://reactivex.io/documentation/observable.html>.</cite>
 
-In the context of Beamline it is possible to define observables of any type. The framework comes with some observables already defined. Sources already implemented are `xes_log_source`, and `string_test_source`. A `xes_log_source` creates a source from a static log (useful for testing purposes), and `string_test_source` allows the definition of simple log directly in its constructor (useful for testing purposes).
+In the context of Beamline it is possible to define observables of any type. The framework comes with some observables already defined. Sources already implemented are `xes_log_source`, `xes_log_source_from_file`, and `string_test_source`. A `xes_log_source` creates a source from a static log (useful for testing purposes), `xes_log_source_from_file` creates a source from an XES file, and `string_test_source` allows the definition of simple log directly in its constructor (useful for testing purposes).
 
-??? note "Details on `xes_log_source`"
+??? note "Details on `xes_log_source` and `xes_log_source_from_file`"
     Emits all events from an XES event log. Example usage:
     ```python
     import pm4py
@@ -97,6 +97,16 @@ In the context of Beamline it is possible to define observables of any type. The
     xes_log_source(pm4py.read_xes("test.xes")) \
         .subscribe(lambda x: print(str(x)))
     ```
+
+    A shortcut to load from a file is:
+    ```python
+    import pm4py
+    from pybeamline.sources import xes_log_source_from_file
+
+    xes_log_source_from_file("test.xes") \
+        .subscribe(lambda x: print(str(x)))
+    ```
+
 
 ??? note "Details on `string_test_source`"
     Source that considers each trace as a string provided in the constructor and each event as one character of the string. Example usage:
@@ -107,16 +117,31 @@ In the context of Beamline it is possible to define observables of any type. The
         .subscribe(lambda x: print(str(x)))
     ```
 
+For convenience, another source called `log_source` is defined. This just combines dispatches the call to the other sources, based on a match performed on the input type.
+
+??? note "Details on `log_source`"
+    Example of usages:
+    ```python
+    log_source("test.xes") # This is equivalent to xes_log_source_from_file("test.xes")
+    ```
+    ```python
+    log = pm4py.read_xes("test.xes")
+    log_source(log) # This is equivalent to xes_log_source(log)
+    ```
+    ```python
+    log_source(["ABC", "ACB", "EFG"]) # This is equivalent to string_test_source(["ABC", "ACB", "EFG"])
+    ```
+
 
 ### Filters
 
 The [filter operator, in ReactiveX,](https://reactivex.io/documentation/operators/filter.html) does not change the stream, but filters the events so that only those passing a predicate test can pass. In Beamline there are some filters already implemented that can be used as follows:
 
 ```python
-from pybeamline.sources import string_test_source
+from pybeamline.sources import log_source
 from pybeamline.filters import excludes_activity_filter, retains_activity_filter
 
-string_test_source(["ABC", "ACB", "EFG"]).pipe(
+log_source(["ABC", "ACB", "EFG"]).pipe(
     excludes_activity_filter("A"),
     retains_activity_filter("G")
 ).subscribe(lambda x: print(str(x)))
@@ -127,10 +152,10 @@ Filters can operate on event attributes or trace attributes and the following ar
 ??? note "Details on `retains_on_event_attribute_equal_filter`"
     Retains events based on the equality of an event attribute. Example:
     ```python
-    from pybeamline.sources import xes_log_source
+    from pybeamline.sources import log_source
     from pybeamline.filters import retains_on_event_attribute_equal_filter
 
-    xes_log_source(pm4py.read_xes("test.xes")).pipe(
+    log_source("test.xes").pipe(
         retains_on_event_attribute_equal_filter("event-attrib", ["ev", "ab"]),
     ).subscribe(lambda x: print(str(x)))
     ```
@@ -138,10 +163,10 @@ Filters can operate on event attributes or trace attributes and the following ar
 ??? note "Details on `excludes_on_event_attribute_equal_filter`"
     Exclude events based on the equality of an event attribute.
     ```python
-    from pybeamline.sources import xes_log_source
+    from pybeamline.sources import log_source
     from pybeamline.filters import excludes_on_event_attribute_equal_filter
     
-    xes_log_source(pm4py.read_xes("test.xes")).pipe(
+    log_source("test.xes").pipe(
         excludes_on_event_attribute_equal_filter("event-attrib", ["ev", "ab"]),
     ).subscribe(lambda x: print(str(x)))
     ```
@@ -149,10 +174,10 @@ Filters can operate on event attributes or trace attributes and the following ar
 ??? note "Details on `retains_on_trace_attribute_equal_filter`"
     Retains events based on the equality of a trace attribute.
     ```python
-    from pybeamline.sources import xes_log_source
+    from pybeamline.sources import log_sourcelog_source
     from pybeamline.filters import retains_on_trace_attribute_equal_filter
     
-    xes_log_source(pm4py.read_xes("test.xes")).pipe(
+    log_source("test.xes").pipe(
         retains_on_trace_attribute_equal_filter("trace-attrib", ["tv", "ab"]),
     ).subscribe(lambda x: print(str(x)))
 
@@ -161,10 +186,10 @@ Filters can operate on event attributes or trace attributes and the following ar
 ??? note "Details on `excludes_on_trace_attribute_equal_filter`"
     Excludes events based on the equality of a trace attribute.
     ```python
-    from pybeamline.sources import xes_log_source
+    from pybeamline.sources import log_source
     from pybeamline.filters import excludes_on_trace_attribute_equal_filter
     
-    xes_log_source(pm4py.read_xes("test.xes")).pipe(
+    log_source("test.xes").pipe(
         excludes_on_trace_attribute_equal_filter("trace-attrib", ["tv", "ab"]),
     ).subscribe(lambda x: print(str(x)))
 
@@ -173,10 +198,10 @@ Filters can operate on event attributes or trace attributes and the following ar
 ??? note "Details on `retains_activity_filter`"
     Retains activities base on their name (`concept:name`).
     ```python
-    from pybeamline.sources import string_test_source
+    from pybeamline.sources import log_source
     from pybeamline.filters import retains_activity_filter
     
-    string_test_source(["ABC", "ACB", "EFG"]).pipe(
+    log_source(["ABC", "ACB", "EFG"]).pipe(
         retains_activity_filter("G")
     ).subscribe(lambda x: print(str(x)))
     ```
@@ -184,10 +209,10 @@ Filters can operate on event attributes or trace attributes and the following ar
 ??? note "Details on `excludes_activity_filter`"
     Excludes activities base on their name (`concept:name`).
     ```python
-    from pybeamline.sources import string_test_source
+    from pybeamline.sources import log_source
     from pybeamline.filters import excludes_activity_filter
     
-    string_test_source(["ABC", "ACB", "EFG"]).pipe(
+    log_source(["ABC", "ACB", "EFG"]).pipe(
         excludes_activity_filter("A"),
     ).subscribe(lambda x: print(str(x)))
     ```
@@ -209,10 +234,10 @@ In the core of the pyBeamline library, currently, there is only one mining algor
     An example of how the algorithm can be used is the following:
 
     ```python
-    from pybeamline.sources import string_test_source
+    from pybeamline.sources import log_source
     from pybeamline.mappers import infinite_size_directly_follows_mapper
 
-    string_test_source(["ABC", "ACB"]).pipe(
+    log_source(["ABC", "ACB"]).pipe(
         infinite_size_directly_follows_mapper()
     ).subscribe(lambda x: print(str(x)))
     ```
@@ -235,15 +260,18 @@ To transform the window into a DataFrame, the `sliding_window_to_log` operators 
 
     An example is shown in the following:
     ```python
-    from pybeamline.sources import string_test_source
+    from pybeamline.sources import log_source
     from pybeamline.mappers import sliding_window_to_log
     from reactivex.operators import window_with_count
     import pm4py
 
-    string_test_source(["ABC", "ABD"]).pipe(
+    def process_log(log):
+        print(pm4py.discover_dfg_typed(x))
+
+    log_source(["ABC", "ABD"]).pipe(
         window_with_count(3),
         sliding_window_to_log()
-    ).subscribe(lambda x: print(pm4py.discover_dfg_typed(x)))
+    ).subscribe(process_log)
     ```
     This code will print:
     ```
