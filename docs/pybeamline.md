@@ -4,13 +4,15 @@ pyBeamline is a Python version of Beamline. While the same set of ideas and prin
 
 pyBeamline is based on [ReactiveX](https://reactivex.io/) and its Python binding [RxPY](https://rxpy.readthedocs.io/en/latest/). RxPY is a library for composing asynchronous and event-based programs using observable sequences and pipable query operators in Python. Using pyBeamline it is possible to inject process mining operators into the computation.
 
+A complete Jupyter notebook presenting all techniques available is available at <https://github.com/beamline/pybeamline/blob/master/README.ipynb>.
+
 
 #### Goals and differences with Beamline
 
 The main difference between Beamline and pyBeamline is the language they are built in (Beamline is written in Java, pyBeamline is written in Python). However, differences do not stop here. In particular, Beamline is built on top of Apache Flink, which makes it suitable for extremely efficient computation due to the distributed and stateful nature of its components. pyBeamline, on the other end, is built on top of ReactiveX which is
 > an extension of the observer pattern to support sequences of data and/or events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety, concurrent data structures, and non-blocking I/O. <cite>(From <https://reactivex.io/intro.html>)</cite>
 
-Therefore, pyBeamline is suited for prototyping algorithm at an extremely high pace, without necessarily bothering with performance aspects. In a sense, it simplifies the construction of proof of concepts, before translating the algorithms into Beamline for proper testing and verification.
+Therefore, pyBeamline is suited for prototyping algorithm very quickly, without necessarily bothering with performance aspects. In a sense, it simplifies the construction of proof of concepts, before translating the algorithms into Beamline for proper testing and verification. Also, it simplifies collaboration by, for example, leveraging online services (like Google Colab).
 
 To give an example of such simplicity, this is the ***complete code*** to discover a DFG using a sliding window from a stream generated from a `test.xes` file (a file is used instead of a proper stream, as we are in a very controlled setting):
 
@@ -52,8 +54,9 @@ PM4PY has a [package dedicated to streaming algorithms](https://pm4py.fit.fraunh
 To use pyBeamline on any OS, install it using `pip` (currently only available on the test repository):
 
 ```
-pip install -i https://test.pypi.org/simple/ pybeamline
+pip install pybeamline
 ```
+More information are available at <https://pypi.org/project/pybeamline/>.
 
 
 ## Basic concepts
@@ -224,7 +227,7 @@ Please note that filters can be chained together in order to achieve the desired
 
 pyBeamline comes with some mining algorithms, which are essentially instantiations of [`map`](https://reactivex.io/documentation/operators/map.html) and [`flatMap`](https://reactivex.io/documentation/operators/flatmap.html) operators. This section reports some detail on these.
 
-#### Mining techniques
+#### Discovery techniques
 
 In the core of the pyBeamline library, currently, there is only one mining algorithm implemented:
 
@@ -248,6 +251,99 @@ In the core of the pyBeamline library, currently, there is only one mining algor
     ('A', 'C')
     ('C', 'B')
     ```
+
+??? note "Details on `heuristics_miner_lossy_counting`"
+    An algorithm to mine a Heuristics Net using the Lossy Counting algorithm. The Heuristics Net is the same type as in the PM4PY library (see <https://pm4py.fit.fraunhofer.de/documentation#item-3-3>)
+
+    An example of how the algorithm can be used is the following:
+
+    ```python
+    from pybeamline.algorithms.discovery import heuristics_miner_lossy_counting
+
+    log_source(["ABCD", "ABCD"]).pipe(
+        heuristics_miner_lossy_counting(model_update_frequency=4)
+    ).subscribe(lambda x: print(str(x)))
+
+    ```
+    This code will print:
+    ```
+    {'A': (node:A connections:{B:[0.5]}), 'B': (node:B connections:{C:[0.5]}), 'C': (node:C connections:{})}
+    {'C': (node:C connections:{D:[0.5]}), 'D': (node:D connections:{}), 'A': (node:A connections:{B:[0.6666666666666666]}), 'B': (node:B connections:{C:[0.6666666666666666]})}
+    ```
+
+    The algorithm is describe in publications:
+    
+    * [Control-flow Discovery from Event Streams](https://andrea.burattin.net/publications/2014-cec)  
+    A. Burattin, A. Sperduti, W. M. P. van der Aalst  
+    In *Proceedings of the Congress on Evolutionary Computation* (IEEE WCCI CEC 2014); Beijing, China; July 6-11, 2014.
+    * [Heuristics Miners for Streaming Event Data](https://andrea.burattin.net/publications/2012-corr-stream)  
+    A. Burattin, A. Sperduti, W. M. P. van der Aalst  
+    In *CoRR* abs/1212.6383, Dec. 2012.
+
+
+??? note "Details on `heuristics_miner_lossy_counting_budget`"
+    An algorithm to mine a Heuristics Net using the Lossy Counting with Budget algorithm. The Heuristics Net is the same type as in the PM4PY library (see <https://pm4py.fit.fraunhofer.de/documentation#item-3-3>)
+
+    An example of how the algorithm can be used is the following:
+
+    ```python
+    from pybeamline.algorithms.discovery import heuristics_miner_lossy_counting_budget
+
+    log_source(["ABCD", "ABCD"]).pipe(
+        heuristics_miner_lossy_counting_budget(model_update_frequency=4)
+    ).subscribe(lambda x: print(str(x)))
+    ```
+    This code will print:
+    ```
+    {'A': (node:A connections:{B:[0.5]}), 'B': (node:B connections:{C:[0.5]}), 'C': (node:C connections:{D:[0.5]}), 'D': (node:D connections:{})}
+    {'A': (node:A connections:{B:[0.6666666666666666]}), 'B': (node:B connections:{C:[0.6666666666666666]}), 'C': (node:C connections:{D:[0.6666666666666666]}), 'D': (node:D connections:{})}
+    ```
+
+    The algorithm is describe in publications:
+    
+    * [Control-flow Discovery from Event Streams](https://andrea.burattin.net/publications/2014-cec)  
+    A. Burattin, A. Sperduti, W. M. P. van der Aalst  
+    In *Proceedings of the Congress on Evolutionary Computation* (IEEE WCCI CEC 2014); Beijing, China; July 6-11, 2014.
+    * [Heuristics Miners for Streaming Event Data](https://andrea.burattin.net/publications/2012-corr-stream)  
+    A. Burattin, A. Sperduti, W. M. P. van der Aalst  
+    In *CoRR* abs/1212.6383, Dec. 2012.
+
+
+#### Conformance checking techniques
+
+Currently only conformance checking using behavioral profiles is supported.
+
+??? note "Details on `behavioral_conformance`"
+    An algorithm to compute the conformance using behavioral patterns.
+
+    An example of how the algorithm can be used is the following:
+
+    ```python
+    from pybeamline.algorithms.conformance import mine_behavioral_model_from_stream, behavioral_conformance
+
+    source = log_source(["ABCD", "ABCD"])
+    reference_model = mine_behavioral_model_from_stream(source)
+    print(reference_model)
+
+    log_source(["ABCD", "ABCD"]).pipe(
+        excludes_activity_filter("A"),
+        behavioral_conformance(reference_model)
+    ).subscribe(lambda x: print(str(x)))
+    ```
+    This code will print:
+    ```
+    ([('A', 'B'), ('B', 'C'), ('C', 'D')], {('A', 'B'): (0, 0), ('B', 'C'): (1, 1), ('C', 'D'): (2, 2)}, {('A', 'B'): 2, ('B', 'C'): 1, ('C', 'D'): 0})
+    (1.0, 0.5, 1)
+    (1.0, 1.0, 1)
+    (1.0, 0.5, 1)
+    (1.0, 1.0, 1)
+    ```
+    The algorithm is describe in the publication:
+    
+    * [Online Conformance Checking Using Behavioural Patterns](https://andrea.burattin.net/publications/2018-bpm)  
+    A. Burattin, S. van Zelst, A. Armas-Cervantes, B. van Dongen, J. Carmona  
+    In *Proceedings of BPM 2018*; Sydney, Australia; September 2018.
+
 
 #### Windowing techniques
 

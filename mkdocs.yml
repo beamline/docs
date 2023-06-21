@@ -3,7 +3,7 @@ edit_uri: ""
 
 nav:
   - Home: index.md
-  - Getting started: getting-started.md
+  - Getting started: getting-started.md.
   - Implemented techniques:
     - Introduction: implemented-techniques/index.md
     - Control-flow discovery:
@@ -27,6 +27,7 @@ nav:
       - Speech recognition: examples/speech-recognition.md
       - Wikipedia edits: examples/wikipedia-edits.md
       - OpenSky monitoring: examples/open-sky-monitoring.md
+  - pyBeamline: pybeamline.md
   - About: about.md
 
 theme:
