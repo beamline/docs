@@ -55,8 +55,7 @@ PM4PY has a [package dedicated to streaming algorithms](https://pm4py.fit.fraunh
 
 ## Installing the library
 
-To use pyBeamline on any OS, install it using `pip` (currently only available on the test repository):
-
+To use pyBeamline on any OS, install it using `pip`:
 ```
 pip install pybeamline
 ```
