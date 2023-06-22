@@ -3,7 +3,7 @@ edit_uri: ""
 
 nav:
   - Home: index.md
-  - Getting started: getting-started.md.
+  - Getting started: getting-started.md
   - Implemented techniques:
     - Introduction: implemented-techniques/index.md
     - Control-flow discovery:
