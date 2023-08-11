@@ -17,6 +17,7 @@ Control-flow discovery techniques implemented:
 - [Declare miner](discovery-declare.md)
 - [DCR Miner](discovery-dcr.md)
 - [Soft Conformance Model Miner](discovery-soft.md)
+- [Split Miner](discovery-splitminer.md)
 
 Conformance checking techniques implemented:
 
