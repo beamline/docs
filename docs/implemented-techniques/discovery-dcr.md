@@ -174,6 +174,6 @@ An example of the output produced is:
 
 The techniques implemented in this package are described in:
 
-- Uncovering Change: A Streaming Approach for Declarative Processes   
+- [Uncovering Change: A Streaming Approach for Declarative Processes](https://andrea.burattin.net/publications/2022-sa4pm)     
 A. Burattin, H. A. López, L. Starklit  
 In *Proceedings of ICPM Workshop* (SA4PM), 2022.
