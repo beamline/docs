@@ -56,7 +56,7 @@ PM4PY has a [package dedicated to streaming algorithms](https://pm4py.fit.fraunh
 ## Installing the library
 
 To use pyBeamline on any OS, install it using `pip`:
-```
+```bash
 pip install pybeamline
 ```
 More information are available at <https://pypi.org/project/pybeamline/>.
@@ -382,3 +382,9 @@ To transform the window into a DataFrame, the `sliding_window_to_log` operators 
     Counter({('A', 'B'): 2, ('B', 'C'): 1, ('B', 'D'): 1})
     ```
     In this case, the only model extracted embeds both traces inside.
+
+## Citation
+
+Please, cite this work as:
+
+* Andrea Burattin. "[Beamline: A comprehensive toolkit for research and development of streaming process mining](http://dx.doi.org/10.1016/j.simpa.2023.100551)". In *Software Impacts*, vol. 17 (2023).

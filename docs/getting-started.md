@@ -331,3 +331,9 @@ env.execute();
 ```
 
 In this code, we assume the existence of a miner called `DiscoveryMiner` which produces output as an object with (sub)type `GraphvizResponse`.
+
+## Citation
+
+Please, cite this work as:
+
+* Andrea Burattin. "[Beamline: A comprehensive toolkit for research and development of streaming process mining](http://dx.doi.org/10.1016/j.simpa.2023.100551)". In *Software Impacts*, vol. 17 (2023).

@@ -19,6 +19,7 @@ nav:
     - Simulation:
       - Simulation with PLG: implemented-techniques/simulation-plg.md
   - Additional libraries:
+      - Introduction: additional-libraries.md
       - MQTT-XES: mqtt-xes.md
       - Simple PNML: simple-pnml.md
   - Examples:
