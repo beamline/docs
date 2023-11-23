@@ -1,0 +1,623 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../" rel="prev"/>
+<link href="../monitoring-windows/" rel="next"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.5.3, mkdocs-material-9.4.10" name="generator"/>
+<title>Raw data as input (non-process mining ready) - Beamline Framework</title>
+<link href="../../assets/stylesheets/main.fad675c6.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.356b1318.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="default" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Beamline Framework" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Beamline Framework
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Raw data as input (non-process mining ready)
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../getting-started/">
+        
+  
+    
+  
+  Getting started
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../implemented-techniques/">
+          
+  
+  Implemented techniques
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../additional-libraries/">
+          
+  
+  Additional libraries
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../">
+          
+  
+  Examples
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../pybeamline/">
+        
+  
+    
+  
+  pyBeamline
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../about/">
+        
+  
+    
+  
+  About
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Beamline Framework" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Beamline Framework">
+<img alt="logo" src="../../img/logo.svg"/>
+</a>
+    Beamline Framework
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../getting-started/">
+<span class="md-ellipsis">
+    Getting started
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    Implemented techniques
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Implemented techniques
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/">
+<span class="md-ellipsis">
+    Introduction
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Control-flow discovery
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+            Control-flow discovery
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-trivial/">
+<span class="md-ellipsis">
+    Trivial Miner
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-heuristics-miner/">
+<span class="md-ellipsis">
+    Heuristics Miner
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-declare/">
+<span class="md-ellipsis">
+    Declare Miner
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-dcr/">
+<span class="md-ellipsis">
+    DCR Miner
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-soft/">
+<span class="md-ellipsis">
+    Soft Conformance Model Miner
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/discovery-splitminer/">
+<span class="md-ellipsis">
+    Split Miner
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Conformance checking
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+            Conformance checking
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/conformance-behavioural-patterns/">
+<span class="md-ellipsis">
+    Behavioural Patterns
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/conformance-soft/">
+<span class="md-ellipsis">
+    Soft Conformance
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Simulation
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+            Simulation
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../implemented-techniques/simulation-plg/">
+<span class="md-ellipsis">
+    Simulation with PLG
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+<span class="md-ellipsis">
+    Additional libraries
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Additional libraries
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../additional-libraries/">
+<span class="md-ellipsis">
+    Introduction
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../mqtt-xes/">
+<span class="md-ellipsis">
+    MQTT-XES
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../simple-pnml/">
+<span class="md-ellipsis">
+    Simple PNML
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-ellipsis">
+    Examples
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    Introduction
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Raw data as input (non-process mining ready)
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../monitoring-windows/">
+<span class="md-ellipsis">
+    Monitoring active windows (for Windows systems)
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../speech-recognition/">
+<span class="md-ellipsis">
+    Speech recognition
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../wikipedia-edits/">
+<span class="md-ellipsis">
+    Wikipedia edits
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../open-sky-monitoring/">
+<span class="md-ellipsis">
+    OpenSky monitoring
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../pybeamline/">
+<span class="md-ellipsis">
+    pyBeamline
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../about/">
+<span class="md-ellipsis">
+    About
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>Raw data as input (non-process mining ready)</h1>
+<p>Let's say we have a certain file that we want to consider for processing using Beamline but this file does not meet any of the sources already implemented. Then, this example shows how to process such a file using Beamline.</p>
+<p>For the sake of simplicity let's consider a file where each line refers to one event but, within the line, the first 3 characters identify the case id, while the rest is the activity name. This is an example of such a file (where <code>001</code> and <code>002</code> are the case ids, and <code>ActA</code>, <code>B</code> and <code>Act_C</code> are the activity names):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>002ActA
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>001ActA
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>002B
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>002Act_C
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>001B
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>001Act_C
+</code></pre></div></td></tr></table></div>
+<p>To accomplish our goal, we need first to define a source capable of processing the file:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">BeamlineAbstractSource</span><span class="w"> </span><span class="n">customSource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BeamlineAbstractSource</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">   </span><span class="nd">@Override</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">SourceContext</span><span class="o">&lt;</span><span class="n">BEvent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">      </span><span class="n">Files</span><span class="p">.</span><span class="na">lines</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">logFile</span><span class="p">)).</span><span class="na">forEach</span><span class="p">(</span><span class="n">line</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">         </span><span class="n">String</span><span class="w"> </span><span class="n">caseId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">         </span><span class="n">String</span><span class="w"> </span><span class="n">activityName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="na">substring</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">         </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">            </span><span class="n">ctx</span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">BEvent</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">"my-process-name"</span><span class="p">,</span><span class="w"> </span><span class="n">caseId</span><span class="p">,</span><span class="w"> </span><span class="n">activityName</span><span class="p">));</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">         </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">EventException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">      </span><span class="p">});</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">   </span><span class="p">}</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div></p>
+<p>Now, a stream of <code>BEvent</code>s is available and can be processed with any miner available, for example, using the <a href="../../implemented-techniques/discovery-trivial/">Trivial discovery miner</a>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span>
+<span class="normal"><a href="#__codelineno-2-31">31</a></span>
+<span class="normal"><a href="#__codelineno-2-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="n">StreamExecutionEnvironment</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StreamExecutionEnvironment</span><span class="p">.</span><span class="na">getExecutionEnvironment</span><span class="p">();</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="n">env</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="w">   </span><span class="p">.</span><span class="na">addSource</span><span class="p">(</span><span class="n">customSource</span><span class="p">)</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="w">   </span><span class="p">.</span><span class="na">keyBy</span><span class="p">(</span><span class="n">BEvent</span><span class="p">::</span><span class="n">getProcessName</span><span class="p">)</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">   </span><span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DirectlyFollowsDependencyDiscoveryMiner</span><span class="p">().</span><span class="na">setModelRefreshRate</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="na">setMinDependency</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">   </span><span class="p">.</span><span class="na">addSink</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">SinkFunction</span><span class="o">&lt;</span><span class="n">ProcessMap</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">      </span><span class="nd">@Override</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">      </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">ProcessMap</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">Context</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="w">         </span><span class="n">value</span><span class="p">.</span><span class="na">generateDot</span><span class="p">().</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">"src/main/resources/output/output.svg"</span><span class="p">));</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="w">      </span><span class="p">};</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="w">   </span><span class="p">});</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="n">env</span><span class="p">.</span><span class="na">execute</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<p>In this case, we configured the miner to consume all events and, once the stream is completed (in this case we do know that the stream will terminate) we dump the result of the miner into a file <code>output.svg</code> which will contain the following model:</p>
+<figure>
+<svg height="249px" viewbox="0.00 0.00 94.00 249.00" width="94px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 245.0)">
+<title>G</title>
+<polygon fill="white" points="-4,4 -4,-245 90,-245 90,4 -4,4" stroke="none"></polygon>
+<!-- e6def0aa8&#45;a25c&#45;48d9&#45;8be2&#45;b6873af41849&#45;&gt;e6fd0d0c8&#45;9bf8&#45;41b4&#45;b32c&#45;27d996d529ec -->
+<g class="edge" id="e32ade99e-1277-410b-8854-5f7f6ab31bf6"><title>e6def0aa8-a25c-48d9-8be2-b6873af41849-&gt;e6fd0d0c8-9bf8-41b4-b32c-27d996d529ec</title>
+<path d="M43,-185.5C43,-185.5 43,-164.451 43,-146.496" fill="none" stroke="#252526" stroke-width="9"></path>
+<polygon fill="#252526" points="46.9376,-146.05 43,-141.05 39.0626,-146.05 46.9376,-146.05" stroke="#252526" stroke-width="9"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="56.5" y="-151.6"> 1.0 (2)</text>
+</g>
+<!-- e6fd0d0c8&#45;9bf8&#45;41b4&#45;b32c&#45;27d996d529ec&#45;&gt;efed7b698&#45;4a16&#45;44d5&#45;99db&#45;2afa47a4c8e4 -->
+<g class="edge" id="eead91c39-b40a-4130-8602-f99a0ca6324e"><title>e6fd0d0c8-9bf8-41b4-b32c-27d996d529ec-&gt;efed7b698-4a16-44d5-99db-2afa47a4c8e4</title>
+<path d="M43,-119.5C43,-119.5 43,-98.4513 43,-80.4961" fill="none" stroke="#252526" stroke-width="9"></path>
+<polygon fill="#252526" points="46.9376,-80.0498 43,-75.0499 39.0626,-80.0499 46.9376,-80.0498" stroke="#252526" stroke-width="9"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="56.5" y="-85.6"> 1.0 (2)</text>
+</g>
+<!-- efed7b698&#45;4a16&#45;44d5&#45;99db&#45;2afa47a4c8e4&#45;&gt;e05520936&#45;aa17&#45;4739&#45;bad0&#45;7d560003a923 -->
+<g class="edge" id="e6c1c1bff-f27a-4fc9-8bc6-6cba75b561dd"><title>efed7b698-4a16-44d5-99db-2afa47a4c8e4-&gt;e05520936-aa17-4739-bad0-7d560003a923</title>
+<path d="M43,-53.5C43,-53.5 43,-28.2972 43,-14.4159" fill="none" stroke="#c2b0ab" stroke-dasharray="5,2" stroke-width="2"></path>
+<polygon fill="#c2b0ab" points="44.7501,-14.2664 43,-9.26648 41.2501,-14.2665 44.7501,-14.2664" stroke="#c2b0ab" stroke-width="2"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="44.5" y="-19.6"> </text>
+</g>
+<!-- ef4d5585f&#45;76e4&#45;451b&#45;badf&#45;d504407d9581&#45;&gt;e6def0aa8&#45;a25c&#45;48d9&#45;8be2&#45;b6873af41849 -->
+<g class="edge" id="ebad29131-9e3f-45df-837c-23f259000f04"><title>ef4d5585f-76e4-451b-badf-d504407d9581-&gt;e6def0aa8-a25c-48d9-8be2-b6873af41849</title>
+<path d="M43,-235.5C43,-235.5 43,-223.872 43,-212.062" fill="none" stroke="#acb89c" stroke-dasharray="5,2" stroke-width="2"></path>
+<polygon fill="#acb89c" points="44.7501,-212.023 43,-207.023 41.2501,-212.023 44.7501,-212.023" stroke="#acb89c" stroke-width="2"></polygon>
+<text font-family="Arial" font-size="8.00" text-anchor="middle" x="44.5" y="-217.6"> </text>
+</g>
+<!-- e6def0aa8&#45;a25c&#45;48d9&#45;8be2&#45;b6873af41849 -->
+<g class="node" id="e6def0aa8-a25c-48d9-8be2-b6873af41849"><title>e6def0aa8-a25c-48d9-8be2-b6873af41849</title>
+<path d="M74,-207C74,-207 12,-207 12,-207 6,-207 0,-201 0,-195 0,-195 0,-178 0,-178 0,-172 6,-166 12,-166 12,-166 74,-166 74,-166 80,-166 86,-172 86,-178 86,-178 86,-195 86,-195 86,-201 80,-207 74,-207" fill="#0b4971" stroke="black"></path>
+<text fill="#ffffff" font-family="Arial" font-size="22.00" text-anchor="start" x="18" y="-186.4">ActA</text>
+<text fill="#ffffff" font-family="Arial" font-size="14.00" text-anchor="start" x="64" y="-186.4"> </text>
+<text fill="#ffffff" font-family="Arial" font-size="11.00" text-anchor="start" x="27" y="-173.2">1.0 (2)</text>
+</g>
+<!-- e6fd0d0c8&#45;9bf8&#45;41b4&#45;b32c&#45;27d996d529ec -->
+<g class="node" id="e6fd0d0c8-9bf8-41b4-b32c-27d996d529ec"><title>e6fd0d0c8-9bf8-41b4-b32c-27d996d529ec</title>
+<path d="M74,-141C74,-141 12,-141 12,-141 6,-141 0,-135 0,-129 0,-129 0,-112 0,-112 0,-106 6,-100 12,-100 12,-100 74,-100 74,-100 80,-100 86,-106 86,-112 86,-112 86,-129 86,-129 86,-135 80,-141 74,-141" fill="#0b4971" stroke="black"></path>
+<text fill="#ffffff" font-family="Arial" font-size="22.00" text-anchor="start" x="33.5" y="-120.4">B</text>
+<text fill="#ffffff" font-family="Arial" font-size="14.00" text-anchor="start" x="48.5" y="-120.4"> </text>
+<text fill="#ffffff" font-family="Arial" font-size="11.00" text-anchor="start" x="27" y="-107.2">1.0 (2)</text>
+</g>
+<!-- efed7b698&#45;4a16&#45;44d5&#45;99db&#45;2afa47a4c8e4 -->
+<g class="node" id="efed7b698-4a16-44d5-99db-2afa47a4c8e4"><title>efed7b698-4a16-44d5-99db-2afa47a4c8e4</title>
+<path d="M74,-75C74,-75 12,-75 12,-75 6,-75 0,-69 0,-63 0,-63 0,-46 0,-46 0,-40 6,-34 12,-34 12,-34 74,-34 74,-34 80,-34 86,-40 86,-46 86,-46 86,-63 86,-63 86,-69 80,-75 74,-75" fill="#0b4971" stroke="black"></path>
+<text fill="#ffffff" font-family="Arial" font-size="22.00" text-anchor="start" x="11" y="-54.4">Act_C</text>
+<text fill="#ffffff" font-family="Arial" font-size="14.00" text-anchor="start" x="71" y="-54.4"> </text>
+<text fill="#ffffff" font-family="Arial" font-size="11.00" text-anchor="start" x="27" y="-41.2">1.0 (2)</text>
+</g>
+<!-- ef4d5585f&#45;76e4&#45;451b&#45;badf&#45;d504407d9581 -->
+<g class="node" id="ef4d5585f-76e4-451b-badf-d504407d9581"><title>ef4d5585f-76e4-451b-badf-d504407d9581</title>
+<ellipse cx="43" cy="-236.5" fill="#ced6bd" rx="4.5" ry="4.5" stroke="#595f45"></ellipse>
+</g>
+<!-- e05520936&#45;aa17&#45;4739&#45;bad0&#45;7d560003a923 -->
+<g class="node" id="e05520936-aa17-4739-bad0-7d560003a923"><title>e05520936-aa17-4739-bad0-7d560003a923</title>
+<ellipse cx="43" cy="-4.5" fill="#d8bbb9" rx="4.5" ry="4.5" stroke="#614847"></ellipse>
+</g>
+</g>
+</svg>
+</figure>
+<p>The complete code of this example is available in the GitHub repository <a href="https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/rawData">https://github.com/beamline/examples/tree/master/src/main/java/beamline/examples/rawData</a>.</p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022-2023 Technical University of Denmark
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/beamline" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "toc.integrate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.6c14ae12.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js"></script>
+</body>
+</html>
