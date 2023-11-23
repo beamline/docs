@@ -16,7 +16,7 @@ Please, cite this work as:
 
 * Andrea Burattin. "[Beamline: A comprehensive toolkit for research and development of streaming process mining](http://dx.doi.org/10.1016/j.simpa.2023.100551)". In *Software Impacts*, vol. 17 (2023).
 
-??? quote "BibTeX of the citation"
+??? quote "BibTeX for citation"
     ```bibtex
     @article{BURATTIN2023100551,
       title = {Beamline: A comprehensive toolkit for research and development of streaming process mining},

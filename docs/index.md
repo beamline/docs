@@ -25,9 +25,10 @@ The picture below refers to the control-flow discovery case but, obviously, the 
 <figure markdown> 
   ![Streaming process mining idea](img/idea.svg)
   <figcaption>
-    Conceptualization of the streaming process discovery.<br>
-    <sub><sup>Image adapted from: A. Burattin, A. Sperduti, and W. van der Aalst. Control-
-flow Discovery from Event Streams. In Proc. of IEEE WCCI-CEC, 2014.</sup></sub></figcaption>
+    <p>Conceptualization of the streaming process discovery.</p>
+    <p style="line-height: 15px !important; font-size: .7em; color: #AAA;">
+    <span>Image adapted from: A. Burattin, A. Sperduti, and W. van der Aalst. Control-
+flow Discovery from Event Streams. In Proc. of IEEE WCCI-CEC, 2014.</span></p></figcaption>
 </figure>
 
 
@@ -48,7 +49,7 @@ Please, cite this work as:
 
 * Andrea Burattin. "[Beamline: A comprehensive toolkit for research and development of streaming process mining](http://dx.doi.org/10.1016/j.simpa.2023.100551)". In *Software Impacts*, vol. 17 (2023).
 
-??? quote "BibTeX of the citation"
+??? quote "BibTeX for citation"
     ```bibtex
     @article{BURATTIN2023100551,
       title = {Beamline: A comprehensive toolkit for research and development of streaming process mining},
