@@ -1,5 +1,7 @@
 # pyBeamline
 
+[![PyPI version](https://badge.fury.io/py/pybeamline.svg)](https://badge.fury.io/py/pybeamline)
+
 pyBeamline is a Python version of Beamline. While the same set of ideas and principles of Beamline have been ported into pyBeamline, the underlying goal and technology is very different.
 
 pyBeamline is based on [ReactiveX](https://reactivex.io/) and its Python binding [RxPY](https://rxpy.readthedocs.io/en/latest/). RxPY is a library for composing asynchronous and event-based programs using observable sequences and pipable query operators in Python. Using pyBeamline it is possible to inject process mining operators into the computation.
