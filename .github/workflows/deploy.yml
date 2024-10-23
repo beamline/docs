@@ -25,6 +25,6 @@ jobs:
           pip install mkdocs-mermaid2-plugin
 
       - name: Deploy to GitHub Pages
-        run: mkdocs gh-deploy --force --cname beamline.cloud
+        run: mkdocs gh-deploy --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
