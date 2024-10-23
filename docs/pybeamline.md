@@ -129,12 +129,12 @@ In the context of Beamline it is possible to define observables of any type. The
     ```python
     from pybeamline.sources import mqttxes_source
 
-    mqttxes_source('broker.mqtt.cool', 1883, 'bla/bla/') \
+    mqttxes_source('broker.mqtt.cool', 1883, 'base/topic/') \
         .subscribe(lambda x: print(str(x)))
 
     input()
     ```
-    Where `broker.mqtt.cool` is the URL of the MQTT broker, 1883 is the broker port, and `bla/bla/` is the base topic. Please note the `input()` at the end, which is necessary to avoid that the application terminates thus not receiving any more events.
+    Where `broker.mqtt.cool` is the URL of the MQTT broker, 1883 is the broker port, and `base/topic/` is the base topic. Please note the `input()` at the end, which is necessary to avoid that the application terminates thus not receiving any more events.
 
 For convenience, another source called `log_source` is defined. This just combines dispatches the call to the other sources, based on a match performed on the input type.
 
