@@ -2,11 +2,11 @@
 
 [![PyPI version](https://badge.fury.io/py/pybeamline.svg)](https://badge.fury.io/py/pybeamline)
 
-pyBeamline is a Python version of Beamline. While the same set of ideas and principles of Beamline have been ported into pyBeamline, the underlying goal and technology is very different.
+pyBeamline is a Python version of Beamline. While the same set of ideas and principles of Beamline have been ported into pyBeamline, the underlying goal and technology are very different.
 
 pyBeamline is based on [ReactiveX](https://reactivex.io/) and its Python binding [RxPY](https://rxpy.readthedocs.io/en/latest/). RxPY is a library for composing asynchronous and event-based programs using observable sequences and pipable query operators in Python. Using pyBeamline it is possible to inject process mining operators into the computation.
 
-A complete Jupyter notebook presenting all techniques available is available at <https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb>.
+A complete Jupyter notebook presenting all implemented techniques is available at <https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb>.
 
 <a target="_blank" href="https://colab.research.google.com/github/beamline/pybeamline/blob/master/tutorial.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
