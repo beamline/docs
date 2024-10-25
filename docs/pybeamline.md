@@ -419,7 +419,7 @@ To transform the window into a DataFrame, the `sliding_window_to_log` operators 
 
 ### River
 
-River (https://riverml.xyz/) is a library to build online machine learning models. Such models operate on data streams. River includes several online machine learning algorithms that can be used for several tasks, including classification, regression, anomaly detection, time series forecasting, etc. The ideology behind River is to be a generic machine learning which allows to perform these tasks in a streaming manner. Indeed, many batch machine learning algorithms have online equivalents. Note that River also supports some more basic tasks. For instance, you might just want to calculate a running average of a data stream.
+River (<https://riverml.xyz/>) is a library to build online machine learning models. Such models operate on data streams. River includes several online machine learning algorithms that can be used for several tasks, including classification, regression, anomaly detection, time series forecasting, etc. The ideology behind River is to be a generic machine learning which allows to perform these tasks in a streaming manner. Indeed, many batch machine learning algorithms have online equivalents. Note that River also supports some more basic tasks. For instance, you might just want to calculate a running average of a data stream.
 
 It is possible to integrate pyBeamline's result into River to leverage its ML capabilities. For example, let's say we want to use concept drift detection using the [ADWIN algorithm](https://riverml.xyz/0.11.0/api/drift/ADWIN/). In particular, we are interested in computing if the frequency of the directly follows relation `BC` changes over time. To accomplish this task, let's first build a log where we artificially inject two of such drifts:
 
@@ -480,7 +480,7 @@ With this function available, `check_for_drift` can now be piped to the previous
 
 ![](https://github.com/beamline/docs/blob/main/site/img/drifts.png?raw=true)
 
-For a complete working example, see https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb.
+For a complete working example, see <https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb>.
 
 ## Citation
 
