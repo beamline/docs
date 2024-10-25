@@ -417,7 +417,7 @@ To transform the window into a DataFrame, the `sliding_window_to_log` operators 
 
 ## Integration with other libraries
 
-## River
+### River
 
 River (https://riverml.xyz/) is a library to build online machine learning models. Such models operate on data streams. River includes several online machine learning algorithms that can be used for several tasks, including classification, regression, anomaly detection, time series forecasting, etc. The ideology behind River is to be a generic machine learning which allows to perform these tasks in a streaming manner. Indeed, many batch machine learning algorithms have online equivalents. Note that River also supports some more basic tasks. For instance, you might just want to calculate a running average of a data stream.
 
