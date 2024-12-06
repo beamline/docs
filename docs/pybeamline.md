@@ -153,6 +153,30 @@ For convenience, another source called `log_source` is defined. This just combin
     log_source(["ABC", "ACB", "EFG"]) # This is equivalent to string_test_source(["ABC", "ACB", "EFG"])
     ```
 
+In addition to the previous sources these are also implemented:
+
+??? note "Details on `wikimedia_source`"
+    Source that connects to the stream of recent change operations happening on the Media Wiki websites (see <https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams_HTTP_Service> and <https://www.mediawiki.org/wiki/Manual:RCFeed>). Example usage:
+    ```python
+    from pybeamline.sources.real_world_sources import wikimedia_source
+
+    wikimedia_source() \
+        .subscribe(lambda x: print(str(x)))
+
+    input()
+    ```
+    It is advisable to apply a filter operation to consider only events relevant to one of the websites, such as:
+    ```python
+    from pybeamline.sources.real_world_sources import wikimedia_source
+    from pybeamline.filters import retains_on_event_attribute_equal_filter
+
+    wikimedia_source().pipe(
+        retains_on_event_attribute_equal_filter("wiki", ["dewiki"]),
+    ).subscribe(lambda x: print(str(x)))
+
+    input()
+    ```
+
 ### Combining sources
 
 In order to build tests where drifts occur in a controlled setting, it is possible to concatenate different sources together. See the example below:
@@ -286,6 +310,19 @@ In the core of the pyBeamline library, currently, there is only one mining algor
     ('C', 'B')
     ```
 
+??? note "Details on `simple_dfg_miner`"
+    An algorithm that simply constructs the DFG considering infinite amount of memory available. It has 2 parameters: the `model_update_frequency` that determines how often the model should be updated, and the `min_relative_frequency` that determines the minimum relative frequency that a directly follow relations should have to be generated.
+
+    An example of how the algorithm can be used is the following:
+    ```python
+    from pybeamline.sources.real_world_sources import wikimedia_source
+    from pybeamline.algorithms.discovery.dfg_miner import simple_dfg_miner
+
+    wikimedia_source().pipe(
+        simple_dfg_miner()
+    ).subscribe(lambda x: print(str(x)))
+    ```
+
 ??? note "Details on `heuristics_miner_lossy_counting`"
     An algorithm to mine a Heuristics Net using the Lossy Counting algorithm. The Heuristics Net is the same type as in the PM4PY library (see <https://pm4py.fit.fraunhofer.de/documentation#item-3-3>)
 
@@ -413,6 +450,29 @@ To transform the window into a DataFrame, the `sliding_window_to_log` operators 
     Counter({('A', 'B'): 2, ('B', 'C'): 1, ('B', 'D'): 1})
     ```
     In this case, the only model extracted embeds both traces inside.
+
+## Utilities
+
+There are some utilities functionalities implemented in the library. They are listed below:
+
+??? note "Details on `dfg_to_graphviz`"
+    This function allows the transformation of the DFG produced with the `simple_dfg_miner` into the corresponding Graphviz string. It can be used for visualization of the model.
+
+    An example is shown in the following:
+    ```python
+    from pybeamline.sources.real_world_sources import wikimedia_source
+    from pybeamline.algorithms.discovery.dfg_miner import simple_dfg_miner
+    from pybeamline.utils import dfg_to_graphviz
+
+    def display(graphviz_string):
+        print(graphviz_string) # In reality, a more advance processing is expected here :)
+
+    wikimedia_source().pipe(
+        simple_dfg_miner()
+    ).subscribe(lambda x: display(dfg_to_graphviz(x)))
+    ```
+
+
 
 
 ## Integration with other libraries
