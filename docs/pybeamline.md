@@ -94,6 +94,8 @@ Essentially, a Beamline event, consists of 3 maps for attributes referring to th
 > An *observer* subscribes to an *Observable*. Then that observer reacts to whatever item or sequence of items the Observable *emits*. This pattern facilitates concurrent operations because it does not need to block while waiting for the Observable to emit objects, but instead it creates a sentry in the form of an observer that stands ready to react appropriately at whatever future time the Observable does so.
 > -- <cite>Text from <https://reactivex.io/documentation/observable.html>.</cite>
 
+#### General sources
+
 In the context of Beamline it is possible to define observables of any type. The framework comes with some observables already defined. Sources already implemented are `xes_log_source`, `xes_log_source_from_file`, and `string_test_source`. A `xes_log_source` creates a source from a static log (useful for testing purposes), `xes_log_source_from_file` creates a source from an XES file, and `string_test_source` allows the definition of simple log directly in its constructor (useful for testing purposes).
 
 ??? note "Details on `xes_log_source` and `xes_log_source_from_file`"
@@ -125,21 +127,6 @@ In the context of Beamline it is possible to define observables of any type. The
         .subscribe(lambda x: print(str(x)))
     ```
 
-
-??? note "Details on `mqttxes_source`"
-    Source that connects to an MQTT endpoint and expects events to be published according to the MQTT-XES format (see https://beamline.cloud/mqtt-xes/). Example usage:
-    ```python
-    from pybeamline.sources import mqttxes_source
-
-    mqttxes_source('broker.mqtt.cool', 1883, 'base/topic/') \
-        .subscribe(lambda x: print(str(x)))
-
-    input()
-    ```
-    Where `broker.mqtt.cool` is the URL of the MQTT broker, 1883 is the broker port, and `base/topic/` is the base topic. Please note the `input()` at the end, which is necessary to avoid that the application terminates thus not receiving any more events.
-
-For convenience, another source called `log_source` is defined. This just combines dispatches the call to the other sources, based on a match performed on the input type.
-
 ??? note "Details on `log_source`"
     Example of usages:
     ```python
@@ -153,7 +140,25 @@ For convenience, another source called `log_source` is defined. This just combin
     log_source(["ABC", "ACB", "EFG"]) # This is equivalent to string_test_source(["ABC", "ACB", "EFG"])
     ```
 
-In addition to the previous sources these are also implemented:
+The following sources offer connections to external services:
+
+??? note "Details on `mqttxes_source`"
+    Source that connects to an MQTT endpoint and expects events to be published according to the MQTT-XES format (see https://beamline.cloud/mqtt-xes/). Example usage:
+    ```python
+    from pybeamline.sources import mqttxes_source
+
+    mqttxes_source('broker.mqtt.cool', 1883, 'base/topic/') \
+        .subscribe(lambda x: print(str(x)))
+
+    input()
+    ```
+    Where `broker.mqtt.cool` is the URL of the MQTT broker, 1883 is the broker port, and `base/topic/` is the base topic. Please note the `input()` at the end, which is necessary to avoid that the application terminates thus not receiving any more events.
+
+
+
+#### Real-world sources
+
+In addition to the previous sources these are also implemented. The following sources observe **real data** and hence are not controllable and maybe not suitable for testing.
 
 ??? note "Details on `wikimedia_source`"
     Source that connects to the stream of recent change operations happening on the Media Wiki websites (see <https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams_HTTP_Service> and <https://www.mediawiki.org/wiki/Manual:RCFeed>). Example usage:
@@ -176,6 +181,21 @@ In addition to the previous sources these are also implemented:
 
     input()
     ```
+
+
+??? note "Details on `ais_source`"
+    The automatic identification system (AIS) is an automatic tracking system that uses transceivers on ships and is used by vessel traffic services. This source considers the MMSI (<https://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity>) as the case id and the navigation status (when available) as the activity (<https://en.wikipedia.org/wiki/Automatic_identification_system#Broadcast_information>). While it is possible connect to any AIS data provider (by passing `host` and `port` parameters), by default, the source connects to the Norwegian Coastal Administration server, which publishes data for the from vessels within the Norwegian economic zone and the protection zones off Svalbard and Jan Mayen (see <https://www.kystverket.no/en/navigation-and-monitoring/ais/access-to-ais-data/>).
+
+    **ATTENTION:** while a lot of events are produced by this source, traces are very short and it can take a long time before two events with the same case id are actually observed.
+
+    Example usage:
+    ```python
+    from pybeamline.sources.real_world_sources import ais_source
+
+    ais_source() \
+        .subscribe(lambda x: print(str(x)))
+    ```
+
 
 ### Combining sources
 
