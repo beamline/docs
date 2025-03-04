@@ -475,6 +475,31 @@ To transform the window into a DataFrame, the `sliding_window_to_log` operators 
 
 There are some utilities functionalities implemented in the library. They are listed below:
 
+??? note "Details on `lambda_operator`"
+	This function allows the definition of an operator according to a function defined somewhere else. It is the most flexible operator and, in case a value is return, then the pipeline will continue. If `None` is returned, then the pipeline does not continue.
+
+	The example below shows how this operator can be used to define custom filters and custom miners:
+	```python
+	from pybeamline.algorithms.lambda_operator import lambda_operator
+	from pybeamline.sources.string_test_source import string_test_source
+
+
+	def my_filter(event):
+		return event if (event.get_event_name() == "A") else None
+
+
+	def my_miner(event):
+		return [('Start', event.get_event_name())]
+
+
+	string_test_source(["ABCDE", "ACBDE"]).pipe(
+		lambda_operator(my_filter),
+		lambda_operator(my_miner)
+	).subscribe(lambda x: print(str(x)))
+	```
+
+
+
 ??? note "Details on `dfg_to_graphviz`"
     This function allows the transformation of the DFG produced with the `simple_dfg_miner` into the corresponding Graphviz string. It can be used for visualization of the model.
 
