@@ -3,17 +3,22 @@ In this example we are going to see how to use `pyBeamline` to go all the way fr
 The picture below depicts the architecture of the example.
 
 <figure>
+<style>
+    .actor {
+        font-family: Arial !important;
+    }
+    .messageText {
+        stroke: none !important;
+    }
+</style>
 <div class="mermaid">
-classDiagram
-  class Emitter
-  class `MQTT Broker`
-  class Miner
-  class `Results Visualizer`
-
-  `MQTT Broker` <-- Emitter : publishes events
-  `MQTT Broker` --> Miner : notifies events
-  `MQTT Broker` <-- Miner : publishes models
-  `MQTT Broker` --> `Results Visualizer` : notifies models
+sequenceDiagram
+    Emitter ->> MQTT Broker: new event
+    MQTT Broker ->> Miner: notifies event
+    activate Miner
+    Miner -->> MQTT Broker: new model
+    deactivate Miner
+    MQTT Broker ->> Results Visualizer: notifies new model
 </div>
 </figure>
 
