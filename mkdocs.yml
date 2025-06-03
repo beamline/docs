@@ -3,34 +3,37 @@ edit_uri: ""
 
 nav:
   - Home: index.md
-  - Getting started: getting-started.md
-  - Implemented techniques:
-    - Introduction: implemented-techniques/index.md
-    - Control-flow discovery:
-      - Trivial Miner: implemented-techniques/discovery-trivial.md
-      - Heuristics Miner: implemented-techniques/discovery-heuristics-miner.md
-      - Declare Miner: implemented-techniques/discovery-declare.md
-      - DCR Miner: implemented-techniques/discovery-dcr.md
-      - Soft Conformance Model Miner: implemented-techniques/discovery-soft.md
-      - Split Miner: implemented-techniques/discovery-splitminer.md
-    - Conformance checking:
-      - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
-      - Soft Conformance: implemented-techniques/conformance-soft.md
-    - Simulation:
-      - Simulation with PLG: implemented-techniques/simulation-plg.md
+  - Beamline:
+    - Getting started: getting-started.md
+    - Implemented techniques:
+      - Introduction: implemented-techniques/index.md
+      - Control-flow discovery:
+        - Trivial Miner: implemented-techniques/discovery-trivial.md
+        - Heuristics Miner: implemented-techniques/discovery-heuristics-miner.md
+        - Declare Miner: implemented-techniques/discovery-declare.md
+        - DCR Miner: implemented-techniques/discovery-dcr.md
+        - Soft Conformance Model Miner: implemented-techniques/discovery-soft.md
+        - Split Miner: implemented-techniques/discovery-splitminer.md
+      - Conformance checking:
+        - Behavioural Patterns: implemented-techniques/conformance-behavioural-patterns.md
+        - Soft Conformance: implemented-techniques/conformance-soft.md
+      - Simulation:
+        - Simulation with PLG: implemented-techniques/simulation-plg.md
+  - pyBeamline: pybeamline.md
   - Additional libraries:
       - Introduction: additional-libraries.md
       - MQTT-XES: mqtt-xes.md
       - Simple PNML: simple-pnml.md
-  - pyBeamline: pybeamline.md
   - Examples:
       - Introduction: examples/index.md
-      - pyBeamline full cycle: examples/pybeamline-full-cicle.md
-      - Raw data as input (non-process mining ready): examples/no-process-mining-as-input.md
-      - Monitoring active windows (for Windows systems): examples/monitoring-windows.md
-      - Speech recognition: examples/speech-recognition.md
-      - Wikipedia edits: examples/wikipedia-edits.md
-      - OpenSky monitoring: examples/open-sky-monitoring.md
+      - Beamline:
+        - Raw data as input (non-process mining ready): examples/no-process-mining-as-input.md
+        - Monitoring active windows (for Windows systems): examples/monitoring-windows.md
+        - Speech recognition: examples/speech-recognition.md
+        - Wikipedia edits: examples/wikipedia-edits.md
+        - OpenSky monitoring: examples/open-sky-monitoring.md
+      - pyBeamline:
+        - pyBeamline full cycle: examples/pybeamline-full-cicle.md
   - About: about.md
 
 theme:
@@ -42,6 +45,7 @@ theme:
   features:
   - navigation.tabs
   - navigation.tabs.sticky
+  - navigation.expand
   - toc.integrate
 
 repo_url: https://github.com/beamline/framework

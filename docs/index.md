@@ -6,10 +6,13 @@ hide:
 
 # Beamline Framework
 
-Beamline is a Java framework designed to facilitate the prototyping and the development of ***streaming process mining*** algorithms.
+Beamline is a framework designed to facilitate the prototyping and the development of ***streaming process mining*** algorithms.
 
-The framework is designed on top of [Apache Flink](https://flink.apache.org/) which makes it suitable for extremely efficient computation due to the distributed and stateful nature of its components. The Beamline consists of both algorithms as well as data structures, sources, and sinks to facilitate the development of process mining applications. While redefining the concept of *event*, Beamline tries to maintain compatibility with OpenXES and the IEEE XES standard.
+The framework comprises two libraries: **Beamline** (Java) and **pyBeamline** (Python).
 
+Beamline, the Java library, is designed on top of [Apache Flink](https://flink.apache.org/) which makes it suitable for extremely efficient computation due to the distributed and stateful nature of its components. The Beamline consists of both algorithms as well as data structures, sources, and sinks to facilitate the development of process mining applications. While redefining the concept of *event*, Beamline tries to maintain compatibility with OpenXES and the IEEE XES standard.
+
+pyBeamline is built on [ReactiveX](https://reactivex.io/) and its Python implementation, RxPY - a library for composing asynchronous, event-driven programs using observable sequences and pipable query operators. pyBeamline is suitable for prototyping algorithm very quickly, without necessarily bothering with performance aspects. It also simplifies collaboration by, for example, leveraging online notebook services (like Google Colab).
 
 
 ## Streaming process mining
@@ -35,7 +38,7 @@ flow Discovery from Event Streams. In Proc. of IEEE WCCI-CEC, 2014.</span></p></
 
 ## Beamline
 
-Beamline is a Java framework meant to simplify the research and the development of streaming process mining, by providing a set of tools that can lift researchers from the burden of setting up streams and running experiments.
+Beamline is a framework meant to simplify the research and the development of streaming process mining, by providing a set of tools that can lift researchers from the burden of setting up streams and running experiments.
 
 !!! note "On the name Beamline"
     The term *Beamline* is borrowed from [high energy physics](https://en.wikipedia.org/wiki/Beamline), where it indicates the physical structure used to define experiments, i.e., where the accelerated particles travel. In the streaming process mining case, Beamline is used to set up experiments where process mining events are processed and consumed.
