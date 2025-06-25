@@ -1,0 +1,1241 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../implemented-techniques/simulation-plg/" rel="prev"/>
+<link href="../additional-libraries/" rel="next"/>
+<link href="../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.14" name="generator"/>
+<title>pyBeamline - Beamline Framework</title>
+<link href="../assets/stylesheets/main.342714a4.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="default" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#pybeamline">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Beamline Framework" class="md-header__button md-logo" data-md-component="logo" href=".." title="Beamline Framework">
+<img alt="logo" src="../img/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Beamline Framework
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              pyBeamline
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../getting-started/">
+          
+  
+  
+  Beamline
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="./">
+        
+  
+  
+    
+  
+  pyBeamline
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../additional-libraries/">
+          
+  
+  
+  Additional libraries
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../examples/">
+          
+  
+  
+  Examples
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../about/">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Beamline Framework" class="md-nav__button md-logo" data-md-component="logo" href=".." title="Beamline Framework">
+<img alt="logo" src="../img/logo.svg"/>
+</a>
+    Beamline Framework
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/framework" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Beamline
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Beamline
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../getting-started/">
+<span class="md-ellipsis">
+    Getting started
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Implemented techniques
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+            Implemented techniques
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Control-flow discovery
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_2_2">
+<span class="md-nav__icon md-icon"></span>
+            Control-flow discovery
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/discovery-trivial/">
+<span class="md-ellipsis">
+    Trivial Miner
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/discovery-heuristics-miner/">
+<span class="md-ellipsis">
+    Heuristics Miner
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/discovery-declare/">
+<span class="md-ellipsis">
+    Declare Miner
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/discovery-dcr/">
+<span class="md-ellipsis">
+    DCR Miner
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/discovery-soft/">
+<span class="md-ellipsis">
+    Soft Conformance Model Miner
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/discovery-splitminer/">
+<span class="md-ellipsis">
+    Split Miner
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Conformance checking
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+            Conformance checking
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/conformance-behavioural-patterns/">
+<span class="md-ellipsis">
+    Behavioural Patterns
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/conformance-soft/">
+<span class="md-ellipsis">
+    Soft Conformance
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Simulation
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_2_4">
+<span class="md-nav__icon md-icon"></span>
+            Simulation
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../implemented-techniques/simulation-plg/">
+<span class="md-ellipsis">
+    Simulation with PLG
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    pyBeamline
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    pyBeamline
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pybeamline-designer">
+<span class="md-ellipsis">
+      pyBeamline Designer
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#goals-and-differences-with-beamline">
+<span class="md-ellipsis">
+      Goals and differences with Beamline
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#differences-with-pm4py">
+<span class="md-ellipsis">
+      Differences with PM4PY
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installing-the-library">
+<span class="md-ellipsis">
+      Installing the library
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#basic-concepts">
+<span class="md-ellipsis">
+      Basic concepts
+    </span>
+</a>
+<nav aria-label="Basic concepts" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#events">
+<span class="md-ellipsis">
+      Events
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#observables-and-sources">
+<span class="md-ellipsis">
+      Observables and Sources
+    </span>
+</a>
+<nav aria-label="Observables and Sources" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#general-sources">
+<span class="md-ellipsis">
+      General sources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#real-world-sources">
+<span class="md-ellipsis">
+      Real-world sources
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#combining-sources">
+<span class="md-ellipsis">
+      Combining sources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#filters">
+<span class="md-ellipsis">
+      Filters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mappers-and-mining-algorithms">
+<span class="md-ellipsis">
+      Mappers and mining algorithms
+    </span>
+</a>
+<nav aria-label="Mappers and mining algorithms" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#discovery-techniques">
+<span class="md-ellipsis">
+      Discovery techniques
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#conformance-checking-techniques">
+<span class="md-ellipsis">
+      Conformance checking techniques
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#windowing-techniques">
+<span class="md-ellipsis">
+      Windowing techniques
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utilities">
+<span class="md-ellipsis">
+      Utilities
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#integration-with-other-libraries">
+<span class="md-ellipsis">
+      Integration with other libraries
+    </span>
+</a>
+<nav aria-label="Integration with other libraries" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#river">
+<span class="md-ellipsis">
+      River
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#citation">
+<span class="md-ellipsis">
+      Citation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Additional libraries
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Additional libraries
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../additional-libraries/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../mqtt-xes/">
+<span class="md-ellipsis">
+    MQTT-XES
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../simple-pnml/">
+<span class="md-ellipsis">
+    Simple PNML
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Examples
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Examples
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Beamline
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_2">
+<span class="md-nav__icon md-icon"></span>
+            Beamline
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/no-process-mining-as-input/">
+<span class="md-ellipsis">
+    Raw data as input (non-process mining ready)
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/monitoring-windows/">
+<span class="md-ellipsis">
+    Monitoring active windows (for Windows systems)
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/speech-recognition/">
+<span class="md-ellipsis">
+    Speech recognition
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/wikipedia-edits/">
+<span class="md-ellipsis">
+    Wikipedia edits
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/open-sky-monitoring/">
+<span class="md-ellipsis">
+    OpenSky monitoring
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+<span class="md-ellipsis">
+    pyBeamline
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_3">
+<span class="md-nav__icon md-icon"></span>
+            pyBeamline
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../examples/pybeamline-full-cicle/">
+<span class="md-ellipsis">
+    pyBeamline full cycle
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../about/">
+<span class="md-ellipsis">
+    About
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="pybeamline">pyBeamline</h1>
+<p><a href="https://badge.fury.io/py/pybeamline"><img alt="PyPI version" src="https://badge.fury.io/py/pybeamline.svg"/></a></p>
+<p>pyBeamline is a Python version of Beamline. While the same set of ideas and principles of Beamline have been ported into pyBeamline, the underlying goal and technology are very different.</p>
+<p>pyBeamline is based on <a href="https://reactivex.io/">ReactiveX</a> and its Python binding <a href="https://rxpy.readthedocs.io/en/latest/">RxPY</a>. RxPY is a library for composing asynchronous and event-based programs using observable sequences and pipable query operators in Python. Using pyBeamline it is possible to inject process mining operators into the computation.</p>
+<p>A complete Jupyter notebook presenting all implemented techniques is available at <a href="https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb">https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb</a>.</p>
+<p><a href="https://colab.research.google.com/github/beamline/pybeamline/blob/master/tutorial.ipynb" target="_blank">
+<img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg">
+</img></a></p>
+<h4 id="pybeamline-designer">pyBeamline Designer</h4>
+<p>To help getting started, you can try the pyBeamline Designer, available at <a href="https://beamline.github.io/pybeamline-designer/">https://beamline.github.io/pybeamline-designer/</a>:</p>
+<figure>
+<p><img alt="Screenshot of pyBeamline Designer" src="../img/pybeamline-screenshot.jpg"/>
+</p>
+<figcaption><a href="https://beamline.github.io/pybeamline-designer/" target="_blank">https://beamline.github.io/pybeamline-designer/</a></figcaption>
+</figure>
+<h4 id="goals-and-differences-with-beamline">Goals and differences with Beamline</h4>
+<p>The main difference between Beamline and pyBeamline is the language they are built in (Beamline is written in Java, pyBeamline is written in Python). However, differences do not stop here. In particular, Beamline is built on top of Apache Flink, which makes it suitable for extremely efficient computation due to the distributed and stateful nature of its components. pyBeamline, on the other end, is built on top of ReactiveX which is</p>
+<blockquote>
+<p>an extension of the observer pattern to support sequences of data and/or events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety, concurrent data structures, and non-blocking I/O. <cite>(From <a href="https://reactivex.io/intro.html">https://reactivex.io/intro.html</a>)</cite></p>
+</blockquote>
+<p>Therefore, pyBeamline is suited for prototyping algorithm very quickly, without necessarily bothering with performance aspects. In a sense, it simplifies the construction of proof of concepts, before translating the algorithms into Beamline for proper testing and verification. Also, it simplifies collaboration by, for example, leveraging online services (like Google Colab).</p>
+<p>To give an example of such simplicity, this is the <strong><em>complete code</em></strong> to discover a DFG using a sliding window from a stream generated from a <code>test.xes</code> file (a file is used instead of a proper stream, as we are in a very controlled setting):</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">xes_log_source_from_file</span>
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.mappers</span><span class="w"> </span><span class="kn">import</span> <span class="n">sliding_window_to_log</span>
+<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">reactivex.operators</span><span class="w"> </span><span class="kn">import</span> <span class="n">window_with_count</span>
+<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pm4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">discover_dfg_typed</span>
+<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>
+<a href="#__codelineno-0-6" id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="n">xes_log_source_from_file</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-0-7" id="__codelineno-0-7" name="__codelineno-0-7"></a>    <span class="n">window_with_count</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span>
+<a href="#__codelineno-0-8" id="__codelineno-0-8" name="__codelineno-0-8"></a>    <span class="n">sliding_window_to_log</span><span class="p">()</span>
+<a href="#__codelineno-0-9" id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">log</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">discover_dfg_typed</span><span class="p">(</span><span class="n">log</span><span class="p">)))</span>
+</code></pre></div>
+<h4 id="differences-with-pm4py">Differences with PM4PY</h4>
+<p>PM4PY has a <a href="https://pm4py.fit.fraunhofer.de/static/assets/api/2.3.0/pm4py.streaming.html">package dedicated to streaming algorithms</a>. This package, however, does not allow the construction of <a href="https://en.wikipedia.org/wiki/Dataflow">the dataflow for the processing of the events</a>. Instead, it allows the application of a single algorithm on a defined stream. While this might be useful in certain situation, having the ability to construct the dataflow represents a fundamental architecture for stream processing.</p>
+<details class="note">
+<summary>What is a dataflow?</summary>
+<p>Here is the definition from the <a href="https://en.wikipedia.org/wiki/Dataflow">corresponding Wikipedia page</a>:</p>
+<blockquote>
+<p>In computing, dataflow is a broad concept, which has various meanings depending on the application and context. In the context of software architecture, data flow relates to stream processing or reactive programming.</p>
+<p>[...]</p>
+<p>Dataflow computing is a software paradigm based on the idea of representing computations as a directed graph, where nodes are computations and data flow along the edges. Dataflow can also be called stream processing or reactive programming.</p>
+<p>There have been multiple data-flow/stream processing languages of various forms (see Stream processing). Data-flow hardware (see Dataflow architecture) is an alternative to the classic von Neumann architecture. The most obvious example of data-flow programming is the subset known as reactive programming with spreadsheets. As a user enters new values, they are instantly transmitted to the next logical "actor" or formula for calculation.</p>
+<p>Distributed data flows have also been proposed as a programming abstraction that captures the dynamics of distributed multi-protocols. The data-centric perspective characteristic of data flow programming promotes high-level functional specifications and simplifies formal reasoning about system components.</p>
+</blockquote>
+</details>
+<h2 id="installing-the-library">Installing the library</h2>
+<p>To use pyBeamline on any OS, install it using <code>pip</code>:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pybeamline
+</code></pre></div>
+More information are available at <a href="https://pypi.org/project/pybeamline/">https://pypi.org/project/pybeamline/</a>.</p>
+<h2 id="basic-concepts">Basic concepts</h2>
+<p>In this section the basic concepts of pyBeamline are presented.</p>
+<h3 id="events">Events</h3>
+<p>The pyBeamline framework comes with its own definition of event, called <code>BEvent</code>, similarly to what is defined in Beamline. Here some of the corresponding methods are highlighted:</p>
+<figure>
+<div class="mermaid">
+classDiagram
+class BEvent {
+    +dict process_attributes
+    +dict trace_attributes
+    +dict event_attributes
+    +get_process_name(): str
+    +get_trace_name(): str
+    +get_event_name(): str
+    +get_event_time(): datetime
+}
+</div>
+</figure>
+<p>Essentially, a Beamline event, consists of 3 maps for attributes referring to the process, to the trace, and to the event itself. While it's possible to set all the attributes individually, some convenience methods are proposed as well, such as <code>getTraceName</code> which returns the name of the trace (i.e., the <em>case id</em>). Internally, a <code>BEvent</code> stores the basic information using as attribute names the same provided by the <a href="https://www.xes-standard.org/xesstandardextensions">standard extension of OpenXES</a>. Additionally, setters for attributes defined in the context of OpenXES are provided too, thus providing some level of interoperability between the platforms.</p>
+<h3 id="observables-and-sources">Observables and Sources</h3>
+<blockquote>
+<p>An <em>observer</em> subscribes to an <em>Observable</em>. Then that observer reacts to whatever item or sequence of items the Observable <em>emits</em>. This pattern facilitates concurrent operations because it does not need to block while waiting for the Observable to emit objects, but instead it creates a sentry in the form of an observer that stands ready to react appropriately at whatever future time the Observable does so.
+-- <cite>Text from <a href="https://reactivex.io/documentation/observable.html">https://reactivex.io/documentation/observable.html</a>.</cite></p>
+</blockquote>
+<h4 id="general-sources">General sources</h4>
+<p>In the context of Beamline it is possible to define observables of any type. The framework comes with some observables already defined. Sources already implemented are <code>xes_log_source</code>, <code>xes_log_source_from_file</code>, and <code>string_test_source</code>. A <code>xes_log_source</code> creates a source from a static log (useful for testing purposes), <code>xes_log_source_from_file</code> creates a source from an XES file, and <code>string_test_source</code> allows the definition of simple log directly in its constructor (useful for testing purposes).</p>
+<details class="note">
+<summary>Details on <code>xes_log_source</code> and <code>xes_log_source_from_file</code></summary>
+<p>Emits all events from an XES event log. Example usage:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pm4py</span>
+<a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">xes_log_source</span>
+<a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="n">xes_log_source</span><span class="p">(</span><span class="n">pm4py</span><span class="o">.</span><span class="n">read_xes</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">))</span> \
+<a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a>    <span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+<p>A shortcut to load from a file is:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pm4py</span>
+<a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">xes_log_source_from_file</span>
+<a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="n">xes_log_source_from_file</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span> \
+<a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a>    <span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>string_test_source</code></summary>
+<p>Source that considers each trace as a string provided in the constructor and each event as one character of the string. Example usage:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-4-1" id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">string_test_source</span>
+<a href="#__codelineno-4-2" id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a href="#__codelineno-4-3" id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">string_test_source</span><span class="p">([</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="s2">"ACB"</span><span class="p">,</span> <span class="s2">"EFG"</span><span class="p">])</span> \
+<a href="#__codelineno-4-4" id="__codelineno-4-4" name="__codelineno-4-4"></a>    <span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>log_source</code></summary>
+<p>Example of usages:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-5-1" id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">log_source</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span> <span class="c1"># This is equivalent to xes_log_source_from_file("test.xes")</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-6-1" id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">log</span> <span class="o">=</span> <span class="n">pm4py</span><span class="o">.</span><span class="n">read_xes</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span>
+<a href="#__codelineno-6-2" id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="n">log_source</span><span class="p">(</span><span class="n">log</span><span class="p">)</span> <span class="c1"># This is equivalent to xes_log_source(log)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-7-1" id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="s2">"ACB"</span><span class="p">,</span> <span class="s2">"EFG"</span><span class="p">])</span> <span class="c1"># This is equivalent to string_test_source(["ABC", "ACB", "EFG"])</span>
+</code></pre></div></p>
+</details>
+<p>The following sources offer connections to external services:</p>
+<details class="note">
+<summary>Details on <code>mqttxes_source</code></summary>
+<p>Source that connects to an MQTT endpoint and expects events to be published according to the MQTT-XES format (see https://beamline.cloud/mqtt-xes/). Example usage:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">mqttxes_source</span>
+<a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>
+<a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="n">mqttxes_source</span><span class="p">(</span><span class="s1">'broker.mqtt.cool'</span><span class="p">,</span> <span class="mi">1883</span><span class="p">,</span> <span class="s1">'base/topic/'</span><span class="p">)</span> \
+<a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a>    <span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a>
+<a href="#__codelineno-8-6" id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="nb">input</span><span class="p">()</span>
+</code></pre></div>
+Where <code>broker.mqtt.cool</code> is the URL of the MQTT broker, 1883 is the broker port, and <code>base/topic/</code> is the base topic. Please note the <code>input()</code> at the end, which is necessary to avoid that the application terminates thus not receiving any more events.</p>
+</details>
+<h4 id="real-world-sources">Real-world sources</h4>
+<p>In addition to the previous sources these are also implemented. The following sources observe <strong>real data</strong> and hence are not controllable and maybe not suitable for testing.</p>
+<details class="note">
+<summary>Details on <code>wikimedia_source</code></summary>
+<p>Source that connects to the stream of recent change operations happening on the Media Wiki websites (see <a href="https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams_HTTP_Service">https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams_HTTP_Service</a> and <a href="https://www.mediawiki.org/wiki/Manual:RCFeed">https://www.mediawiki.org/wiki/Manual:RCFeed</a>). Example usage:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources.real_world_sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">wikimedia_source</span>
+<a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a>
+<a href="#__codelineno-9-3" id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="n">wikimedia_source</span><span class="p">()</span> \
+<a href="#__codelineno-9-4" id="__codelineno-9-4" name="__codelineno-9-4"></a>    <span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<a href="#__codelineno-9-5" id="__codelineno-9-5" name="__codelineno-9-5"></a>
+<a href="#__codelineno-9-6" id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="nb">input</span><span class="p">()</span>
+</code></pre></div>
+It is advisable to apply a filter operation to consider only events relevant to one of the websites, such as:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-10-1" id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources.real_world_sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">wikimedia_source</span>
+<a href="#__codelineno-10-2" id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">retains_on_event_attribute_equal_filter</span>
+<a href="#__codelineno-10-3" id="__codelineno-10-3" name="__codelineno-10-3"></a>
+<a href="#__codelineno-10-4" id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="n">wikimedia_source</span><span class="p">()</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-10-5" id="__codelineno-10-5" name="__codelineno-10-5"></a>    <span class="n">retains_on_event_attribute_equal_filter</span><span class="p">(</span><span class="s2">"wiki"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"dewiki"</span><span class="p">]),</span>
+<a href="#__codelineno-10-6" id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<a href="#__codelineno-10-7" id="__codelineno-10-7" name="__codelineno-10-7"></a>
+<a href="#__codelineno-10-8" id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="nb">input</span><span class="p">()</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>ais_source</code></summary>
+<p>The automatic identification system (AIS) is an automatic tracking system that uses transceivers on ships and is used by vessel traffic services. This source considers the MMSI (<a href="https://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity">https://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity</a>) as the case id and the navigation status (when available) as the activity (<a href="https://en.wikipedia.org/wiki/Automatic_identification_system#Broadcast_information">https://en.wikipedia.org/wiki/Automatic_identification_system#Broadcast_information</a>). While it is possible connect to any AIS data provider (by passing <code>host</code> and <code>port</code> parameters), by default, the source connects to the Norwegian Coastal Administration server, which publishes data for the from vessels within the Norwegian economic zone and the protection zones off Svalbard and Jan Mayen (see <a href="https://www.kystverket.no/en/navigation-and-monitoring/ais/access-to-ais-data/">https://www.kystverket.no/en/navigation-and-monitoring/ais/access-to-ais-data/</a>).</p>
+<p><strong>ATTENTION:</strong> while a lot of events are produced by this source, traces are very short and it can take a long time before two events with the same case id are actually observed.</p>
+<p>Example usage:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-11-1" id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources.real_world_sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">ais_source</span>
+<a href="#__codelineno-11-2" id="__codelineno-11-2" name="__codelineno-11-2"></a>
+<a href="#__codelineno-11-3" id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="n">ais_source</span><span class="p">()</span> \
+<a href="#__codelineno-11-4" id="__codelineno-11-4" name="__codelineno-11-4"></a>    <span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<h3 id="combining-sources">Combining sources</h3>
+<p>In order to build tests where drifts occur in a controlled setting, it is possible to concatenate different sources together. See the example below:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-12-1" id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">reactivex</span><span class="w"> </span><span class="kn">import</span> <span class="n">concat</span>
+<a href="#__codelineno-12-2" id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">xes_log_source_from_file</span><span class="p">,</span> <span class="n">log_source</span>
+<a href="#__codelineno-12-3" id="__codelineno-12-3" name="__codelineno-12-3"></a>
+<a href="#__codelineno-12-4" id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="n">src1</span> <span class="o">=</span> <span class="n">xes_log_source_from_file</span><span class="p">(</span><span class="s2">"tests/log.xes"</span><span class="p">)</span>
+<a href="#__codelineno-12-5" id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="n">src2</span> <span class="o">=</span> <span class="n">log_source</span><span class="p">([</span><span class="s2">"ABCD"</span><span class="p">,</span> <span class="s2">"ABCD"</span><span class="p">])</span>
+<a href="#__codelineno-12-6" id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="n">src3</span> <span class="o">=</span> <span class="n">xes_log_source_from_file</span><span class="p">(</span><span class="s2">"tests/log.xes"</span><span class="p">)</span>
+<a href="#__codelineno-12-7" id="__codelineno-12-7" name="__codelineno-12-7"></a>
+<a href="#__codelineno-12-8" id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="n">concat</span> <span class="o">=</span> <span class="n">concat</span><span class="p">(</span><span class="n">src1</span><span class="p">,</span> <span class="n">src2</span><span class="p">,</span> <span class="n">src3</span><span class="p">)</span>
+<a href="#__codelineno-12-9" id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="n">concat</span> \
+<a href="#__codelineno-12-10" id="__codelineno-12-10" name="__codelineno-12-10"></a>    <span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+<h3 id="filters">Filters</h3>
+<p>The <a href="https://reactivex.io/documentation/operators/filter.html">filter operator, in ReactiveX,</a> does not change the stream, but filters the events so that only those passing a predicate test can pass. In Beamline there are some filters already implemented that can be used as follows:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-13-1" id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-13-2" id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">excludes_activity_filter</span><span class="p">,</span> <span class="n">retains_activity_filter</span>
+<a href="#__codelineno-13-3" id="__codelineno-13-3" name="__codelineno-13-3"></a>
+<a href="#__codelineno-13-4" id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="s2">"ACB"</span><span class="p">,</span> <span class="s2">"EFG"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-13-5" id="__codelineno-13-5" name="__codelineno-13-5"></a>    <span class="n">excludes_activity_filter</span><span class="p">(</span><span class="s2">"A"</span><span class="p">),</span>
+<a href="#__codelineno-13-6" id="__codelineno-13-6" name="__codelineno-13-6"></a>    <span class="n">retains_activity_filter</span><span class="p">(</span><span class="s2">"G"</span><span class="p">)</span>
+<a href="#__codelineno-13-7" id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div>
+<p>Filters can operate on event attributes or trace attributes and the following are currently available:</p>
+<details class="note">
+<summary>Details on <code>retains_on_event_attribute_equal_filter</code></summary>
+<p>Retains events based on the equality of an event attribute. Example:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-14-1" id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-14-2" id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">retains_on_event_attribute_equal_filter</span>
+<a href="#__codelineno-14-3" id="__codelineno-14-3" name="__codelineno-14-3"></a>
+<a href="#__codelineno-14-4" id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="n">log_source</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-14-5" id="__codelineno-14-5" name="__codelineno-14-5"></a>    <span class="n">retains_on_event_attribute_equal_filter</span><span class="p">(</span><span class="s2">"event-attrib"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"ev"</span><span class="p">,</span> <span class="s2">"ab"</span><span class="p">]),</span>
+<a href="#__codelineno-14-6" id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>excludes_on_event_attribute_equal_filter</code></summary>
+<p>Exclude events based on the equality of an event attribute.
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-15-1" id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-15-2" id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">excludes_on_event_attribute_equal_filter</span>
+<a href="#__codelineno-15-3" id="__codelineno-15-3" name="__codelineno-15-3"></a>
+<a href="#__codelineno-15-4" id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="n">log_source</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-15-5" id="__codelineno-15-5" name="__codelineno-15-5"></a>    <span class="n">excludes_on_event_attribute_equal_filter</span><span class="p">(</span><span class="s2">"event-attrib"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"ev"</span><span class="p">,</span> <span class="s2">"ab"</span><span class="p">]),</span>
+<a href="#__codelineno-15-6" id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>retains_on_trace_attribute_equal_filter</code></summary>
+<p>Retains events based on the equality of a trace attribute.
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-16-1" id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_sourcelog_source</span>
+<a href="#__codelineno-16-2" id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">retains_on_trace_attribute_equal_filter</span>
+<a href="#__codelineno-16-3" id="__codelineno-16-3" name="__codelineno-16-3"></a>
+<a href="#__codelineno-16-4" id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="n">log_source</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-16-5" id="__codelineno-16-5" name="__codelineno-16-5"></a>    <span class="n">retains_on_trace_attribute_equal_filter</span><span class="p">(</span><span class="s2">"trace-attrib"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"tv"</span><span class="p">,</span> <span class="s2">"ab"</span><span class="p">]),</span>
+<a href="#__codelineno-16-6" id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>excludes_on_trace_attribute_equal_filter</code></summary>
+<p>Excludes events based on the equality of a trace attribute.
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-17-1" id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-17-2" id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">excludes_on_trace_attribute_equal_filter</span>
+<a href="#__codelineno-17-3" id="__codelineno-17-3" name="__codelineno-17-3"></a>
+<a href="#__codelineno-17-4" id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="n">log_source</span><span class="p">(</span><span class="s2">"test.xes"</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-17-5" id="__codelineno-17-5" name="__codelineno-17-5"></a>    <span class="n">excludes_on_trace_attribute_equal_filter</span><span class="p">(</span><span class="s2">"trace-attrib"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"tv"</span><span class="p">,</span> <span class="s2">"ab"</span><span class="p">]),</span>
+<a href="#__codelineno-17-6" id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>retains_activity_filter</code></summary>
+<p>Retains activities base on their name (<code>concept:name</code>).
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-18-1" id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-18-2" id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">retains_activity_filter</span>
+<a href="#__codelineno-18-3" id="__codelineno-18-3" name="__codelineno-18-3"></a>
+<a href="#__codelineno-18-4" id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="s2">"ACB"</span><span class="p">,</span> <span class="s2">"EFG"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-18-5" id="__codelineno-18-5" name="__codelineno-18-5"></a>    <span class="n">retains_activity_filter</span><span class="p">(</span><span class="s2">"G"</span><span class="p">)</span>
+<a href="#__codelineno-18-6" id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>excludes_activity_filter</code></summary>
+<p>Excludes activities base on their name (<code>concept:name</code>).
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-19-1" id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-19-2" id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">excludes_activity_filter</span>
+<a href="#__codelineno-19-3" id="__codelineno-19-3" name="__codelineno-19-3"></a>
+<a href="#__codelineno-19-4" id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="s2">"ACB"</span><span class="p">,</span> <span class="s2">"EFG"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-19-5" id="__codelineno-19-5" name="__codelineno-19-5"></a>    <span class="n">excludes_activity_filter</span><span class="p">(</span><span class="s2">"A"</span><span class="p">),</span>
+<a href="#__codelineno-19-6" id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<p>Please note that filters can be chained together in order to achieve the desired result.</p>
+<h3 id="mappers-and-mining-algorithms">Mappers and mining algorithms</h3>
+<p>pyBeamline comes with some mining algorithms, which are essentially instantiations of <a href="https://reactivex.io/documentation/operators/map.html"><code>map</code></a> and <a href="https://reactivex.io/documentation/operators/flatmap.html"><code>flatMap</code></a> operators. This section reports some detail on these.</p>
+<h4 id="discovery-techniques">Discovery techniques</h4>
+<p>In the core of the pyBeamline library, currently, there is only one mining algorithm implemented:</p>
+<details class="note">
+<summary>Details on <code>infinite_size_directly_follows_mapper</code></summary>
+<p>An algorithm that transforms each pair of consequent event appearing in the same case as a directly follows operator (generating a tuple with the two event names). This mapper is called <em>infinite</em> because it's memory footprint will grow as the case ids grow.</p>
+<p>An example of how the algorithm can be used is the following:</p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-20-1" id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-20-2" id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.mappers</span><span class="w"> </span><span class="kn">import</span> <span class="n">infinite_size_directly_follows_mapper</span>
+<a href="#__codelineno-20-3" id="__codelineno-20-3" name="__codelineno-20-3"></a>
+<a href="#__codelineno-20-4" id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="s2">"ACB"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-20-5" id="__codelineno-20-5" name="__codelineno-20-5"></a>    <span class="n">infinite_size_directly_follows_mapper</span><span class="p">()</span>
+<a href="#__codelineno-20-6" id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div>
+This code will print:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-21-1" id="__codelineno-21-1" name="__codelineno-21-1"></a>('A', 'B')
+<a href="#__codelineno-21-2" id="__codelineno-21-2" name="__codelineno-21-2"></a>('B', 'C')
+<a href="#__codelineno-21-3" id="__codelineno-21-3" name="__codelineno-21-3"></a>('A', 'C')
+<a href="#__codelineno-21-4" id="__codelineno-21-4" name="__codelineno-21-4"></a>('C', 'B')
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>simple_dfg_miner</code></summary>
+<p>An algorithm that simply constructs the DFG considering infinite amount of memory available. It has 2 parameters: the <code>model_update_frequency</code> that determines how often the model should be updated, and the <code>min_relative_frequency</code> that determines the minimum relative frequency that a directly follow relations should have to be generated.</p>
+<p>An example of how the algorithm can be used is the following:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-22-1" id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources.real_world_sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">wikimedia_source</span>
+<a href="#__codelineno-22-2" id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.algorithms.discovery.dfg_miner</span><span class="w"> </span><span class="kn">import</span> <span class="n">simple_dfg_miner</span>
+<a href="#__codelineno-22-3" id="__codelineno-22-3" name="__codelineno-22-3"></a>
+<a href="#__codelineno-22-4" id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="n">wikimedia_source</span><span class="p">()</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-22-5" id="__codelineno-22-5" name="__codelineno-22-5"></a>    <span class="n">simple_dfg_miner</span><span class="p">()</span>
+<a href="#__codelineno-22-6" id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>heuristics_miner_lossy_counting</code></summary>
+<p>An algorithm to mine a Heuristics Net using the Lossy Counting algorithm. The Heuristics Net is the same type as in the PM4PY library (see <a href="https://pm4py.fit.fraunhofer.de/documentation#item-3-3">https://pm4py.fit.fraunhofer.de/documentation#item-3-3</a>)</p>
+<p>An example of how the algorithm can be used is the following:</p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-23-1" id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.algorithms.discovery</span><span class="w"> </span><span class="kn">import</span> <span class="n">heuristics_miner_lossy_counting</span>
+<a href="#__codelineno-23-2" id="__codelineno-23-2" name="__codelineno-23-2"></a>
+<a href="#__codelineno-23-3" id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABCD"</span><span class="p">,</span> <span class="s2">"ABCD"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-23-4" id="__codelineno-23-4" name="__codelineno-23-4"></a>    <span class="n">heuristics_miner_lossy_counting</span><span class="p">(</span><span class="n">model_update_frequency</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<a href="#__codelineno-23-5" id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div>
+This code will print:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-24-1" id="__codelineno-24-1" name="__codelineno-24-1"></a>{'A': (node:A connections:{B:[0.5]}), 'B': (node:B connections:{C:[0.5]}), 'C': (node:C connections:{})}
+<a href="#__codelineno-24-2" id="__codelineno-24-2" name="__codelineno-24-2"></a>{'C': (node:C connections:{D:[0.5]}), 'D': (node:D connections:{}), 'A': (node:A connections:{B:[0.6666666666666666]}), 'B': (node:B connections:{C:[0.6666666666666666]})}
+</code></pre></div></p>
+<p>The algorithm is describe in publications:</p>
+<ul>
+<li><a href="https://andrea.burattin.net/publications/2014-cec">Control-flow Discovery from Event Streams</a><br/>
+A. Burattin, A. Sperduti, W. M. P. van der Aalst<br/>
+In <em>Proceedings of the Congress on Evolutionary Computation</em> (IEEE WCCI CEC 2014); Beijing, China; July 6-11, 2014.</li>
+<li><a href="https://andrea.burattin.net/publications/2012-corr-stream">Heuristics Miners for Streaming Event Data</a><br/>
+A. Burattin, A. Sperduti, W. M. P. van der Aalst<br/>
+In <em>CoRR</em> abs/1212.6383, Dec. 2012.</li>
+</ul>
+</details>
+<details class="note">
+<summary>Details on <code>heuristics_miner_lossy_counting_budget</code></summary>
+<p>An algorithm to mine a Heuristics Net using the Lossy Counting with Budget algorithm. The Heuristics Net is the same type as in the PM4PY library (see <a href="https://pm4py.fit.fraunhofer.de/documentation#item-3-3">https://pm4py.fit.fraunhofer.de/documentation#item-3-3</a>)</p>
+<p>An example of how the algorithm can be used is the following:</p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-25-1" id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.algorithms.discovery</span><span class="w"> </span><span class="kn">import</span> <span class="n">heuristics_miner_lossy_counting_budget</span>
+<a href="#__codelineno-25-2" id="__codelineno-25-2" name="__codelineno-25-2"></a>
+<a href="#__codelineno-25-3" id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABCD"</span><span class="p">,</span> <span class="s2">"ABCD"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-25-4" id="__codelineno-25-4" name="__codelineno-25-4"></a>    <span class="n">heuristics_miner_lossy_counting_budget</span><span class="p">(</span><span class="n">model_update_frequency</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<a href="#__codelineno-25-5" id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div>
+This code will print:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-26-1" id="__codelineno-26-1" name="__codelineno-26-1"></a>{'A': (node:A connections:{B:[0.5]}), 'B': (node:B connections:{C:[0.5]}), 'C': (node:C connections:{D:[0.5]}), 'D': (node:D connections:{})}
+<a href="#__codelineno-26-2" id="__codelineno-26-2" name="__codelineno-26-2"></a>{'A': (node:A connections:{B:[0.6666666666666666]}), 'B': (node:B connections:{C:[0.6666666666666666]}), 'C': (node:C connections:{D:[0.6666666666666666]}), 'D': (node:D connections:{})}
+</code></pre></div></p>
+<p>The algorithm is describe in publications:</p>
+<ul>
+<li><a href="https://andrea.burattin.net/publications/2014-cec">Control-flow Discovery from Event Streams</a><br/>
+A. Burattin, A. Sperduti, W. M. P. van der Aalst<br/>
+In <em>Proceedings of the Congress on Evolutionary Computation</em> (IEEE WCCI CEC 2014); Beijing, China; July 6-11, 2014.</li>
+<li><a href="https://andrea.burattin.net/publications/2012-corr-stream">Heuristics Miners for Streaming Event Data</a><br/>
+A. Burattin, A. Sperduti, W. M. P. van der Aalst<br/>
+In <em>CoRR</em> abs/1212.6383, Dec. 2012.</li>
+</ul>
+</details>
+<h4 id="conformance-checking-techniques">Conformance checking techniques</h4>
+<p>Currently only conformance checking using behavioral profiles is supported.</p>
+<details class="note">
+<summary>Details on <code>behavioral_conformance</code></summary>
+<p>An algorithm to compute the conformance using behavioral patterns.</p>
+<p>An example of how the algorithm can be used is the following:</p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-27-1" id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.algorithms.conformance</span><span class="w"> </span><span class="kn">import</span> <span class="n">mine_behavioral_model_from_stream</span><span class="p">,</span> <span class="n">behavioral_conformance</span>
+<a href="#__codelineno-27-2" id="__codelineno-27-2" name="__codelineno-27-2"></a>
+<a href="#__codelineno-27-3" id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="n">source</span> <span class="o">=</span> <span class="n">log_source</span><span class="p">([</span><span class="s2">"ABCD"</span><span class="p">,</span> <span class="s2">"ABCD"</span><span class="p">])</span>
+<a href="#__codelineno-27-4" id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="n">reference_model</span> <span class="o">=</span> <span class="n">mine_behavioral_model_from_stream</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<a href="#__codelineno-27-5" id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">reference_model</span><span class="p">)</span>
+<a href="#__codelineno-27-6" id="__codelineno-27-6" name="__codelineno-27-6"></a>
+<a href="#__codelineno-27-7" id="__codelineno-27-7" name="__codelineno-27-7"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABCD"</span><span class="p">,</span> <span class="s2">"ABCD"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-27-8" id="__codelineno-27-8" name="__codelineno-27-8"></a>    <span class="n">excludes_activity_filter</span><span class="p">(</span><span class="s2">"A"</span><span class="p">),</span>
+<a href="#__codelineno-27-9" id="__codelineno-27-9" name="__codelineno-27-9"></a>    <span class="n">behavioral_conformance</span><span class="p">(</span><span class="n">reference_model</span><span class="p">)</span>
+<a href="#__codelineno-27-10" id="__codelineno-27-10" name="__codelineno-27-10"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div>
+This code will print:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-28-1" id="__codelineno-28-1" name="__codelineno-28-1"></a>([('A', 'B'), ('B', 'C'), ('C', 'D')], {('A', 'B'): (0, 0), ('B', 'C'): (1, 1), ('C', 'D'): (2, 2)}, {('A', 'B'): 2, ('B', 'C'): 1, ('C', 'D'): 0})
+<a href="#__codelineno-28-2" id="__codelineno-28-2" name="__codelineno-28-2"></a>(1.0, 0.5, 1)
+<a href="#__codelineno-28-3" id="__codelineno-28-3" name="__codelineno-28-3"></a>(1.0, 1.0, 1)
+<a href="#__codelineno-28-4" id="__codelineno-28-4" name="__codelineno-28-4"></a>(1.0, 0.5, 1)
+<a href="#__codelineno-28-5" id="__codelineno-28-5" name="__codelineno-28-5"></a>(1.0, 1.0, 1)
+</code></pre></div>
+The algorithm is describe in the publication:</p>
+<ul>
+<li><a href="https://andrea.burattin.net/publications/2018-bpm">Online Conformance Checking Using Behavioural Patterns</a><br/>
+A. Burattin, S. van Zelst, A. Armas-Cervantes, B. van Dongen, J. Carmona<br/>
+In <em>Proceedings of BPM 2018</em>; Sydney, Australia; September 2018.</li>
+</ul>
+</details>
+<h4 id="windowing-techniques">Windowing techniques</h4>
+<p>ReactiveX comes with a very rich set of <a href="https://ninmesara.github.io/RxPY/api/operators/window.html">windowing operators</a> that can be fully reused in pyBeamline. Applying a windowing techniques allows the reusage of offline algorithms (for example implemented in PM4PY) as each window is converted into a Pandas DataFrame.</p>
+<p>To transform the window into a DataFrame, the <code>sliding_window_to_log</code> operators need to be piped to the source.</p>
+<details class="note">
+<summary>Details on <code>sliding_window_to_log</code></summary>
+<p>Let's assume, that we want to apply the <a href="https://pm4py.fit.fraunhofer.de/static/assets/api/2.3.0/pm4py.html#pm4py.discovery.discover_dfg_typed">DFG discovery implemented on PM4PY</a> on a stream usind a tumbling window of size 3. We can pipe the window operator to the <code>sliding_window_to_log</code> so that we can subscribe to <code>EventLog</code>s objects.</p>
+<p>An example is shown in the following:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-29-1" id="__codelineno-29-1" name="__codelineno-29-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_source</span>
+<a href="#__codelineno-29-2" id="__codelineno-29-2" name="__codelineno-29-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.mappers</span><span class="w"> </span><span class="kn">import</span> <span class="n">sliding_window_to_log</span>
+<a href="#__codelineno-29-3" id="__codelineno-29-3" name="__codelineno-29-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">reactivex.operators</span><span class="w"> </span><span class="kn">import</span> <span class="n">window_with_count</span>
+<a href="#__codelineno-29-4" id="__codelineno-29-4" name="__codelineno-29-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pm4py</span>
+<a href="#__codelineno-29-5" id="__codelineno-29-5" name="__codelineno-29-5"></a>
+<a href="#__codelineno-29-6" id="__codelineno-29-6" name="__codelineno-29-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">mine</span><span class="p">(</span><span class="n">log</span><span class="p">):</span>
+<a href="#__codelineno-29-7" id="__codelineno-29-7" name="__codelineno-29-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">pm4py</span><span class="o">.</span><span class="n">discover_dfg_typed</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a href="#__codelineno-29-8" id="__codelineno-29-8" name="__codelineno-29-8"></a>
+<a href="#__codelineno-29-9" id="__codelineno-29-9" name="__codelineno-29-9"></a><span class="n">log_source</span><span class="p">([</span><span class="s2">"ABC"</span><span class="p">,</span> <span class="s2">"ABD"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-29-10" id="__codelineno-29-10" name="__codelineno-29-10"></a>    <span class="n">window_with_count</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+<a href="#__codelineno-29-11" id="__codelineno-29-11" name="__codelineno-29-11"></a>    <span class="n">sliding_window_to_log</span><span class="p">()</span>
+<a href="#__codelineno-29-12" id="__codelineno-29-12" name="__codelineno-29-12"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">mine</span><span class="p">)</span>
+</code></pre></div>
+This code will print:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-30-1" id="__codelineno-30-1" name="__codelineno-30-1"></a>Counter({('A', 'B'): 1, ('B', 'C'): 1})
+<a href="#__codelineno-30-2" id="__codelineno-30-2" name="__codelineno-30-2"></a>Counter({('A', 'B'): 1, ('B', 'D'): 1})
+</code></pre></div>
+As can be seen the 2 DFGs are mined from the 2 traces separately (as the tumbling window has size 3, which corresponds to the size of each trace). Using a tumbling window of size 6 (i.e., <code>window_with_count(6)</code>) will produce the following:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-31-1" id="__codelineno-31-1" name="__codelineno-31-1"></a>Counter({('A', 'B'): 2, ('B', 'C'): 1, ('B', 'D'): 1})
+</code></pre></div>
+In this case, the only model extracted embeds both traces inside.</p>
+</details>
+<h2 id="utilities">Utilities</h2>
+<p>There are some utilities functionalities implemented in the library. They are listed below:</p>
+<details class="note">
+<summary>Details on <code>lambda_operator</code></summary>
+<p>This function allows the definition of an operator according to a function defined somewhere else. It is the most flexible operator and, in case a value is return, then the pipeline will continue. If <code>None</code> is returned, then the pipeline does not continue.</p>
+<p>The example below shows how this operator can be used to define custom filters and custom miners:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-32-1" id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.algorithms.lambda_operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">lambda_operator</span>
+<a href="#__codelineno-32-2" id="__codelineno-32-2" name="__codelineno-32-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources.string_test_source</span><span class="w"> </span><span class="kn">import</span> <span class="n">string_test_source</span>
+<a href="#__codelineno-32-3" id="__codelineno-32-3" name="__codelineno-32-3"></a>
+<a href="#__codelineno-32-4" id="__codelineno-32-4" name="__codelineno-32-4"></a>
+<a href="#__codelineno-32-5" id="__codelineno-32-5" name="__codelineno-32-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">my_filter</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<a href="#__codelineno-32-6" id="__codelineno-32-6" name="__codelineno-32-6"></a>    <span class="k">return</span> <span class="n">event</span> <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">get_event_name</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"A"</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+<a href="#__codelineno-32-7" id="__codelineno-32-7" name="__codelineno-32-7"></a>
+<a href="#__codelineno-32-8" id="__codelineno-32-8" name="__codelineno-32-8"></a>
+<a href="#__codelineno-32-9" id="__codelineno-32-9" name="__codelineno-32-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">my_miner</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+<a href="#__codelineno-32-10" id="__codelineno-32-10" name="__codelineno-32-10"></a>    <span class="k">return</span> <span class="p">[(</span><span class="s1">'Start'</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">get_event_name</span><span class="p">())]</span>
+<a href="#__codelineno-32-11" id="__codelineno-32-11" name="__codelineno-32-11"></a>
+<a href="#__codelineno-32-12" id="__codelineno-32-12" name="__codelineno-32-12"></a>
+<a href="#__codelineno-32-13" id="__codelineno-32-13" name="__codelineno-32-13"></a><span class="n">string_test_source</span><span class="p">([</span><span class="s2">"ABCDE"</span><span class="p">,</span> <span class="s2">"ACBDE"</span><span class="p">])</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-32-14" id="__codelineno-32-14" name="__codelineno-32-14"></a>    <span class="n">lambda_operator</span><span class="p">(</span><span class="n">my_filter</span><span class="p">),</span>
+<a href="#__codelineno-32-15" id="__codelineno-32-15" name="__codelineno-32-15"></a>    <span class="n">lambda_operator</span><span class="p">(</span><span class="n">my_miner</span><span class="p">)</span>
+<a href="#__codelineno-32-16" id="__codelineno-32-16" name="__codelineno-32-16"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<details class="note">
+<summary>Details on <code>dfg_to_graphviz</code></summary>
+<p>This function allows the transformation of the DFG produced with the <code>simple_dfg_miner</code> into the corresponding Graphviz string. It can be used for visualization of the model.</p>
+<p>An example is shown in the following:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-33-1" id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.sources.real_world_sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">wikimedia_source</span>
+<a href="#__codelineno-33-2" id="__codelineno-33-2" name="__codelineno-33-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.algorithms.discovery.dfg_miner</span><span class="w"> </span><span class="kn">import</span> <span class="n">simple_dfg_miner</span>
+<a href="#__codelineno-33-3" id="__codelineno-33-3" name="__codelineno-33-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pybeamline.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">dfg_to_graphviz</span>
+<a href="#__codelineno-33-4" id="__codelineno-33-4" name="__codelineno-33-4"></a>
+<a href="#__codelineno-33-5" id="__codelineno-33-5" name="__codelineno-33-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">display</span><span class="p">(</span><span class="n">graphviz_string</span><span class="p">):</span>
+<a href="#__codelineno-33-6" id="__codelineno-33-6" name="__codelineno-33-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">graphviz_string</span><span class="p">)</span> <span class="c1"># In reality, a more advance processing is expected here :)</span>
+<a href="#__codelineno-33-7" id="__codelineno-33-7" name="__codelineno-33-7"></a>
+<a href="#__codelineno-33-8" id="__codelineno-33-8" name="__codelineno-33-8"></a><span class="n">wikimedia_source</span><span class="p">()</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-33-9" id="__codelineno-33-9" name="__codelineno-33-9"></a>    <span class="n">simple_dfg_miner</span><span class="p">()</span>
+<a href="#__codelineno-33-10" id="__codelineno-33-10" name="__codelineno-33-10"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">display</span><span class="p">(</span><span class="n">dfg_to_graphviz</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div></p>
+</details>
+<h2 id="integration-with-other-libraries">Integration with other libraries</h2>
+<h3 id="river">River</h3>
+<p>River (<a href="https://riverml.xyz/">https://riverml.xyz/</a>) is a library to build online machine learning models. Such models operate on data streams. River includes several online machine learning algorithms that can be used for several tasks, including classification, regression, anomaly detection, time series forecasting, etc. The ideology behind River is to be a generic machine learning which allows to perform these tasks in a streaming manner. Indeed, many batch machine learning algorithms have online equivalents. Note that River also supports some more basic tasks. For instance, you might just want to calculate a running average of a data stream.</p>
+<p>It is possible to integrate pyBeamline's result into River to leverage its ML capabilities. For example, let's say we want to use concept drift detection using the <a href="https://riverml.xyz/0.11.0/api/drift/ADWIN/">ADWIN algorithm</a>. In particular, we are interested in computing if the frequency of the directly follows relation <code>BC</code> changes over time. To accomplish this task, let's first build a log where we artificially inject two of such drifts:</p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-34-1" id="__codelineno-34-1" name="__codelineno-34-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<a href="#__codelineno-34-2" id="__codelineno-34-2" name="__codelineno-34-2"></a>
+<a href="#__codelineno-34-3" id="__codelineno-34-3" name="__codelineno-34-3"></a><span class="n">log_original</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ABCD"</span><span class="p">]</span><span class="o">*</span><span class="mi">10000</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"ACBD"</span><span class="p">]</span><span class="o">*</span><span class="mi">500</span>
+<a href="#__codelineno-34-4" id="__codelineno-34-4" name="__codelineno-34-4"></a><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">log_original</span><span class="p">)</span>
+<a href="#__codelineno-34-5" id="__codelineno-34-5" name="__codelineno-34-5"></a>
+<a href="#__codelineno-34-6" id="__codelineno-34-6" name="__codelineno-34-6"></a><span class="n">log_after_drift</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ABCD"</span><span class="p">]</span><span class="o">*</span><span class="mi">500</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"ACBD"</span><span class="p">]</span><span class="o">*</span><span class="mi">10000</span>
+<a href="#__codelineno-34-7" id="__codelineno-34-7" name="__codelineno-34-7"></a><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">log_after_drift</span><span class="p">)</span>
+<a href="#__codelineno-34-8" id="__codelineno-34-8" name="__codelineno-34-8"></a>
+<a href="#__codelineno-34-9" id="__codelineno-34-9" name="__codelineno-34-9"></a><span class="n">log_with_drift</span> <span class="o">=</span> <span class="n">log_source</span><span class="p">(</span><span class="n">log_original</span> <span class="o">+</span> <span class="n">log_after_drift</span> <span class="o">+</span> <span class="n">log_original</span><span class="p">)</span>
+</code></pre></div>
+In this case, we built two logs (<code>log_original</code> and <code>log_after_drift</code>) which include the same process variants but that differ in the number of occurrences. Finally, we construct our pyBeamline log source <code>log_with_drift</code> by concatenating <code>log_original + log_after_drift + log_original</code>.</p>
+<p>After that we can use the capabilities of pyBeamline and reactivex to construct a pipeline that produce a sequence of frequencies corresponding to the frequency of directly follows relation <code>BC</code> in window with length 40 (which is chosen as all our traces have length 4). Also note that we leverage the fact that in all our events when <code>B</code> and <code>C</code> appear they are always in the same trace (because of how <code>log_source</code> generates the observable). We will later define a function <code>check_for_drift</code>:</p>
+<p><div class="highlight"><pre><span></span><code><a href="#__codelineno-35-1" id="__codelineno-35-1" name="__codelineno-35-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">reactivex</span>
+<a href="#__codelineno-35-2" id="__codelineno-35-2" name="__codelineno-35-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">reactivex</span><span class="w"> </span><span class="kn">import</span> <span class="n">operators</span> <span class="k">as</span> <span class="n">ops</span>
+<a href="#__codelineno-35-3" id="__codelineno-35-3" name="__codelineno-35-3"></a>
+<a href="#__codelineno-35-4" id="__codelineno-35-4" name="__codelineno-35-4"></a><span class="n">log_with_drift</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-35-5" id="__codelineno-35-5" name="__codelineno-35-5"></a>  <span class="n">ops</span><span class="o">.</span><span class="n">buffer_with_count</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
+<a href="#__codelineno-35-6" id="__codelineno-35-6" name="__codelineno-35-6"></a>  <span class="n">ops</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">events</span><span class="p">:</span> <span class="n">reactivex</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span>
+<a href="#__codelineno-35-7" id="__codelineno-35-7" name="__codelineno-35-7"></a>      <span class="n">ops</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(),</span>
+<a href="#__codelineno-35-8" id="__codelineno-35-8" name="__codelineno-35-8"></a>      <span class="n">ops</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_trace_name</span><span class="p">()</span> <span class="o">==</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_trace_name</span><span class="p">()</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_event_name</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"B"</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_event_name</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"C"</span><span class="p">),</span>
+<a href="#__codelineno-35-9" id="__codelineno-35-9" name="__codelineno-35-9"></a>      <span class="n">ops</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<a href="#__codelineno-35-10" id="__codelineno-35-10" name="__codelineno-35-10"></a>      <span class="p">)</span>
+<a href="#__codelineno-35-11" id="__codelineno-35-11" name="__codelineno-35-11"></a>  <span class="p">)</span>
+<a href="#__codelineno-35-12" id="__codelineno-35-12" name="__codelineno-35-12"></a><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+After this we can define our function for drift detection and collection of points and drift indexes using:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-36-1" id="__codelineno-36-1" name="__codelineno-36-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">reactivex</span><span class="w"> </span><span class="kn">import</span> <span class="n">operators</span> <span class="k">as</span> <span class="n">ops</span>
+<a href="#__codelineno-36-2" id="__codelineno-36-2" name="__codelineno-36-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">river</span><span class="w"> </span><span class="kn">import</span> <span class="n">drift</span>
+<a href="#__codelineno-36-3" id="__codelineno-36-3" name="__codelineno-36-3"></a>
+<a href="#__codelineno-36-4" id="__codelineno-36-4" name="__codelineno-36-4"></a><span class="n">drift_detector</span> <span class="o">=</span> <span class="n">drift</span><span class="o">.</span><span class="n">ADWIN</span><span class="p">()</span>
+<a href="#__codelineno-36-5" id="__codelineno-36-5" name="__codelineno-36-5"></a><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<a href="#__codelineno-36-6" id="__codelineno-36-6" name="__codelineno-36-6"></a><span class="n">drifts</span> <span class="o">=</span> <span class="p">[]</span>
+<a href="#__codelineno-36-7" id="__codelineno-36-7" name="__codelineno-36-7"></a>
+<a href="#__codelineno-36-8" id="__codelineno-36-8" name="__codelineno-36-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">check_for_drift</span><span class="p">():</span>
+<a href="#__codelineno-36-9" id="__codelineno-36-9" name="__codelineno-36-9"></a>  <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+<a href="#__codelineno-36-10" id="__codelineno-36-10" name="__codelineno-36-10"></a>
+<a href="#__codelineno-36-11" id="__codelineno-36-11" name="__codelineno-36-11"></a>  <span class="k">def</span><span class="w"> </span><span class="nf">_process</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<a href="#__codelineno-36-12" id="__codelineno-36-12" name="__codelineno-36-12"></a>    <span class="k">nonlocal</span> <span class="n">index</span>
+<a href="#__codelineno-36-13" id="__codelineno-36-13" name="__codelineno-36-13"></a>    <span class="n">drift_detector</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a href="#__codelineno-36-14" id="__codelineno-36-14" name="__codelineno-36-14"></a>    <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+<a href="#__codelineno-36-15" id="__codelineno-36-15" name="__codelineno-36-15"></a>    <span class="k">if</span> <span class="n">drift_detector</span><span class="o">.</span><span class="n">drift_detected</span><span class="p">:</span>
+<a href="#__codelineno-36-16" id="__codelineno-36-16" name="__codelineno-36-16"></a>      <span class="n">drifts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<a href="#__codelineno-36-17" id="__codelineno-36-17" name="__codelineno-36-17"></a>
+<a href="#__codelineno-36-18" id="__codelineno-36-18" name="__codelineno-36-18"></a>  <span class="k">def</span><span class="w"> </span><span class="nf">_check_for_drift</span><span class="p">(</span><span class="n">obs</span><span class="p">):</span>
+<a href="#__codelineno-36-19" id="__codelineno-36-19" name="__codelineno-36-19"></a>    <span class="k">return</span> <span class="n">obs</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">ops</span><span class="o">.</span><span class="n">do_action</span><span class="p">(</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="n">_process</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+<a href="#__codelineno-36-20" id="__codelineno-36-20" name="__codelineno-36-20"></a>
+<a href="#__codelineno-36-21" id="__codelineno-36-21" name="__codelineno-36-21"></a>  <span class="k">return</span> <span class="n">_check_for_drift</span>
+</code></pre></div>
+With this function available, <code>check_for_drift</code> can now be piped to the previous computation. Plotting the frequencies and the concept drifts will result in the following:</p>
+<p><img alt="" src="https://github.com/beamline/docs/blob/main/site/img/drifts.png?raw=true"/></p>
+<p>For a complete working example, see <a href="https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb">https://github.com/beamline/pybeamline/blob/master/tutorial.ipynb</a>.</p>
+<h2 id="citation">Citation</h2>
+<p>Please, cite this work as:</p>
+<ul>
+<li>Andrea Burattin. "<a href="http://dx.doi.org/10.1016/j.simpa.2023.100551">Beamline: A comprehensive toolkit for research and development of streaming process mining</a>". In <em>Software Impacts</em>, vol. 17 (2023).</li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022-2025 Technical University of Denmark
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/beamline" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "toc.integrate"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+<script src="https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script></body>
+</html>
