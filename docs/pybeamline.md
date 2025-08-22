@@ -204,6 +204,17 @@ In addition to the previous sources these are also implemented. The following so
         .subscribe(lambda x: print(str(x)))
     ```
 
+??? note "Details on `rejseplanen_source`"
+    This source provides the data from the Danish railway system. Traces are represented as individual trains and events are trains reaching a certain station. The data is continuously generate (updated every 5 seconds, see <https://www.rejseplanen.dk/bin/help.exe/mn?L=vs_dot.vs_livemap&tpl=fullscreenmap>). The current source retrieves information about regional and light train (letbane).
+
+    Example usage:
+    ```python
+    from pybeamline.sources.real_world_sources import rejseplanen_source
+
+    rejseplanen_source() \
+        .subscribe(lambda x: print(str(x)))
+    ```
+
 
 ### Combining sources
 
