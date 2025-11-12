@@ -5,9 +5,19 @@ hide:
 
 Beamline is a project developed at the Technical University of Denmark. For further information you can contact
 
-Andrea Burattin  
-<https://andrea.burattin.net>  
-<andbur@dtu.dk>
+>  Andrea Burattin  
+>  <https://andrea.burattin.net>  
+>  <andbur@dtu.dk>
+
+People who contributed to the project:
+
+* Lasse Starklit (DCR miner for Beamline)
+* Aleksander Jarmolkowicz (Split Miner for Beamline)
+* Magnus Frederiksen (pyBeamline)
+* Jeppe Mikkelsen (Object Centric discovery for pyBeamline)
+* Arturo Cortes (pyBeamline Designer)
+* Sotero Romero (pyBeamline Designer)
+* Mihály Tass (pyBeamline architecture)
 
 
 ## Citation
@@ -33,8 +43,9 @@ Please, cite this work as:
     }
     ```
 
-Another relevant publication where the framework is presented is:
+Other relevant peer-review publication where the framework is presented:
 
-*   Andrea Burattin. "[Streaming Process Mining with Beamline (Extended Abstract)](https://ceur-ws.org/Vol-3299/Paper16.pdf). In *Proceedings of ICPM Doctoral Consortium and Tool Demonstration Track*, CEUR Workshop Proceedings, 2022: 75-79. 
+* Andrea Burattin. "[Streaming Process Mining with Beamline (Extended Abstract)](https://ceur-ws.org/Vol-3299/Paper16.pdf)". In *Proceedings of ICPM Doctoral Consortium and Tool Demonstration Track*, CEUR Workshop Proceedings, 2022: 75-79. 
+* Arturo Cortes, Sotero Romero and Andrea Burattin. "[pyBeamline Designer: A No-Code Platform for Streaming Process Mining Pipelines](https://ceur-ws.org/Vol-4088/paper_242.pdf)".In *ICPM Doctoral Consortium and Demo Track 2025, October 20-24, 2025, Montevideo, Uruguay*, CEUR Workshop Proceedings, 2025. 
 
-Implemented techniques have corresponding citation information on [their documentation page](/implemented-techniques).
+Implemented techniques have corresponding citation information on their respective documentation page.

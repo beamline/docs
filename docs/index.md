@@ -6,13 +6,14 @@ hide:
 
 # Beamline Framework
 
+<img src="img/logo.png" style="float: right; width: 150px;" />
 Beamline is a framework designed to facilitate the prototyping and the development of ***streaming process mining*** algorithms.
 
-The framework comprises two libraries: **Beamline** (Java) and **pyBeamline** (Python).
+The framework comprises two libraries: **pyBeamline** (Python) and **Beamline** (Java).
 
-Beamline, the Java library, is designed on top of [Apache Flink](https://flink.apache.org/) which makes it suitable for extremely efficient computation due to the distributed and stateful nature of its components. The Beamline consists of both algorithms as well as data structures, sources, and sinks to facilitate the development of process mining applications. While redefining the concept of *event*, Beamline tries to maintain compatibility with OpenXES and the IEEE XES standard.
+pyBeamline is built on [ReactiveX](https://reactivex.io/) and its Python implementation, RxPY - a library for composing asynchronous, event-driven programs using observable sequences and pipable query operators. pyBeamline is suitable for prototyping algorithm very quickly, without necessarily bothering with performance aspects. It also simplifies collaboration by, for example, leveraging online notebook services (like Google Colab). [py]Beamline consists of both algorithms and data structures, sources, and sinks to facilitate the development of streaming process mining applications. While redefining the concept of *event*, Beamline tries to maintain compatibility with OpenXES and the IEEE XES standard.
 
-pyBeamline is built on [ReactiveX](https://reactivex.io/) and its Python implementation, RxPY - a library for composing asynchronous, event-driven programs using observable sequences and pipable query operators. pyBeamline is suitable for prototyping algorithm very quickly, without necessarily bothering with performance aspects. It also simplifies collaboration by, for example, leveraging online notebook services (like Google Colab).
+Beamline, the Java library, is designed on top of [Apache Flink](https://flink.apache.org/) which makes it suitable for extremely efficient computation due to the distributed and stateful nature of its components. 
 
 
 ## Streaming process mining
