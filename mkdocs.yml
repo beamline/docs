@@ -67,6 +67,7 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - footnotes
+  # - mkdocs-jupyter
 
 copyright: Copyright &copy; 2022-2025 Technical University of Denmark
 extra:

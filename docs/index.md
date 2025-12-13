@@ -6,10 +6,10 @@ hide:
 
 # Beamline Framework
 
-<img src="img/logo.png" style="float: right; width: 150px;" />
 Beamline is a framework designed to facilitate the prototyping and the development of ***streaming process mining*** algorithms.
 
 The framework comprises two libraries: **pyBeamline** (Python) and **Beamline** (Java).
+
 
 pyBeamline is built on [ReactiveX](https://reactivex.io/) and its Python implementation, RxPY - a library for composing asynchronous, event-driven programs using observable sequences and pipable query operators. pyBeamline is suitable for prototyping algorithm very quickly, without necessarily bothering with performance aspects. It also simplifies collaboration by, for example, leveraging online notebook services (like Google Colab). [py]Beamline consists of both algorithms and data structures, sources, and sinks to facilitate the development of streaming process mining applications. While redefining the concept of *event*, Beamline tries to maintain compatibility with OpenXES and the IEEE XES standard.
 
@@ -43,6 +43,9 @@ Beamline is a framework meant to simplify the research and the development of st
 
 !!! note "On the name Beamline"
     The term *Beamline* is borrowed from [high energy physics](https://en.wikipedia.org/wiki/Beamline), where it indicates the physical structure used to define experiments, i.e., where the accelerated particles travel. In the streaming process mining case, Beamline is used to set up experiments where process mining events are processed and consumed.
+    <center>
+      <img src="img/beamline-idea.png" style="width: 65%;" />
+    </center>
 
 Beamline comprises utility classes as well as some algorithms already implemented that can be used for comparing new techniques with the state of the art.
 
