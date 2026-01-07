@@ -3,28 +3,7 @@
 </center>
 
 
-## Installing the library
 
-To use the Beamline framework in your Java Maven project it is necessary to include, in the `pom.xml` file, the package repository:
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-```
-Then you can include the dependency to the version you are interested, for example:
-```xml
-<dependency>
-    <groupId>com.github.beamline</groupId>
-    <artifactId>framework</artifactId>
-    <version>x.y.z</version>
-</dependency>
-```
-See <https://jitpack.io/#beamline/framework> for further details (e.g., using it with Gradle).
-
-[![](https://jitpack.io/v/beamline/framework.svg)](https://jitpack.io/#beamline/framework)
 
 
 

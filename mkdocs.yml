@@ -2,36 +2,45 @@ site_name: Beamline
 edit_uri: ""
 
 nav:
-  - Home: index.md
-  - pyBeamline: pybeamline.md
-  - Beamline:
-    - Getting started: beamline/index.md
+  - Introduction:
+      - intro/beamline-framework.md
+      - intro/streaming-process-mining.md
+      - intro/installation.md
+      - intro/pybeamline-designer.md
+      - intro/basic-concepts.md
+  - pyBeamline doc:
+    - pybeamline/index.md
+    - pybeamline/basic-concepts.md
+    - pybeamline/sources-sinks/
+  - JBeamline doc:
+    - Getting started: jbeamline/index.md
     - Implemented techniques:
       - Control-flow discovery:
-        - Trivial Miner:                beamline/implemented-techniques/discovery-trivial.md
-        - Heuristics Miner:             beamline/implemented-techniques/discovery-heuristics-miner.md
-        - Declare Miner:                beamline/implemented-techniques/discovery-declare.md
-        - DCR Miner:                    beamline/implemented-techniques/discovery-dcr.md
-        - Soft Conformance Model Miner: beamline/implemented-techniques/discovery-soft.md
-        - Split Miner:                  beamline/implemented-techniques/discovery-splitminer.md
+        - Trivial Miner:                jbeamline/implemented-techniques/discovery-trivial.md
+        - Heuristics Miner:             jbeamline/implemented-techniques/discovery-heuristics-miner.md
+        - Declare Miner:                jbeamline/implemented-techniques/discovery-declare.md
+        - DCR Miner:                    jbeamline/implemented-techniques/discovery-dcr.md
+        - Soft Conformance Model Miner: jbeamline/implemented-techniques/discovery-soft.md
+        - Split Miner:                  jbeamline/implemented-techniques/discovery-splitminer.md
       - Conformance checking:
-        - Behavioural Patterns:         beamline/implemented-techniques/conformance-behavioural-patterns.md
-        - Soft Conformance:             beamline/implemented-techniques/conformance-soft.md
+        - Behavioural Patterns:         jbeamline/implemented-techniques/conformance-behavioural-patterns.md
+        - Soft Conformance:             jbeamline/implemented-techniques/conformance-soft.md
       - Simulation:
-        - Simulation with PLG:          beamline/implemented-techniques/simulation-plg.md
+        - Simulation with PLG:          jbeamline/implemented-techniques/simulation-plg.md
+    - Examples:
+        - Introduction:                                      examples/index.md
+        - pyBeamline:
+          - pyBeamline full cycle:                           examples/pybeamline/full-cycle.md
+        - Beamline:
+          - Raw data as input (non-process mining ready):    examples/beamline/no-process-mining-as-input.md
+          - Monitoring active windows (for Windows systems): examples/beamline/monitoring-windows.md
+          - Speech recognition:                              examples/beamline/speech-recognition.md
+          - Wikipedia edits:                                 examples/beamline/wikipedia-edits.md
+          - OpenSky monitoring:                              examples/beamline/open-sky-monitoring.md
     - Additional libraries:
         - MQTT-XES:                     beamline/mqtt-xes.md
         - Simple PNML:                  beamline/simple-pnml.md
-  - Examples:
-      - Introduction:                                      examples/index.md
-      - pyBeamline:
-        - pyBeamline full cycle:                           examples/pybeamline/full-cycle.md
-      - Beamline:
-        - Raw data as input (non-process mining ready):    examples/beamline/no-process-mining-as-input.md
-        - Monitoring active windows (for Windows systems): examples/beamline/monitoring-windows.md
-        - Speech recognition:                              examples/beamline/speech-recognition.md
-        - Wikipedia edits:                                 examples/beamline/wikipedia-edits.md
-        - OpenSky monitoring:                              examples/beamline/open-sky-monitoring.md
+
   - About: about.md
 
 theme:
@@ -39,13 +48,20 @@ theme:
   logo: img/logo.svg
   palette:
     primary: default
+  font:
+    text: Fira Sans
+    code: Fira Code
+
 
   features:
   - navigation.tabs
   - navigation.tabs.sticky
-  - navigation.expand
-  - toc.integrate
+  # - navigation.expand
+  # - navigation.indexes
+  # - toc.integrate
+  - content.code.copy
 
+repo_name: beamline/pybeamline
 repo_url: https://github.com/beamline/pybeamline
 
 plugins:
@@ -55,11 +71,13 @@ plugins:
 extra_javascript:
   - https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js
 
+extra_css:
+  - stylesheets/extra.css
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
   - pymdownx.superfences
   - admonition
   - pymdownx.details
@@ -67,9 +85,8 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - footnotes
-  # - mkdocs-jupyter
 
-copyright: Copyright &copy; 2022-2025 Technical University of Denmark
+copyright: Copyright &copy; 2022-2026 Technical University of Denmark
 extra:
   social:
     - icon: fontawesome/brands/github

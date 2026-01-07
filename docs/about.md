@@ -1,6 +1,7 @@
 ---
 hide:
   - navigation
+  - toc
 ---
 
 Beamline is a project developed at the Technical University of Denmark. For further information you can contact
@@ -11,9 +12,9 @@ Beamline is a project developed at the Technical University of Denmark. For furt
 
 People who contributed to the project:
 
-* Lasse Starklit (DCR miner for Beamline)
-* Aleksander Jarmolkowicz (Split Miner for Beamline)
-* Magnus Frederiksen (pyBeamline)
+* Lasse Starklit (DCR miner for JBeamline)
+* Aleksander Jarmolkowicz (Split Miner for JBeamline)
+* Magnus Frederiksen (initial core of pyBeamline)
 * Jeppe Mikkelsen (Object Centric discovery for pyBeamline)
 * Arturo Cortes (pyBeamline Designer)
 * Sotero Romero (pyBeamline Designer)
@@ -26,7 +27,7 @@ Please, cite this work as:
 
 * Andrea Burattin. "[Beamline: A comprehensive toolkit for research and development of streaming process mining](http://dx.doi.org/10.1016/j.simpa.2023.100551)". In *Software Impacts*, vol. 17 (2023).
 
-??? quote "BibTeX for citation"
+???+ quote "BibTeX for citation"
     ```bibtex
     @article{BURATTIN2023100551,
       title = {Beamline: A comprehensive toolkit for research and development of streaming process mining},
