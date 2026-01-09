@@ -38,7 +38,6 @@ nav:
     - Additional libraries:
         - jbeamline/mqtt-xes.md
         - jbeamline/simple-pnml.md
-
   - About: about.md
 
 theme:
@@ -85,6 +84,8 @@ markdown_extensions:
   - footnotes
 
 copyright: Copyright &copy; 2022-2026 Technical University of Denmark
+  <script data-goatcounter="https://beamline.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
 extra:
   social:
     - icon: fontawesome/brands/github
