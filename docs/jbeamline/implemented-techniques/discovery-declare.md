@@ -1,4 +1,4 @@
-## Dependency
+## Declare Miners
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
 ```xml
@@ -8,7 +8,7 @@ To use these algorithms in your Java Maven project it is necessary to include, i
     <version>master-SNAPSHOT</version>
 </dependency>
 ```
-See the [introduction page](index.md) for further instructions.
+See the [installation page](../installation.md) for further instructions.
 
 [![](https://jitpack.io/v/beamline/discovery-declare.svg)](https://jitpack.io/#beamline/discovery-declare)
 

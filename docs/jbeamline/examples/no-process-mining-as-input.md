@@ -1,3 +1,5 @@
+# Raw data as input (non-process mining ready)
+
 Let's say we have a certain file that we want to consider for processing using Beamline but this file does not meet any of the sources already implemented. Then, this example shows how to process such a file using Beamline.
 
 For the sake of simplicity let's consider a file where each line refers to one event but, within the line, the first 3 characters identify the case id, while the rest is the activity name. This is an example of such a file (where `001` and `002` are the case ids, and `ActA`, `B` and `Act_C` are the activity names):

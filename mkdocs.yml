@@ -5,41 +5,39 @@ nav:
   - Introduction:
       - intro/beamline-framework.md
       - intro/streaming-process-mining.md
-      - intro/installation.md
-      - intro/pybeamline-designer.md
       - intro/basic-concepts.md
   - pyBeamline doc:
     - pybeamline/index.md
+    - pybeamline/installation.md
     - pybeamline/basic-concepts.md
-    - pybeamline/sources-sinks/
-  - JBeamline doc:
-    - Getting started: jbeamline/index.md
-    - Implemented techniques:
-      - Control-flow discovery:
-        - Trivial Miner:                jbeamline/implemented-techniques/discovery-trivial.md
-        - Heuristics Miner:             jbeamline/implemented-techniques/discovery-heuristics-miner.md
-        - Declare Miner:                jbeamline/implemented-techniques/discovery-declare.md
-        - DCR Miner:                    jbeamline/implemented-techniques/discovery-dcr.md
-        - Soft Conformance Model Miner: jbeamline/implemented-techniques/discovery-soft.md
-        - Split Miner:                  jbeamline/implemented-techniques/discovery-splitminer.md
-      - Conformance checking:
-        - Behavioural Patterns:         jbeamline/implemented-techniques/conformance-behavioural-patterns.md
-        - Soft Conformance:             jbeamline/implemented-techniques/conformance-soft.md
-      - Simulation:
-        - Simulation with PLG:          jbeamline/implemented-techniques/simulation-plg.md
+    - pybeamline/pybeamline-designer.md
     - Examples:
-        - Introduction:                                      examples/index.md
-        - pyBeamline:
-          - pyBeamline full cycle:                           examples/pybeamline/full-cycle.md
-        - Beamline:
-          - Raw data as input (non-process mining ready):    examples/beamline/no-process-mining-as-input.md
-          - Monitoring active windows (for Windows systems): examples/beamline/monitoring-windows.md
-          - Speech recognition:                              examples/beamline/speech-recognition.md
-          - Wikipedia edits:                                 examples/beamline/wikipedia-edits.md
-          - OpenSky monitoring:                              examples/beamline/open-sky-monitoring.md
+      - pybeamline/examples/full-cycle.md
+  - JBeamline doc:
+    - jbeamline/index.md
+    - jbeamline/installation.md
+    - jbeamline/basic-concepts.md
+    - Control-flow discovery:
+      - jbeamline/implemented-techniques/discovery-trivial.md
+      - jbeamline/implemented-techniques/discovery-heuristics-miner.md
+      - jbeamline/implemented-techniques/discovery-declare.md
+      - jbeamline/implemented-techniques/discovery-dcr.md
+      - jbeamline/implemented-techniques/discovery-soft.md
+      - jbeamline/implemented-techniques/discovery-splitminer.md
+    - Conformance checking:
+      - jbeamline/implemented-techniques/conformance-behavioural-patterns.md
+      - jbeamline/implemented-techniques/conformance-soft.md
+    - Simulation:
+      - jbeamline/implemented-techniques/simulation-plg.md
+    - Examples:
+      - jbeamline/examples/no-process-mining-as-input.md
+      - jbeamline/examples/monitoring-windows.md
+      - jbeamline/examples/speech-recognition.md
+      - jbeamline/examples/wikipedia-edits.md
+      - jbeamline/examples/open-sky-monitoring.md
     - Additional libraries:
-        - MQTT-XES:                     beamline/mqtt-xes.md
-        - Simple PNML:                  beamline/simple-pnml.md
+        - jbeamline/mqtt-xes.md
+        - jbeamline/simple-pnml.md
 
   - About: about.md
 

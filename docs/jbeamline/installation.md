@@ -1,15 +1,4 @@
-## pyBeamline
-
-pyBeamline is meant to work with Python 3.9 and above. Installation can be done via `pip`:
-
-```
-pip install pybeamline
-```
-More information are available at <https://pypi.org/project/pybeamline/>.
-
-
-
-## JBeamline
+# Installation
 
 To use JBeamline in your Java Maven project it is necessary to include, in the `pom.xml` file, the package repository:
 ```xml

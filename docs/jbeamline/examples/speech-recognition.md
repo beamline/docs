@@ -1,3 +1,5 @@
+# Speech recognition
+
 In this example, we are going to explore a possible usage of streaming process mining in the context of speech recognition: each word a person is saying can be recognized as an activity and the sentences these words belong to can be the process instances. Every time a person waits a considerable amount of time between words, we can assume a new sentence is being said and thus a new case should be generated.
 
 To accomplish our goal we need to define a new `BeamlineAbstractSource` which can listen to the microphone, perform the speech recognition, and generate corresponding events. For the speech recognition we are going to use the [Vosk speech recognition toolkit](https://alphacephei.com/vosk/). We also going to use the [`vosk-model-small-en-us-0.15` model](https://alphacephei.com/vosk/models) which is available on the library website.

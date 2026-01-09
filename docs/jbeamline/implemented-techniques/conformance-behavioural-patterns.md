@@ -1,3 +1,5 @@
+# Behavioral Patterns
+
 ## Dependency
 
 To use these algorithms in your Java Maven project it is necessary to include, in the `pom.xml` file, the dependency:
@@ -8,7 +10,7 @@ To use these algorithms in your Java Maven project it is necessary to include, i
     <version>master-SNAPSHOT</version>
 </dependency>
 ```
-See the [introduction page](index.md) for further instructions.
+See the [installation page](../installation.md) for further instructions.
 
 [![](https://jitpack.io/v/beamline/conformance-behavioural-patterns.svg)](https://jitpack.io/#beamline/conformance-behavioural-patterns)
 
@@ -47,7 +49,7 @@ In the current version, the reference model must be provided as a Petri Net.
 
 
 !!! note "Importing a Petri net"
-    To import a Petri net it is possible to use the [`simple-pnml` library](/simple-pnml):
+    To import a Petri net it is possible to use the [`simple-pnml` library](../simple-pnml.md):
     ```java linenums="1"
     Object[] i = PnmlImportNet.importFromStream(new FileInputStream(new File("petri-net-model.pnml")));
     Petrinet net = (Petrinet) i[0];

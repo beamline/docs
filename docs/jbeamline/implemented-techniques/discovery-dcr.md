@@ -10,7 +10,7 @@ To use these algorithms in your Java Maven project it is necessary to include, i
     <version>beamline-framework-SNAPSHOT</version>
 </dependency>
 ```
-See the [introduction page](index.md) for further instructions.
+See the [installation page](../installation.md) for further instructions.
 
 [![](https://jitpack.io/v/beamline/discovery-dcr.svg)](https://jitpack.io/#beamline/discovery-dcr)
 
