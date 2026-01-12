@@ -11,20 +11,27 @@ nav:
     - pybeamline/installation.md
     - pybeamline/basic-concepts.md
     - pybeamline/pybeamline-designer.md
+    - Sources and Sinks:
+      - pybeamline/sources-sinks/xes_log_source.md
+    - Filters:
+      - pybeamline/filters/retains_on_event_attribute_equal_filter.md
+    # - Control-flow Discovery:
+    # - Conformance Checking:
     - Examples:
       - pybeamline/examples/full-cycle.md
+    - pybeamline/integration.md
   - JBeamline doc:
     - jbeamline/index.md
     - jbeamline/installation.md
     - jbeamline/basic-concepts.md
-    - Control-flow discovery:
+    - Control-flow Discovery:
       - jbeamline/implemented-techniques/discovery-trivial.md
       - jbeamline/implemented-techniques/discovery-heuristics-miner.md
       - jbeamline/implemented-techniques/discovery-declare.md
       - jbeamline/implemented-techniques/discovery-dcr.md
       - jbeamline/implemented-techniques/discovery-soft.md
       - jbeamline/implemented-techniques/discovery-splitminer.md
-    - Conformance checking:
+    - Conformance Checking:
       - jbeamline/implemented-techniques/conformance-behavioural-patterns.md
       - jbeamline/implemented-techniques/conformance-soft.md
     - Simulation:
