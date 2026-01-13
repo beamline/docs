@@ -5,7 +5,7 @@ Emits all events from an XES event log.
 ## Parameters
 
 * **raw_log**: `Union[EventLog, pd.DataFrame]`  
-  The raw event log from PM4PY
+  The raw event log from PM4PY.
 
 
 ## Example

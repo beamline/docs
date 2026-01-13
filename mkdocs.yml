@@ -5,14 +5,21 @@ nav:
   - Introduction:
       - intro/beamline-framework.md
       - intro/streaming-process-mining.md
-      - intro/basic-concepts.md
   - pyBeamline doc:
     - pybeamline/index.md
     - pybeamline/installation.md
     - pybeamline/basic-concepts.md
     - pybeamline/pybeamline-designer.md
-    - Sources and Sinks:
-      - pybeamline/sources-sinks/xes_log_source.md
+    - Sources:
+      - pybeamline/sources/combining-sources.md
+      - pybeamline/sources/xes_log_source.md
+      - pybeamline/sources/xes_log_source_from_file.md
+      - pybeamline/sources/string_test_source.md
+      - pybeamline/sources/mqtt_source.md
+    - Sinks:
+      - pybeamline/sinks/graphviz_sink.md
+      - pybeamline/sinks/heatmap_sink.md
+      - pybeamline/sinks/dotted_chart_sink.md
     - Filters:
       - pybeamline/filters/retains_on_event_attribute_equal_filter.md
     # - Control-flow Discovery:
