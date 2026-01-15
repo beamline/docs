@@ -16,12 +16,20 @@ nav:
       - pybeamline/sources/xes_log_source_from_file.md
       - pybeamline/sources/string_test_source.md
       - pybeamline/sources/mqtt_source.md
+      - pybeamline/sources/ocel2_log_source_from_file.md
+      - pybeamline/sources/dict_test_ocel_source.md
     - Sinks:
+      - pybeamline/sinks/print_sink.md
       - pybeamline/sinks/graphviz_sink.md
       - pybeamline/sinks/heatmap_sink.md
       - pybeamline/sinks/dotted_chart_sink.md
     - Filters:
       - pybeamline/filters/retains_on_event_attribute_equal_filter.md
+      - pybeamline/filters/excludes_on_event_attribute_equal_filter.md
+      - pybeamline/filters/retains_on_trace_attribute_equal_filter.md
+      - pybeamline/filters/excludes_on_trace_attribute_equal_filter.md
+      - pybeamline/filters/retains_activity_filter.md
+      - pybeamline/filters/excludes_activity_filter.md
     # - Control-flow Discovery:
     # - Conformance Checking:
     - Examples:

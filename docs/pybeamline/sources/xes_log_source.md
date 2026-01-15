@@ -13,7 +13,8 @@ Emits all events from an XES event log.
 ```python
 import pm4py
 from pybeamline.sources import xes_log_source
+from pybeamline.sinks.print_sink import print_sink
 
 xes_log_source(pm4py.read_xes("test.xes")) \
-    .subscribe(lambda x: print(str(x)))
+    .subscribe(print_sink())
 ```

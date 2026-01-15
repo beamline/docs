@@ -16,9 +16,10 @@ Source that connects to an MQTT endpoint and expects events to be published acco
 
 ```python
 from pybeamline.sources import mqttxes_source
+from pybeamline.sinks.print_sink import print_sink
 
 mqttxes_source('broker.mqtt.cool', 1883, 'base/topic/') \
-    .subscribe(lambda x: print(str(x)))
+    .subscribe(print_sink())
 
 input()
 ```

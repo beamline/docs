@@ -12,7 +12,8 @@ Source that considers each trace as a string provided in the constructor and eac
 
 ```python
 from pybeamline.sources import string_test_source
+from pybeamline.sinks.print_sink import print_sink
 
 string_test_source(["ABC", "ACB", "EFG"]) \
-    .subscribe(lambda x: print(str(x)))
+    .subscribe(print_sink())
 ```

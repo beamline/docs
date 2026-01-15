@@ -1,11 +1,11 @@
-# retains_on_event_attribute_equal_filter
+# excludes_on_trace_attribute_equal_filter
 
-Retains events based on the equality of an event attribute.
+Excludes events based on the equality of a trace-level attribute.
 
 ## Parameters
 
 * **attribute_name**: `str`  
-  Name of the event attribute to filter.
+  Name of the trace attribute to filter.
 
 * **attribute_values**: `Iterable`   
   Values to look for in the attribute.
@@ -16,9 +16,9 @@ Retains events based on the equality of an event attribute.
 ```python
 from pybeamline.sources import log_source
 from pybeamline.sinks.print_sink import print_sink
-from pybeamline.filters import retains_on_event_attribute_equal_filter
+from pybeamline.filters import excludes_on_trace_attribute_equal_filter
 
 log_source("test.xes").pipe(
-	retains_on_event_attribute_equal_filter("event-attrib", ["ev", "ab"]),
+	excludes_on_trace_attribute_equal_filter("event-attrib", ["ev", "ab"]),
 ).subscribe(print_sink())
 ```
