@@ -30,6 +30,11 @@ nav:
       - pybeamline/filters/excludes_on_trace_attribute_equal_filter.md
       - pybeamline/filters/retains_activity_filter.md
       - pybeamline/filters/excludes_activity_filter.md
+    - Discovery operators:
+      - pybeamline/discovery/simple_dfg_miner.md
+      - pybeamline/discovery/heuristics_miner_lossy_counting.md
+      - pybeamline/discovery/heuristics_miner_lossy_counting_budget.md
+      - pybeamline/discovery/temporal_profile_discovery_mapper.md
     - Utility operators:
       - pybeamline/utilities/lambda_operator.md
       - pybeamline/utilities/skip_events.md
