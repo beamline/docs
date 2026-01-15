@@ -4,7 +4,7 @@ Source that considers each trace as a string provided in the constructor and eac
 
 ## Parameters
 
-* **raw_log**: `iterable: Iterable[str]`  
+* **raw_log**: `Iterable[str]`  
   The collection of traces to be streamed. Each `str` represents a complete trace, where each character is an activity.
 
 

@@ -23,13 +23,16 @@ nav:
       - pybeamline/sinks/graphviz_sink.md
       - pybeamline/sinks/heatmap_sink.md
       - pybeamline/sinks/dotted_chart_sink.md
-    - Filters:
+    - Filter operators:
       - pybeamline/filters/retains_on_event_attribute_equal_filter.md
       - pybeamline/filters/excludes_on_event_attribute_equal_filter.md
       - pybeamline/filters/retains_on_trace_attribute_equal_filter.md
       - pybeamline/filters/excludes_on_trace_attribute_equal_filter.md
       - pybeamline/filters/retains_activity_filter.md
       - pybeamline/filters/excludes_activity_filter.md
+    - Utility operators:
+      - pybeamline/utilities/lambda_operator.md
+      - pybeamline/utilities/skip_events.md
     # - Control-flow Discovery:
     # - Conformance Checking:
     - Examples:
