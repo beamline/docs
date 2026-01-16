@@ -1,4 +1,4 @@
-# Integration with Other Libraries
+# Integration with other Libraries
 
 ## River
 

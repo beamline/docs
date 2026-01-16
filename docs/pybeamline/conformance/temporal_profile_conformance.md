@@ -6,9 +6,9 @@ An algorithm to compute the temporal profile conformance.
 ## Parameters
 
 * **temporal_profile**: `TemporalProfile`  
-  The reference temporal profile for the conformance.
+  The reference temporal profile for the conformance. See [`temporal_profile_discovery_mapper`](../discovery/temporal_profile_discovery_mapper.md).
 
-* **parameters**: `Dict` default: `None`
+* **parameters**: `Dict` default: `None`  
   Set of additional parameters as specified in `pm4py.streaming.algo.conformance.temporal.variants.classic.TemporalProfileStreamingConformance`.
 
 
@@ -20,25 +20,29 @@ The returned output has type `pm4py.util.typing.TemporalProfileStreamingConfResu
 ## Example
 
 ```python
-from pybeamline.algorithms.conformance.temporal_profile.temporal_profile_conformance import temporal_profile_conformance
 from pybeamline.sinks.print_sink import print_sink
 from pybeamline.sources import log_source
-from pybeamline.algorithms.discovery.temporal_profile import temporal_profile_discovery_mapper
 from pybeamline.stream.base_sink import BaseSink
+from pybeamline.algorithms.discovery.temporal_profile import temporal_profile_discovery_mapper
+from pybeamline.algorithms.conformance.temporal_profile.temporal_profile_conformance import temporal_profile_conformance
 
+stream_for_learning = ["ABC","ABC","DEF"]
+stream_for_conformance = ["ABC","ABC","DEF"]
+
+# construction of the temporal profile
 class model_store(BaseSink):
 	model = None
 	def consume(self, item):
 		self.model = item
+
 sink = model_store()
 
-# construction of the temporal profile
-log_source(["ABC","ABC","DEF"]).pipe(
+log_source().pipe(
 	temporal_profile_discovery_mapper()
 ).subscribe(sink)
 
 # conformance with the constructed temporal profile
-log_source(["ABC","ABC","DEF"]).pipe(
+log_source(stream_for_conformance).pipe(
 	temporal_profile_conformance(temporal_profile=sink.model)
 ).subscribe(print_sink())
 ```

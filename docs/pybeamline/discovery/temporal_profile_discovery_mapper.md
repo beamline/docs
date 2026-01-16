@@ -10,7 +10,7 @@ An algorithm to extract a temporal profile.
 
 ## Returned type
 
-The returned output has type `pm4py.util.typing.TemporalProfile`.
+The returned output has type `pm4py.util.typing.TemporalProfile`. See [`temporal_profile_conformance`](../conformance/temporal_profile_conformance.md).
 
 
 ## Example

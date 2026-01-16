@@ -35,11 +35,20 @@ nav:
       - pybeamline/discovery/heuristics_miner_lossy_counting.md
       - pybeamline/discovery/heuristics_miner_lossy_counting_budget.md
       - pybeamline/discovery/temporal_profile_discovery_mapper.md
+    - Conformance operators:
+      - pybeamline/conformance/behavioral_conformance.md
+      - pybeamline/conformance/temporal_profile_conformance.md
+      - pybeamline/conformance/soft_conformance.md
+    - Mapper operators:
+      - pybeamline/mappers/infinite_size_directly_follows_mapper.md
+      - pybeamline/mappers/dfg_str_to_graphviz.md
+      - pybeamline/mappers/sliding_window_to_log.md
     - Utility operators:
-      - pybeamline/utilities/lambda_operator.md
-      - pybeamline/utilities/skip_events.md
-    # - Control-flow Discovery:
-    # - Conformance Checking:
+      - pybeamline/utility-ops/RxOperator.md
+      - pybeamline/utility-ops/print_operator.md
+      - pybeamline/utility-ops/lambda_operator.md
+      - pybeamline/utility-ops/skip_events.md
+    # - Utility functions:
     - Examples:
       - pybeamline/examples/full-cycle.md
     - pybeamline/integration.md
