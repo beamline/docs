@@ -28,8 +28,8 @@ log_original = ["ABCD"]*50 + ["ACBD"]*50
 log_after_drift = ["AEFG"]*50 + ["AFEG"]*50
 
 string_test_source(log_original + log_after_drift).pipe(
-	simple_dfg_miner(model_update_frequency=50, min_relative_frequency=0.2),
-  dfg_str_to_graphviz(),
+    simple_dfg_miner(model_update_frequency=50, min_relative_frequency=0.2),
+    dfg_str_to_graphviz(),
 ).sink(graphviz_sink(gif_path='test_graphviz_sink.gif', fps=1))
 
 ```

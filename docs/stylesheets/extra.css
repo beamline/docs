@@ -49,3 +49,8 @@ body {
 .md-typeset pre > code {
   border-radius: 0.5em;
 }
+
+
+.mermaid {
+	text-align: center;
+}
