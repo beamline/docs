@@ -2,6 +2,8 @@
 
 Configures and returns a reactive operator that enables real-time discovery of object-centric process models and activity-entity relationship (AER) diagrams from a stream of `BOEvent` events.
 
+See also [`oc_merge`](oc_merge.md) and [`oc_visualizer_sink`](../sinks/oc_visualizer_sink.md).
+
 
 ## Parameters
 
@@ -20,11 +22,25 @@ Configures and returns a reactive operator that enables real-time discovery of o
 * **default_miner**: `Callable[[], StreamMiner]` default: `None`  
   Miner to use in dynamic mode for unseen object types.
    
+Modes of Operation:
+
+* **Static Mode**: You provide a `control_flow` dictionary that maps object types to specific miners. Thereby only selected object types are processed, and miners are created based on the provided functions.
+* **Dynamic Mode**: If `control_flow` is not provided, miners are created *on-the-fly* using `default_miner`.
 
 
 ## Returned type
 
-A callable that takes an `Observable[BOEvent]` as input and returns an `Observable[dict]` containing emitted models, AER diagrams, and control commands such as active/inactive.
+A stream where each message is of one of the following types:
+
+* `{"type": "dfg", "object_type": ..., "model": ...}`  
+  Object-type-specific control-flow models (e.g., Heuristics Net / DFG)
+
+* `{"type": "aer", "model": ...}`  
+  Activity-Entity Relationship diagrams across all object types
+
+* `{"type": "command", "command": ACTIVE/INACTIVE, "object_type": ...}`  
+  Inclusion/exclusion signals for adaptive concept drift handling
+
 
 ## Example
 

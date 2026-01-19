@@ -22,6 +22,7 @@ nav:
       - pybeamline/sinks/graphviz_sink.md
       - pybeamline/sinks/heatmap_sink.md
       - pybeamline/sinks/dotted_chart_sink.md
+      - pybeamline/sinks/oc_visualizer_sink.md
     - Filter operators:
       - pybeamline/filters/retains_on_event_attribute_equal_filter.md
       - pybeamline/filters/excludes_on_event_attribute_equal_filter.md
@@ -35,6 +36,7 @@ nav:
       - pybeamline/discovery/heuristics_miner_lossy_counting_budget.md
       - pybeamline/discovery/temporal_profile_discovery_mapper.md
       - pybeamline/discovery/oc_operator.md
+      - pybeamline/discovery/oc_merge.md
     - Conformance operators:
       - pybeamline/conformance/behavioral_conformance.md
       - pybeamline/conformance/temporal_profile_conformance.md
