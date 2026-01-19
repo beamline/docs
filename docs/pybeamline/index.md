@@ -1,6 +1,19 @@
 # Getting Started
 
+In this page pyBeamline is presented.
 
+## *Hello world* with pyBeamline
+
+This is an example of a simple dataflow implemented in pyBeamline:
+
+```python linenums="1"
+xes_log_source_from_file("test.xes").pipe(
+    simple_dfg_miner(),
+    dfg_str_to_graphviz()
+).subscribe(graphviz_sink())
+```
+
+This code takes an XES log file and converts it into a stream. On this stream, a simple DFG miner is executed and it's output is converted and rendered in Graphviz (in a Jupyter Notebook).
 
 
 

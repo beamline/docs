@@ -7,3 +7,4 @@ pip install pybeamline
 ```
 More information are available at <https://pypi.org/project/pybeamline/>.
 
+[![PyPI version](https://badge.fury.io/py/pybeamline.svg)](https://badge.fury.io/py/pybeamline)

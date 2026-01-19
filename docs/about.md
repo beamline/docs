@@ -18,7 +18,7 @@ People who contributed to the project:
 * Jeppe Mikkelsen (Object Centric discovery for pyBeamline)
 * Arturo Cortes (pyBeamline Designer)
 * Sotero Romero (pyBeamline Designer)
-* Mihály Tass (pyBeamline architecture)
+* Mihály Tass (pyBeamline 2.0 architecture)
 
 
 ## Citation
@@ -46,7 +46,10 @@ Please, cite this work as:
 
 Other relevant peer-review publication where the framework is presented:
 
-* Andrea Burattin. "[Streaming Process Mining with Beamline (Extended Abstract)](https://ceur-ws.org/Vol-3299/Paper16.pdf)". In *Proceedings of ICPM Doctoral Consortium and Tool Demonstration Track*, CEUR Workshop Proceedings, 2022: 75-79. 
-* Arturo Cortes, Sotero Romero and Andrea Burattin. "[pyBeamline Designer: A No-Code Platform for Streaming Process Mining Pipelines](https://ceur-ws.org/Vol-4088/paper_242.pdf)".In *ICPM Doctoral Consortium and Demo Track 2025, October 20-24, 2025, Montevideo, Uruguay*, CEUR Workshop Proceedings, 2025. 
+* A. Cortes, S. Romero and A. Burattin. "[pyBeamline Designer: A No-Code Platform for Streaming Process Mining Pipelines](https://ceur-ws.org/Vol-4088/paper_242.pdf)".In *ICPM Doctoral Consortium and Demo Track 2025, October 20-24, 2025, Montevideo, Uruguay*, CEUR Workshop Proceedings, 2025.
+* A. Burattin. "[Streaming Process Mining with Beamline (Extended Abstract)](https://ceur-ws.org/Vol-3299/Paper16.pdf)". In *Proceedings of ICPM Doctoral Consortium and Tool Demonstration Track*, CEUR Workshop Proceedings, 2022: 75-79. 
+* A. Burattin. "[Online Soft Conformance Checking: Any Perspective Can Indicate Deviations](https://andrea.burattin.net/publications/2022-arxiv)". In *arXiv:2201.09222*, Jan. 2022.
+* A. Burattin, H. A. López, L. Starklit. "[Uncovering Change: A Streaming Approach for Declarative Processes](https://andrea.burattin.net/publications/2022-sa4pm). In *Proceedings of 3rd International Workshop on Streaming Analytics for Process Mining* (SA4PM); October 2022.
+
 
 Implemented techniques have corresponding citation information on their respective documentation page.
