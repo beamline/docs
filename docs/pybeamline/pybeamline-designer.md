@@ -3,7 +3,7 @@
 To help getting started, you can try the pyBeamline Designer, available at <https://beamline.github.io/pybeamline-designer/>:
 
 <figure markdown> 
-  ![Screenshot of pyBeamline Designer](../../img/pybeamline-screenshot.jpg)
+  ![Screenshot of pyBeamline Designer](img/pybeamline-screenshot.jpg)
   <figcaption><a href="https://beamline.github.io/pybeamline-designer/" target="_blank">https://beamline.github.io/pybeamline-designer/</a></figcaption>
 </figure>
 
