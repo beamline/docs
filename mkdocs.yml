@@ -2,36 +2,84 @@ site_name: Beamline
 edit_uri: ""
 
 nav:
-  - Home: index.md
-  - pyBeamline: pybeamline.md
-  - Beamline:
-    - Getting started: beamline/index.md
-    - Implemented techniques:
-      - Control-flow discovery:
-        - Trivial Miner:                beamline/implemented-techniques/discovery-trivial.md
-        - Heuristics Miner:             beamline/implemented-techniques/discovery-heuristics-miner.md
-        - Declare Miner:                beamline/implemented-techniques/discovery-declare.md
-        - DCR Miner:                    beamline/implemented-techniques/discovery-dcr.md
-        - Soft Conformance Model Miner: beamline/implemented-techniques/discovery-soft.md
-        - Split Miner:                  beamline/implemented-techniques/discovery-splitminer.md
-      - Conformance checking:
-        - Behavioural Patterns:         beamline/implemented-techniques/conformance-behavioural-patterns.md
-        - Soft Conformance:             beamline/implemented-techniques/conformance-soft.md
-      - Simulation:
-        - Simulation with PLG:          beamline/implemented-techniques/simulation-plg.md
+  - Introduction:
+      - intro/beamline-framework.md
+      - intro/streaming-process-mining.md
+  - pyBeamline doc:
+    - pybeamline/index.md
+    - pybeamline/installation.md
+    - pybeamline/basic-concepts.md
+    - Sources:
+      - pybeamline/sources/combining-sources.md
+      - pybeamline/sources/xes_log_source.md
+      - pybeamline/sources/xes_log_source_from_file.md
+      - pybeamline/sources/string_test_source.md
+      - pybeamline/sources/mqtt_source.md
+      - pybeamline/sources/ocel2_log_source_from_file.md
+      - pybeamline/sources/dict_test_ocel_source.md
+    - Sinks:
+      - pybeamline/sinks/print_sink.md
+      - pybeamline/sinks/graphviz_sink.md
+      - pybeamline/sinks/heatmap_sink.md
+      - pybeamline/sinks/dotted_chart_sink.md
+      - pybeamline/sinks/oc_visualizer_sink.md
+    - Filter operators:
+      - pybeamline/filters/retains_on_event_attribute_equal_filter.md
+      - pybeamline/filters/excludes_on_event_attribute_equal_filter.md
+      - pybeamline/filters/retains_on_trace_attribute_equal_filter.md
+      - pybeamline/filters/excludes_on_trace_attribute_equal_filter.md
+      - pybeamline/filters/retains_activity_filter.md
+      - pybeamline/filters/excludes_activity_filter.md
+    - Discovery operators:
+      - pybeamline/discovery/simple_dfg_miner.md
+      - pybeamline/discovery/heuristics_miner_lossy_counting.md
+      - pybeamline/discovery/heuristics_miner_lossy_counting_budget.md
+      - pybeamline/discovery/temporal_profile_discovery_mapper.md
+      - pybeamline/discovery/oc_operator.md
+      - pybeamline/discovery/oc_merge.md
+    - Conformance operators:
+      - pybeamline/conformance/behavioral_conformance.md
+      - pybeamline/conformance/temporal_profile_conformance.md
+      - pybeamline/conformance/soft_conformance.md
+    - Mapper operators:
+      - pybeamline/mappers/infinite_size_directly_follows_mapper.md
+      - pybeamline/mappers/dfg_str_to_graphviz.md
+      - pybeamline/mappers/sliding_window_to_log.md
+    - Utility operators:
+      - pybeamline/utility-ops/RxOperator.md
+      - pybeamline/utility-ops/print_operator.md
+      - pybeamline/utility-ops/lambda_operator.md
+      - pybeamline/utility-ops/skip_events.md
+    # - Utility functions:
+    - Examples:
+      - pybeamline/examples/full-cycle.md
+    - pybeamline/integration.md
+    - pybeamline/pybeamline-designer.md
+  - JBeamline doc:
+    - jbeamline/index.md
+    - jbeamline/installation.md
+    - jbeamline/basic-concepts.md
+    - Control-flow Discovery:
+      - jbeamline/implemented-techniques/discovery-trivial.md
+      - jbeamline/implemented-techniques/discovery-heuristics-miner.md
+      - jbeamline/implemented-techniques/discovery-declare.md
+      - jbeamline/implemented-techniques/discovery-dcr.md
+      - jbeamline/implemented-techniques/discovery-soft.md
+      - jbeamline/implemented-techniques/discovery-splitminer.md
+    - Conformance Checking:
+      - jbeamline/implemented-techniques/conformance-behavioural-patterns.md
+      - jbeamline/implemented-techniques/conformance-soft.md
+    - Simulation:
+      - jbeamline/implemented-techniques/simulation-plg.md
+    - Examples:
+      - jbeamline/examples/no-process-mining-as-input.md
+      - jbeamline/examples/monitoring-windows.md
+      - jbeamline/examples/speech-recognition.md
+      - jbeamline/examples/wikipedia-edits.md
+      - jbeamline/examples/open-sky-monitoring.md
     - Additional libraries:
-        - MQTT-XES:                     beamline/mqtt-xes.md
-        - Simple PNML:                  beamline/simple-pnml.md
-  - Examples:
-      - Introduction:                                      examples/index.md
-      - pyBeamline:
-        - pyBeamline full cycle:                           examples/pybeamline/full-cycle.md
-      - Beamline:
-        - Raw data as input (non-process mining ready):    examples/beamline/no-process-mining-as-input.md
-        - Monitoring active windows (for Windows systems): examples/beamline/monitoring-windows.md
-        - Speech recognition:                              examples/beamline/speech-recognition.md
-        - Wikipedia edits:                                 examples/beamline/wikipedia-edits.md
-        - OpenSky monitoring:                              examples/beamline/open-sky-monitoring.md
+        - jbeamline/mqtt-xes.md
+        - jbeamline/simple-pnml.md
   - About: about.md
 
 theme:
@@ -39,13 +87,20 @@ theme:
   logo: img/logo.svg
   palette:
     primary: default
+  font:
+    text: Fira Sans
+    code: Fira Code
+
 
   features:
   - navigation.tabs
   - navigation.tabs.sticky
-  - navigation.expand
-  - toc.integrate
+  # - navigation.expand
+  # - navigation.indexes
+  # - toc.integrate
+  - content.code.copy
 
+repo_name: beamline/pybeamline
 repo_url: https://github.com/beamline/pybeamline
 
 plugins:
@@ -53,13 +108,15 @@ plugins:
   - mermaid2
 
 extra_javascript:
-  - https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js
+  - https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
   - pymdownx.superfences
   - admonition
   - pymdownx.details
@@ -67,9 +124,10 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - footnotes
-  # - mkdocs-jupyter
 
-copyright: Copyright &copy; 2022-2025 Technical University of Denmark
+copyright: Copyright &copy; 2022-2026 Technical University of Denmark
+  <script data-goatcounter="https://beamline.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
 extra:
   social:
     - icon: fontawesome/brands/github
