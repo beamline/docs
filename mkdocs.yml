@@ -34,6 +34,7 @@ nav:
       - pybeamline/discovery/heuristics_miner_lossy_counting.md
       - pybeamline/discovery/heuristics_miner_lossy_counting_budget.md
       - pybeamline/discovery/temporal_profile_discovery_mapper.md
+      - pybeamline/discovery/oc_operator.md
     - Conformance operators:
       - pybeamline/conformance/behavioral_conformance.md
       - pybeamline/conformance/temporal_profile_conformance.md

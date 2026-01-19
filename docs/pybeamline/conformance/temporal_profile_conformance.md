@@ -63,7 +63,7 @@ Output:
 
 ## References
 
-The algorithm is describe in publications:
+The algorithm is described in publications:
 
 * [Temporal Conformance Checking at Runtime Based on Time-infused Process Models](https://arxiv.org/abs/2008.07262)  
   F. Stertz, J/ Mangler, and S. Rinderle-Ma  

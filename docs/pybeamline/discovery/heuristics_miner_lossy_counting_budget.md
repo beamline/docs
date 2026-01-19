@@ -45,7 +45,7 @@ Output:
 
 ## References
 
-The algorithm is describe in publications:
+The algorithm is described in publications:
 
 * [Control-flow Discovery from Event Streams](https://andrea.burattin.net/publications/2014-cec)  
   A. Burattin, A. Sperduti, W. M. P. van der Aalst  

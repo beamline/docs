@@ -67,7 +67,7 @@ Output:
 
 ## References
 
-The algorithm is describe in:
+The algorithm is described in:
 
 * [Online Soft Conformance Checking: Any Perspective Can Indicate Deviations](https://andrea.burattin.net/publications/2022-arxiv)  
   A. Burattin  

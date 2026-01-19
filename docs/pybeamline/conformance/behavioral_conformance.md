@@ -100,7 +100,7 @@ Output:
 
 ## References
 
-The algorithm is describe in:
+The algorithm is described in:
 
 * [Online Conformance Checking Using Behavioural Patterns](https://andrea.burattin.net/publications/2018-bpm)  
   A. Burattin, S. van Zelst, A. Armas-Cervantes, B. van Dongen, J. Carmona  
