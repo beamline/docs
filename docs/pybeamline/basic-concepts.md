@@ -7,14 +7,14 @@ The main component of a pyBeamline program is its *dataflow*. A dataflow consist
 This is an example of a simple dataflow:
 
 ```python linenums="1"
-xes_log_source_from_file("test.xes").pipe(
-    excludes_activity_filter("A"),
-    simple_dfg_miner(),
+string_test_source(["ABCD", "ACBD"]).pipe(
+    simple_dfg_miner(model_update_frequency=1),
     dfg_str_to_graphviz()
 ).subscribe(graphviz_sink())
 ```
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/beamline/pybeamline/blob/master/hello_world.ipynb)
 
-In this dataflow, line 1 defines the *source*, in this case a `xes_log_source_from_file` that reads a log from a file (`test.xes`) and generates its stream. Then, on this stream, a pipeline of three operators is applied: the first (`excludes_activity_filter("A")`) transforms the stream of events such that no event with activity labelled `"A"` is propagated forward; the second (`simple_dfg_miner`) transforms the stream of events into a stream of DFG models (i.e., it mines the stream); and the third (`dfg_str_to_graphviz`) converts the DFG into a Graphviz string. Finally, a sink (`graphviz_sink`) is provided that will dump the DFG models into a Graphviz representation.
+In this dataflow, line 1 defines the *source*, in this case a `string_test_source` that generates a stream with 2 process instances (one with activities `A`, `B`, `C`, and `D` and the other with `A`, `C`, `B`, and `D`). Then, on this stream, a pipeline of two operators is applied: first (`simple_dfg_miner`) transforms the stream of events into a stream of DFG models (i.e., it mines the stream); and the other (`dfg_str_to_graphviz`) converts the DFG into a Graphviz string. Finally, a sink (`graphviz_sink`) is provided that will dump the DFG models into a Graphviz representation. Please note that corresponding `import` statements are omitted for simplicity.
 
 
 ## Events
