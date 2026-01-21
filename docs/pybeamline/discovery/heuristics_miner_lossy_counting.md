@@ -8,7 +8,7 @@ An algorithm to mine a Heuristics Net using the Lossy Counting algorithm.
 * **model_update_frequency**: `int` default: `10`  
   How often (in number of events) the model should be returned.
 
-* **max_approx_error**: `Float` default: `0.001`
+* **max_approx_error**: `Float` default: `0.001`  
   The maximum approximation error in the Lossy Counting of the ferquencies.
 
 * **dependency_threshold**: `Float` default: `0.5`  
