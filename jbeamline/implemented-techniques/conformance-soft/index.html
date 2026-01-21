@@ -1,0 +1,1721 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../conformance-behavioural-patterns/" rel="prev"/>
+<link href="../simulation-plg/" rel="next"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>Soft Conformance - Beamline</title>
+<link href="../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+<link href="../../../stylesheets/extra.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="default" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#soft-conformance">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Beamline" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Beamline">
+<img alt="logo" src="../../../img/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Beamline
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Soft Conformance
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/pybeamline" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    beamline/pybeamline
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../intro/beamline-framework/">
+          
+  
+  
+  Introduction
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../pybeamline/">
+          
+  
+  
+  pyBeamline doc
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+  
+  JBeamline doc
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../about/">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Beamline" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Beamline">
+<img alt="logo" src="../../../img/logo.svg"/>
+</a>
+    Beamline
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/beamline/pybeamline" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"></path></svg>
+</div>
+<div class="md-source__repository">
+    beamline/pybeamline
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../intro/beamline-framework/">
+<span class="md-ellipsis">
+    
+  
+    Beamline Framework
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../intro/streaming-process-mining/">
+<span class="md-ellipsis">
+    
+  
+    Streaming process mining
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    pyBeamline doc
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    pyBeamline doc
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/installation/">
+<span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/basic-concepts/">
+<span class="md-ellipsis">
+    
+  
+    Basic Concepts
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Sources
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Sources
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources/combining-sources/">
+<span class="md-ellipsis">
+    
+  
+    Combining sources
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources/xes_log_source/">
+<span class="md-ellipsis">
+    
+  
+    xes_log_source
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources/xes_log_source_from_file/">
+<span class="md-ellipsis">
+    
+  
+    xes_log_source_from_file
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources/string_test_source/">
+<span class="md-ellipsis">
+    
+  
+    string_test_source
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources/mqtt_source/">
+<span class="md-ellipsis">
+    
+  
+    mqttxes_source
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources/ocel2_log_source_from_file/">
+<span class="md-ellipsis">
+    
+  
+    ocel2_log_source_from_file
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources/dict_test_ocel_source/">
+<span class="md-ellipsis">
+    
+  
+    dict_test_ocel_source
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Real world sources
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Real world sources
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources-real/ais_source/">
+<span class="md-ellipsis">
+    
+  
+    ais_source
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources-real/rejseplanen_source/">
+<span class="md-ellipsis">
+    
+  
+    rejseplanen_source
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sources-real/wikimedia_source/">
+<span class="md-ellipsis">
+    
+  
+    wikimedia_source
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Sinks
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Sinks
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sinks/print_sink/">
+<span class="md-ellipsis">
+    
+  
+    print_sink
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sinks/graphviz_sink/">
+<span class="md-ellipsis">
+    
+  
+    graphviz_sink
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sinks/heatmap_sink/">
+<span class="md-ellipsis">
+    
+  
+    heatmap_sink
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sinks/dotted_chart_sink/">
+<span class="md-ellipsis">
+    
+  
+    dotted_chart_sink
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/sinks/oc_visualizer_sink/">
+<span class="md-ellipsis">
+    
+  
+    oc_visualizer_sink
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Filter operators
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Filter operators
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/filters/retains_on_event_attribute_equal_filter/">
+<span class="md-ellipsis">
+    
+  
+    retains_on_event_attribute_equal_filter
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/filters/excludes_on_event_attribute_equal_filter/">
+<span class="md-ellipsis">
+    
+  
+    excludes_on_event_attribute_equal_filter
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/filters/retains_on_trace_attribute_equal_filter/">
+<span class="md-ellipsis">
+    
+  
+    retains_on_trace_attribute_equal_filter
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/filters/excludes_on_trace_attribute_equal_filter/">
+<span class="md-ellipsis">
+    
+  
+    excludes_on_trace_attribute_equal_filter
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/filters/retains_activity_filter/">
+<span class="md-ellipsis">
+    
+  
+    retains_activity_filter
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/filters/excludes_activity_filter/">
+<span class="md-ellipsis">
+    
+  
+    excludes_activity_filter
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_8" id="__nav_2_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Discovery operators
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Discovery operators
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/discovery/simple_dfg_miner/">
+<span class="md-ellipsis">
+    
+  
+    simple_dfg_miner
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/discovery/heuristics_miner_lossy_counting/">
+<span class="md-ellipsis">
+    
+  
+    heuristics_miner_lossy_counting
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/discovery/heuristics_miner_lossy_counting_budget/">
+<span class="md-ellipsis">
+    
+  
+    heuristics_miner_lossy_counting_budget
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/discovery/temporal_profile_discovery_mapper/">
+<span class="md-ellipsis">
+    
+  
+    temporal_profile_discovery_mapper
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/discovery/oc_operator/">
+<span class="md-ellipsis">
+    
+  
+    oc_operator
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/discovery/oc_merge/">
+<span class="md-ellipsis">
+    
+  
+    oc_merge
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_9" id="__nav_2_9_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Conformance operators
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_9_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_9">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Conformance operators
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/conformance/behavioral_conformance/">
+<span class="md-ellipsis">
+    
+  
+    behavioral_conformance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/conformance/temporal_profile_conformance/">
+<span class="md-ellipsis">
+    
+  
+    temporal_profile_conformance
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/conformance/soft_conformance/">
+<span class="md-ellipsis">
+    
+  
+    soft_conformance
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_10" id="__nav_2_10_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Mapper operators
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_10_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_10">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Mapper operators
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/mappers/infinite_size_directly_follows_mapper/">
+<span class="md-ellipsis">
+    
+  
+    infinite_size_directly_follows_mapper
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/mappers/dfg_str_to_graphviz/">
+<span class="md-ellipsis">
+    
+  
+    dfg_str_to_graphviz
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/mappers/sliding_window_to_log/">
+<span class="md-ellipsis">
+    
+  
+    sliding_window_to_log
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_11" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_11" id="__nav_2_11_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Utility operators
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_11_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_11">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Utility operators
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/utility-ops/RxOperator/">
+<span class="md-ellipsis">
+    
+  
+    RxOperator
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/utility-ops/print_operator/">
+<span class="md-ellipsis">
+    
+  
+    print_operator
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/utility-ops/lambda_operator/">
+<span class="md-ellipsis">
+    
+  
+    lambda_operator
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/utility-ops/skip_events/">
+<span class="md-ellipsis">
+    
+  
+    skip_events
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_12" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_12" id="__nav_2_12_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_12_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_12">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/examples/full-cycle/">
+<span class="md-ellipsis">
+    
+  
+    Full cycle
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/integration/">
+<span class="md-ellipsis">
+    
+  
+    Integration with other Libraries
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../pybeamline/pybeamline-designer/">
+<span class="md-ellipsis">
+    
+  
+    pyBeamline Designer
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    JBeamline doc
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    JBeamline doc
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../installation/">
+<span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../basic-concepts/">
+<span class="md-ellipsis">
+    
+  
+    Basic concepts
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Control-flow Discovery
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Control-flow Discovery
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-trivial/">
+<span class="md-ellipsis">
+    
+  
+    Trivial Miner
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-heuristics-miner/">
+<span class="md-ellipsis">
+    
+  
+    Heuristics Miners
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-declare/">
+<span class="md-ellipsis">
+    
+  
+    Discovery declare
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-dcr/">
+<span class="md-ellipsis">
+    
+  
+    Discovery DCR
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-soft/">
+<span class="md-ellipsis">
+    
+  
+    Soft Conformance Model Miner
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../discovery-splitminer/">
+<span class="md-ellipsis">
+    
+  
+    Split Miner
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Conformance Checking
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Conformance Checking
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../conformance-behavioural-patterns/">
+<span class="md-ellipsis">
+    
+  
+    Behavioral Patterns
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    
+  
+    Soft Conformance
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    
+  
+    Soft Conformance
+  
+
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dependency">
+<span class="md-ellipsis">
+      
+        Dependency
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#usage">
+<span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scientific-literature">
+<span class="md-ellipsis">
+      
+        Scientific literature
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Simulation
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Simulation
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../simulation-plg/">
+<span class="md-ellipsis">
+    
+  
+    Simulation with PLG
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/no-process-mining-as-input/">
+<span class="md-ellipsis">
+    
+  
+    Raw data as input (non-process mining ready)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/monitoring-windows/">
+<span class="md-ellipsis">
+    
+  
+    Monitoring active windows (for Windows systems)
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/speech-recognition/">
+<span class="md-ellipsis">
+    
+  
+    Speech recognition
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/wikipedia-edits/">
+<span class="md-ellipsis">
+    
+  
+    Wikipedia edits
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/open-sky-monitoring/">
+<span class="md-ellipsis">
+    
+  
+    OpenSky monitoring
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Additional libraries
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_8">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Additional libraries
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../mqtt-xes/">
+<span class="md-ellipsis">
+    
+  
+    MQTT-XES
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../simple-pnml/">
+<span class="md-ellipsis">
+    
+  
+    Simple PNML
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../about/">
+<span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dependency">
+<span class="md-ellipsis">
+      
+        Dependency
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#usage">
+<span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scientific-literature">
+<span class="md-ellipsis">
+      
+        Scientific literature
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="soft-conformance">Soft Conformance</h1>
+<h2 id="dependency">Dependency</h2>
+<p>To use these algorithms in your Java Maven project it is necessary to include, in the <code>pom.xml</code> file, the dependency:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.github.beamline<span class="nt">&lt;/groupId&gt;</span>
+<a href="#__codelineno-0-3" id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>soft-conformance<span class="nt">&lt;/artifactId&gt;</span>
+<a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">    </span><span class="nt">&lt;version&gt;</span>master-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+See the <a href="../../installation/">installation page</a> for further instructions.</p>
+<p><a href="https://jitpack.io/#beamline/soft-conformance"><img alt="" src="https://jitpack.io/v/beamline/soft-conformance.svg"/></a></p>
+<h2 id="usage">Usage</h2>
+<p>This conformance approach uses a descriptive model (i.e., a pattern of the observed behavior over a certain amount of time) which is not necessarily referring to the control-flow (e.g., it can be based on the social network of handover of work). To create such a model you need to specify the states and the probability of transitioning. Additionally, it is necessary to specify the likelihood of a random walk (i.e., the parameter α):</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">PDFA</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PDFA</span><span class="p">();</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">reference</span><span class="p">.</span><span class="na">addNode</span><span class="p">(</span><span class="s">"A"</span><span class="p">);</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">reference</span><span class="p">.</span><span class="na">addNode</span><span class="p">(</span><span class="s">"B"</span><span class="p">);</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">reference</span><span class="p">.</span><span class="na">addNode</span><span class="p">(</span><span class="s">"C"</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">reference</span><span class="p">.</span><span class="na">addEdge</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span><span class="w"> </span><span class="s">"A"</span><span class="p">,</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="n">reference</span><span class="p">.</span><span class="na">addEdge</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span><span class="w"> </span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="n">reference</span><span class="p">.</span><span class="na">addEdge</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span><span class="w"> </span><span class="s">"C"</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+This model can be visualized with:
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">PDFAVisualizer</span><span class="p">.</span><span class="na">getDot</span><span class="p">(</span><span class="n">reference</span><span class="p">).</span><span class="na">exportToSvg</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">"test.svg"</span><span class="p">));</span>
+</code></pre></div>
+And here is the output:</p>
+<figure>
+<svg height="77px" viewbox="0.00 0.00 269.00 77.00" width="269px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 73.0)">
+<title>G</title>
+<polygon fill="white" points="-4,4 -4,-73 265,-73 265,4 -4,4" stroke="none"></polygon>
+<!-- e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2 -->
+<g class="node" id="e12bcafde-7737-4297-8e45-971bef8040b2"><title>e12bcafde-7737-4297-8e45-971bef8040b2</title>
+<ellipse cx="27" cy="-18" fill="none" rx="27" ry="18" stroke="black"></ellipse>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="27" y="-14.3">A</text>
+</g>
+<!-- e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2&#45;&gt;e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2 -->
+<g class="edge" id="e718c3661-f48b-4ee5-9b71-9d8bb74357c7"><title>e12bcafde-7737-4297-8e45-971bef8040b2-&gt;e12bcafde-7737-4297-8e45-971bef8040b2</title>
+<path d="M17.4312,-35.0373C15.4784,-44.8579 18.668,-54 27,-54 32.2075,-54 35.4063,-50.4289 36.5963,-45.3529" fill="none" stroke="black" stroke-width="1.5"></path>
+<polygon fill="black" points="40.0955,-45.0279 36.5688,-35.0373 33.0955,-45.0466 40.0955,-45.0279" stroke="black" stroke-width="1.5"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="27" y="-57.8">0.2</text>
+</g>
+<!-- e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715 -->
+<g class="node" id="e57c465e7-ec29-4da2-9d3e-e1362a897715"><title>e57c465e7-ec29-4da2-9d3e-e1362a897715</title>
+<ellipse cx="136" cy="-18" fill="none" rx="27" ry="18" stroke="black"></ellipse>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="136" y="-14.3">B</text>
+</g>
+<!-- e12bcafde&#45;7737&#45;4297&#45;8e45&#45;971bef8040b2&#45;&gt;e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715 -->
+<g class="edge" id="e2ee0e5cb-7597-4231-b0ff-8ddb0518ac6f"><title>e12bcafde-7737-4297-8e45-971bef8040b2-&gt;e57c465e7-ec29-4da2-9d3e-e1362a897715</title>
+<path d="M54.1751,-18C67.5177,-18 83.9597,-18 98.5231,-18" fill="none" stroke="black" stroke-width="4.5"></path>
+<polygon fill="black" points="98.7243,-21.9376 108.724,-18 98.7242,-14.0626 98.7243,-21.9376" stroke="black" stroke-width="4.5"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="81.5" y="-21.8">0.8</text>
+</g>
+<!-- e87bdcf03&#45;5fcf&#45;4aa6&#45;b098&#45;e2ab971bca74 -->
+<g class="node" id="e87bdcf03-5fcf-4aa6-b098-e2ab971bca74"><title>e87bdcf03-5fcf-4aa6-b098-e2ab971bca74</title>
+<ellipse cx="234" cy="-18" fill="none" rx="27" ry="18" stroke="black"></ellipse>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="234" y="-14.3">C</text>
+</g>
+<!-- e57c465e7&#45;ec29&#45;4da2&#45;9d3e&#45;e1362a897715&#45;&gt;e87bdcf03&#45;5fcf&#45;4aa6&#45;b098&#45;e2ab971bca74 -->
+<g class="edge" id="e8433120a-6458-4ff1-9754-465b02a36614"><title>e57c465e7-ec29-4da2-9d3e-e1362a897715-&gt;e87bdcf03-5fcf-4aa6-b098-e2ab971bca74</title>
+<path d="M163.232,-18C173.498,-18 185.448,-18 196.527,-18" fill="none" stroke="black" stroke-width="5.5"></path>
+<polygon fill="black" points="196.799,-22.8126 206.799,-18 196.799,-13.1876 196.799,-22.8126" stroke="black" stroke-width="5.5"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="185" y="-21.8">1</text>
+</g>
+</g>
+</svg>
+</figure>
+<p>As can be seen, the model does not allow for any deviation, so it is possible to add weights for possible deviations by using:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WeightsNormalizer</span><span class="p">.</span><span class="na">normalize</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+Which transforms the model into:</p>
+<figure>
+<svg height="125px" viewbox="0.00 0.00 296.00 124.89" width="296px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g class="graph" id="graph0" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 120.889)">
+<title>G</title>
+<polygon fill="white" points="-4,4 -4,-120.889 292,-120.889 292,4 -4,4" stroke="none"></polygon>
+<!-- edf5adbb8&#45;1495&#45;49f7&#45;bf4d&#45;dae11812ecf2 -->
+<g class="node" id="edf5adbb8-1495-49f7-bf4d-dae11812ecf2"><title>edf5adbb8-1495-49f7-bf4d-dae11812ecf2</title>
+<ellipse cx="27" cy="-20.8894" fill="none" rx="27" ry="18" stroke="black"></ellipse>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="27" y="-17.1894">A</text>
+</g>
+<!-- edf5adbb8&#45;1495&#45;49f7&#45;bf4d&#45;dae11812ecf2&#45;&gt;edf5adbb8&#45;1495&#45;49f7&#45;bf4d&#45;dae11812ecf2 -->
+<g class="edge" id="ecc5822da-d255-44eb-9852-cc18ccb48075"><title>edf5adbb8-1495-49f7-bf4d-dae11812ecf2-&gt;edf5adbb8-1495-49f7-bf4d-dae11812ecf2</title>
+<path d="M16.7224,-37.9268C14.6249,-47.7474 18.0508,-56.8894 27,-56.8894 32.5933,-56.8894 36.029,-53.3183 37.3071,-48.2424" fill="none" stroke="black" stroke-width="1.83333"></path>
+<polygon fill="black" points="40.8063,-47.9167 37.2776,-37.9268 33.8063,-47.9368 40.8063,-47.9167" stroke="black" stroke-width="1.83333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="27" y="-60.6894">0.27</text>
+</g>
+<!-- eab3fce2a&#45;df45&#45;43e8&#45;9b62&#45;89ce28ff3320 -->
+<g class="node" id="eab3fce2a-df45-43e8-9b62-89ce28ff3320"><title>eab3fce2a-df45-43e8-9b62-89ce28ff3320</title>
+<ellipse cx="144" cy="-65.8894" fill="none" rx="27" ry="18" stroke="black"></ellipse>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="144" y="-62.1894">B</text>
+</g>
+<!-- edf5adbb8&#45;1495&#45;49f7&#45;bf4d&#45;dae11812ecf2&#45;&gt;eab3fce2a&#45;df45&#45;43e8&#45;9b62&#45;89ce28ff3320 -->
+<g class="edge" id="e4ae834b4-f0ea-4728-8fc4-1604082c12a2"><title>edf5adbb8-1495-49f7-bf4d-dae11812ecf2-&gt;eab3fce2a-df45-43e8-9b62-89ce28ff3320</title>
+<path d="M43.5468,-35.4446C51.4889,-42.0866 61.6462,-49.4451 72,-53.8894 82.8181,-58.5331 95.2848,-61.3842 106.723,-63.1332" fill="none" stroke="black" stroke-width="3.33333"></path>
+<polygon fill="black" points="106.495,-66.6328 116.862,-64.4493 107.396,-59.691 106.495,-66.6328" stroke="black" stroke-width="3.33333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="85.5" y="-64.6894">0.57</text>
+</g>
+<!-- ea8b69327&#45;9b41&#45;4ca2&#45;90b3&#45;b6c8a50b04d4 -->
+<g class="node" id="ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4"><title>ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4</title>
+<ellipse cx="261" cy="-20.8894" fill="none" rx="27" ry="18" stroke="black"></ellipse>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="261" y="-17.1894">C</text>
+</g>
+<!-- edf5adbb8&#45;1495&#45;49f7&#45;bf4d&#45;dae11812ecf2&#45;&gt;ea8b69327&#45;9b41&#45;4ca2&#45;90b3&#45;b6c8a50b04d4 -->
+<g class="edge" id="e59f6fed1-fcd8-494b-a784-2642294c704d"><title>edf5adbb8-1495-49f7-bf4d-dae11812ecf2-&gt;ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4</title>
+<path d="M54.1624,-20.8894C95.697,-20.8894 176.825,-20.8894 223.875,-20.8894" fill="none" stroke="black" stroke-width="1.33333"></path>
+<polygon fill="black" points="223.933,-24.3895 233.933,-20.8894 223.933,-17.3895 223.933,-24.3895" stroke="black" stroke-width="1.33333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="144" y="-24.6894">0.17</text>
+</g>
+<!-- eab3fce2a&#45;df45&#45;43e8&#45;9b62&#45;89ce28ff3320&#45;&gt;edf5adbb8&#45;1495&#45;49f7&#45;bf4d&#45;dae11812ecf2 -->
+<g class="edge" id="eefd32215-7913-4a76-8322-817d81b46553"><title>eab3fce2a-df45-43e8-9b62-89ce28ff3320-&gt;edf5adbb8-1495-49f7-bf4d-dae11812ecf2</title>
+<path d="M126.445,-51.7239C118.591,-45.6849 108.794,-39.0792 99,-34.8894 88.122,-30.236 75.6395,-27.1117 64.2048,-25.0212" fill="none" stroke="black" stroke-width="1.33333"></path>
+<polygon fill="black" points="64.5057,-21.5244 54.0743,-23.3778 63.3848,-28.434 64.5057,-21.5244" stroke="black" stroke-width="1.33333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="85.5" y="-38.6894">0.17</text>
+</g>
+<!-- eab3fce2a&#45;df45&#45;43e8&#45;9b62&#45;89ce28ff3320&#45;&gt;eab3fce2a&#45;df45&#45;43e8&#45;9b62&#45;89ce28ff3320 -->
+<g class="edge" id="e02702fa9-65f9-4659-8f8c-75686e44e50f"><title>eab3fce2a-df45-43e8-9b62-89ce28ff3320-&gt;eab3fce2a-df45-43e8-9b62-89ce28ff3320</title>
+<path d="M133.722,-82.9268C131.625,-92.7474 135.051,-101.889 144,-101.889 149.593,-101.889 153.029,-98.3183 154.307,-93.2424" fill="none" stroke="black" stroke-width="1.33333"></path>
+<polygon fill="black" points="157.806,-92.9167 154.278,-82.9268 150.806,-92.9368 157.806,-92.9167" stroke="black" stroke-width="1.33333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="144" y="-105.689">0.17</text>
+</g>
+<!-- eab3fce2a&#45;df45&#45;43e8&#45;9b62&#45;89ce28ff3320&#45;&gt;ea8b69327&#45;9b41&#45;4ca2&#45;90b3&#45;b6c8a50b04d4 -->
+<g class="edge" id="e4f21f012-a1ac-47d2-9072-db824ce2dcb0"><title>eab3fce2a-df45-43e8-9b62-89ce28ff3320-&gt;ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4</title>
+<path d="M171.138,-64.4493C184.928,-62.9618 201.87,-59.9547 216,-53.8894 223.118,-50.8339 230.144,-46.401 236.42,-41.7706" fill="none" stroke="black" stroke-width="3.83333"></path>
+<polygon fill="black" points="238.762,-44.3812 244.453,-35.4446 234.431,-38.8817 238.762,-44.3812" stroke="black" stroke-width="3.83333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="202.5" y="-64.6894">0.67</text>
+</g>
+<!-- ea8b69327&#45;9b41&#45;4ca2&#45;90b3&#45;b6c8a50b04d4&#45;&gt;edf5adbb8&#45;1495&#45;49f7&#45;bf4d&#45;dae11812ecf2 -->
+<g class="edge" id="e851e6087-2c40-4119-a0ef-7dd95ab540bb"><title>ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4-&gt;edf5adbb8-1495-49f7-bf4d-dae11812ecf2</title>
+<path d="M235.668,-14.2474C217.903,-9.75423 193.154,-4.22789 171,-1.88945 147.133,0.629815 140.867,0.629815 117,-1.88945 98.6535,-3.82597 78.5275,-7.94872 62.0622,-11.8605" fill="none" stroke="black" stroke-width="1.33333"></path>
+<polygon fill="black" points="61.2101,-8.46566 52.332,-14.2474 62.8779,-15.2641 61.2101,-8.46566" stroke="black" stroke-width="1.33333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="144" y="-5.68945">0.17</text>
+</g>
+<!-- ea8b69327&#45;9b41&#45;4ca2&#45;90b3&#45;b6c8a50b04d4&#45;&gt;eab3fce2a&#45;df45&#45;43e8&#45;9b62&#45;89ce28ff3320 -->
+<g class="edge" id="e0573f8e8-58e4-4bbd-aba6-1831e649c130"><title>ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4-&gt;eab3fce2a-df45-43e8-9b62-89ce28ff3320</title>
+<path d="M233.926,-23.3778C220.153,-25.3422 203.208,-28.8115 189,-34.8894 182.42,-37.7044 175.838,-41.61 169.845,-45.7016" fill="none" stroke="black" stroke-width="1.33333"></path>
+<polygon fill="black" points="167.588,-43.015 161.555,-51.7239 171.702,-48.6784 167.588,-43.015" stroke="black" stroke-width="1.33333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="202.5" y="-38.6894">0.17</text>
+</g>
+<!-- ea8b69327&#45;9b41&#45;4ca2&#45;90b3&#45;b6c8a50b04d4&#45;&gt;ea8b69327&#45;9b41&#45;4ca2&#45;90b3&#45;b6c8a50b04d4 -->
+<g class="edge" id="edb6019b1-89c4-43a7-b746-5eb3bda6387f"><title>ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4-&gt;ea8b69327-9b41-4ca2-90b3-b6c8a50b04d4</title>
+<path d="M250.722,-37.9268C248.625,-47.7474 252.051,-56.8894 261,-56.8894 266.593,-56.8894 270.029,-53.3183 271.307,-48.2424" fill="none" stroke="black" stroke-width="1.33333"></path>
+<polygon fill="black" points="274.806,-47.9167 271.278,-37.9268 267.806,-47.9368 274.806,-47.9167" stroke="black" stroke-width="1.33333"></polygon>
+<text font-family="Calibri" font-size="14.00" text-anchor="middle" x="261" y="-60.6894">0.17</text>
+</g>
+</g>
+</svg>
+</figure>
+<p>Please note that <a href="../discovery-soft/">these models can also be mined</a>.
+Once a model is available, it is possible to use it for conformance checking with:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="n">PDFA</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="kt">int</span><span class="w"> </span><span class="n">maxCasesToStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// max expected number of parallel process instances</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="n">PDFAConformance</span><span class="w"> </span><span class="n">conformance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PDFAConformance</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span><span class="w"> </span><span class="n">maxCasesToStore</span><span class="p">);</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="n">StreamExecutionEnvironment</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StreamExecutionEnvironment</span><span class="p">.</span><span class="na">getExecutionEnvironment</span><span class="p">();</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="n">env</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span><span class="p">.</span><span class="na">addSource</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span><span class="p">.</span><span class="na">keyBy</span><span class="p">(</span><span class="n">BEvent</span><span class="p">::</span><span class="n">getTraceName</span><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="n">conformance</span><span class="p">)</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="p">.</span><span class="na">addSink</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">SinkFunction</span><span class="o">&lt;</span><span class="n">SoftConformanceReport</span><span class="o">&gt;</span><span class="p">(){</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">SoftConformanceReport</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">            </span><span class="k">for</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">caseId</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="na">keySet</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">                    </span><span class="s">"Case: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">caseId</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"\t"</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">                    </span><span class="s">"soft conformance: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">caseId</span><span class="p">).</span><span class="na">getSoftConformance</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">"\t"</span><span class="w"> </span><span class="o">+</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">                    </span><span class="s">"mean of probs: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">caseId</span><span class="p">).</span><span class="na">getMeanProbabilities</span><span class="p">());</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">        </span><span class="p">};</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="n">env</span><span class="p">.</span><span class="na">execute</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<p>It is worth highlighting that since each trace can be processed independently from the others, it is possible to increase the parallelism by keying the stream based on the case identifier (<code>BEvent::getTraceName</code>, line 16).</p>
+<h2 id="scientific-literature">Scientific literature</h2>
+<p>The techniques implemented in this package are described in:</p>
+<ul>
+<li><a href="https://andrea.burattin.net/publications/2022-arxiv">Online Soft Conformance Checking: Any Perspective Can Indicate Deviations</a><br/>
+A. Burattin<br/>
+In arXiv:2201.09222, Jan. 2022.</li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022-2026 Technical University of Denmark <script async="" data-goatcounter="https://beamline.goatcounter.com/count" src="//gc.zgo.at/count.js"></script>
+</div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/beamline" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js"></script>
+</body>
+</html>
