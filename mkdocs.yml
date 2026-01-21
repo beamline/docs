@@ -17,6 +17,10 @@ nav:
       - pybeamline/sources/mqtt_source.md
       - pybeamline/sources/ocel2_log_source_from_file.md
       - pybeamline/sources/dict_test_ocel_source.md
+    - Real world sources:
+      - pybeamline/sources-real/ais_source.md
+      - pybeamline/sources-real/rejseplanen_source.md
+      - pybeamline/sources-real/wikimedia_source.md
     - Sinks:
       - pybeamline/sinks/print_sink.md
       - pybeamline/sinks/graphviz_sink.md
