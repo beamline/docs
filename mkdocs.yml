@@ -35,9 +35,14 @@ nav:
       - pybeamline/filters/retains_activity_filter.md
       - pybeamline/filters/excludes_activity_filter.md
     - Discovery operators:
+      - pybeamline/discovery/dcr_miner.md
       - pybeamline/discovery/simple_dfg_miner.md
       - pybeamline/discovery/heuristics_miner_lossy_counting.md
       - pybeamline/discovery/heuristics_miner_lossy_counting_budget.md
+      - pybeamline/discovery/split_miner_sliding_window.md
+      - pybeamline/discovery/split_miner_lossy_counting.md
+      - pybeamline/discovery/split_miner_lossy_counting_budget.md
+      - pybeamline/discovery/stardust_miner.md
       - pybeamline/discovery/temporal_profile_discovery_mapper.md
       - pybeamline/discovery/oc_operator.md
       - pybeamline/discovery/oc_merge.md
