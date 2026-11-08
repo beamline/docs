@@ -58,7 +58,7 @@ If the source does not provide completion events, call `mapper.complete_case(cas
 ## Example
 
 ```python
-from pybeamline.algorithms.discovery import stardust_mapper
+from pybeamline.algorithms.discovery import stardust_miner
 from pybeamline.sinks import print_sink
 from pybeamline.sources import log_source
 
@@ -66,7 +66,7 @@ def discover(sampled_variants):
     return dict(sampled_variants)
 
 log_source(["AB?", "AB?", "AC?"]).pipe(
-    stardust_mapper(
+    stardust_miner(
         initialization_traces=2,
         sampling_rate=1.0,
         forgetting_size=10,
