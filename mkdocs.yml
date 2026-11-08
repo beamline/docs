@@ -48,6 +48,7 @@ nav:
       - pybeamline/discovery/oc_merge.md
     - Conformance operators:
       - pybeamline/conformance/behavioral_conformance.md
+      - pybeamline/conformance/c3pa_conformance.md
       - pybeamline/conformance/temporal_profile_conformance.md
       - pybeamline/conformance/soft_conformance.md
       - pybeamline/conformance/prefix_alignments_conformance.md
