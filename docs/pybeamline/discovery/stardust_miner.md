@@ -1,4 +1,4 @@
-# stardust_mapper
+# stardust_miner
 
 A streaming process discovery operator that implements STARDUST. It tracks completed trace variants, samples the most frequent variants, and discovers a new process model when the sampled behavior changes.
 
@@ -37,7 +37,7 @@ The discovery callback receives a mapping like `{("A", "B"): 3, ("A", "C"): 1}`.
 
 ## Returned type
 
-`stardust_mapper` returns a `StardustMapper`, a `BaseMap` that transforms a stream of `BEvent` values into a stream of `StardustUpdate` values.
+`stardust_miner` returns a `StardustMapper`, a `BaseMap` that transforms a stream of `BEvent` values into a stream of `StardustUpdate` values.
 
 An update contains:
 * `completed_traces`: number of completed traces seen so far
@@ -50,9 +50,9 @@ An update contains:
 * `model`: discovered process model
 * `conformance`: value from the optional conformance evaluator, or None
 
-The mapper emits an update after initial discovery and after each detected drift. When `conformance_evaluator` is provided, it also emits an observation for each later completed trace, even when the model stays unchanged. The evaluator runs against the current model before the completed trace can trigger a model update.
+The miner emits an update after initial discovery and after each detected drift. When `conformance_evaluator` is provided, it also emits an observation for each later completed trace, even when the model stays unchanged. The evaluator runs against the current model before the completed trace can trigger a model update.
 
-If the source does not provide completion events, call `mapper.complete_case(case_id)` directly to complete a case.
+If the source does not provide completion events, call `miner.complete_case(case_id)` directly to complete a case.
 
 
 ## Example

@@ -32,9 +32,7 @@ events.
 
 ## Returned type
 
-The operator is a `DCRMiner`, a pybeamline `BaseMap` from `BEvent` to `DCRGraph`. When applied to a stream, it emits a `DCRGraph` every `model_update_frequency` input events.
-
-`DCRGraph` contains:
+The operator is a `DCRMiner`, a pyBeamline `BaseMap` from `BEvent` to `DCRGraph`. When applied to a stream, it emits a `DCRGraph` every `model_update_frequency` input events. `DCRGraph` contains:
 
 * `activities`: the activities in the current trace window.
 * `conditions`, `responses`, `includes`, and `excludes`: sets of
